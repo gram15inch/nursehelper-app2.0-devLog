@@ -40,7 +40,7 @@ nursehelper-app 2.0 Development log
 
 ## 3.제품 백로그 업무목록
 
-| **업무분류** | **백로그 업무 항목** |
+| **업무 분류** | **백로그 업무 항목** |
 | :--------: | :------ |
 | 기능  | 문서작성시 템플릿사용   |
 |   | 문서 작성시 키워드 조합으로 입력  |
@@ -61,7 +61,8 @@ nursehelper-app 2.0 Development log
 |   |  |
 | 기술적 관리적 업무| mvvm 패턴 학습 | 
 |   | jetpack compose 학습 |
-|   |  |
+|   |  firebase 학습 |
+|   | spring 과 firebase로 서버 구현 |
 | 오류 수정| |
 
 
