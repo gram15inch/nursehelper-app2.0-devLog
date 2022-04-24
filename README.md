@@ -63,7 +63,6 @@ nursehelper-app 2.0 Development log
 | 기술적 관리적 업무| mvvm 패턴 학습 | 
 |   | jetpack compose 학습 |
 |   |  firebase 학습 |
-|   | spring 과 firebase로 서버 구현 |
 | 오류 수정| |
 
 ### 스토리 목록
