@@ -61,8 +61,11 @@ nursehelper-app 2.0 Development log
 |   |  저장된 정보가 서버에 백업 |
 |   |  |
 | 기술적 관리적 업무| mvvm 패턴 학습 | 
-|   | jetpack compose 학습 |
-|   |  firebase 학습 |
+|   | Repository 패턴 학습 |
+|   | observer 패턴 학습 |
+|   | REST API 학습 |
+|   | 디자인 가이드라인 학습 |
+|   | 정보보호 가이드라인 학습 |
 | 오류 수정| |
 
 ### 스토리 목록
@@ -78,6 +81,14 @@ nursehelper-app 2.0 Development log
 | 8 | 간호사는 등록된 정보의 유출방지를 위해 인증된 사용자만 앱에 접근할 수 있어야한다  | **13** |
 |  |  |  |
 |  |**총합**  | **55** |
+
+## 사전 학습
+|**종류** |**기술** | | | | 
+| :--------: | :--------: | :------: |:------: |:------: |
+| 아키텍처| mvvm | Repository | REST | Observer|
+| 라이브러리 | Room | Retrofit2 | Flow | LiveData| 
+|   | Coroutine | MaterialDesign | Navgation |
+
 
 ### 스프린트 목록 
 |**스프린트 Apple** |**스프린트 Banana** | **스프린트 Cherry**  |**스프린트 Durian**  |
