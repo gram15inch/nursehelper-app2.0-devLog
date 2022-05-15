@@ -1,4 +1,4 @@
-# nursehelper-app2.0-devLog
+# nursehelper2.0-app-devLog
 nursehelper-app 2.0 Development log
 ## 목차
  > ### 1. [_비전수립_](#비전수립)
