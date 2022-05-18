@@ -2,9 +2,6 @@ package com.nuhlp.nursehelper
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.nuhlp.nursehelper.data.DataStore
-import com.nuhlp.nursehelper.repository.LoginRepository
-import kotlinx.coroutines.launch
 
 class MainViewModel (application: Application) : AndroidViewModel(application) {
 

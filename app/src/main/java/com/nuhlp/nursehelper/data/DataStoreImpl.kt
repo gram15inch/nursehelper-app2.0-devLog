@@ -17,19 +17,18 @@ private const val LOGIN_PREFERENCES_NAME = "login_preferences"
 private val Context.DATA_STORE : DataStore<Preferences> by preferencesDataStore(
     name = LOGIN_PREFERENCES_NAME
 )
-class DataStore(private val context: Context) {
-    private val IS_LOGIN = booleanPreferencesKey("is_login")
+interface DataStore{
+    val IS_LOGIN : Preferences.Key<Boolean>
+    val preferenceFlow : Flow<Boolean>
+    suspend fun saveIsLoginToPreferencesStore(isLogin: Boolean)
+}
 
+class DataStoreImpl(private val context: Context) :com.nuhlp.nursehelper.data.DataStore{
+    override val IS_LOGIN = booleanPreferencesKey("is_login")
 
-    suspend fun saveIsLoginToPreferencesStore(isLogin: Boolean) {
-        //  edit : datastore 의 데이터를 트랜잭션 방식으로 업데이트(생산)
-        context.DATA_STORE.edit { preferences ->
-            preferences[IS_LOGIN] = isLogin
-        }
-    }
 
     // datastore 가 Preferences 노출하지않고 Boolean 만 노출시키게함
-    val preferenceFlow: Flow<Boolean> = context.DATA_STORE.data
+    override val preferenceFlow: Flow<Boolean> = context.DATA_STORE.data
         // 생산자 단계의 에러를 잡음 (파일에서의 읽고 쓰기중의 오류)
         .catch {
             if (it is IOException) {
@@ -43,4 +42,11 @@ class DataStore(private val context: Context) {
             // 처음에는 값이 비어있으므로 기본 false 반환
             preferences[IS_LOGIN] ?: false
         }
+
+    override suspend fun saveIsLoginToPreferencesStore(isLogin: Boolean) {
+        //  edit : datastore 의 데이터를 트랜잭션 방식으로 업데이트(생산)
+        context.DATA_STORE.edit { preferences ->
+            preferences[IS_LOGIN] = isLogin
+        }
+    }
 }

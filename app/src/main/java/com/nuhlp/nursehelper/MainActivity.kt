@@ -1,7 +1,6 @@
 package com.nuhlp.nursehelper
 
 
-import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -10,13 +9,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
-import com.nuhlp.nursehelper.data.DataStore
+import com.nuhlp.nursehelper.data.DataStoreImpl
 import com.nuhlp.nursehelper.databinding.ActivityMainBinding
-import com.nuhlp.nursehelper.repository.LoginRepository
-
-
 
 
 class MainActivity : AppCompatActivity() {
@@ -49,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         attrs: AttributeSet
     ): View? {
 
-        _isLogin= DataStore(this).preferenceFlow.asLiveData()
+        _isLogin= DataStoreImpl(this).preferenceFlow.asLiveData()
         return super.onCreateView(parent, name, context, attrs)
     }
     private fun setIsLoginObserve(isLogin: LiveData<Boolean>){
