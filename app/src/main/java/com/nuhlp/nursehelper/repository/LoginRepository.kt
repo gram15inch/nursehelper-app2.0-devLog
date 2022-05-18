@@ -6,13 +6,13 @@ import com.nuhlp.nursehelper.data.DataStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class LoginRepository (private val dataStoreImpl: DataStore) {
+class LoginRepository (private val dataStore: DataStore) {
 
-    val isLogin: LiveData<Boolean> = dataStoreImpl.preferenceFlow.asLiveData()
+    val isLogin: LiveData<Boolean> = dataStore.preferenceFlow.asLiveData()
 
     suspend fun setIsLoginToLiveData(value: Boolean){
         withContext(Dispatchers.IO) {
-            dataStoreImpl.saveIsLoginToPreferencesStore(value)
+            dataStore.saveIsLoginToPreferencesStore(value)
         }
     }
 

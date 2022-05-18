@@ -14,6 +14,10 @@ android {
     useLibrary 'android.test.base'
     useLibrary 'android.test.mock'
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
     buildFeatures {
         viewBinding true
     }
