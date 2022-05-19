@@ -24,8 +24,8 @@ interface DataStore{
 }
 
 class DataStoreImpl(private val context: Context) :com.nuhlp.nursehelper.data.DataStore{
-    override val IS_LOGIN = booleanPreferencesKey("is_login")
 
+    override val IS_LOGIN = booleanPreferencesKey("is_login")
 
     // datastore 가 Preferences 노출하지않고 Boolean 만 노출시키게함
     override val preferenceFlow: Flow<Boolean> = context.DATA_STORE.data

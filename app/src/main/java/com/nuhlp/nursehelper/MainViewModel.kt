@@ -2,27 +2,30 @@ package com.nuhlp.nursehelper
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.nuhlp.nursehelper.data.DataStoreImpl
+import com.nuhlp.nursehelper.repository.LoginRepository
+import kotlinx.coroutines.launch
+import java.io.IOException
 
 class MainViewModel (application: Application) : AndroidViewModel(application) {
 
-/* todo 되돌리기
 
-    private val loginRepository = LoginRepository(DataStore(application))
+    private val loginRepository = LoginRepository(DataStoreImpl(application))
 
-    val isLogin : LiveData<Boolean> = loginRepository.isLogin
+    val isLogin : LiveData<Boolean> = loginRepository.isLogin.asLiveData()
 
     fun loginSuccess(){
         viewModelScope.launch{
-            loginRepository.setIsLogin(true)
+            loginRepository.setIsLoginToLiveData(true)
         }
     }
 
     fun loginFail(){
         viewModelScope.launch{
-            loginRepository.setIsLogin(false)
+            loginRepository.setIsLoginToLiveData(false)
         }
     }
-
+/*
     private var _eventNetworkError = MutableLiveData<Boolean>(false)
     val eventNetworkError: LiveData<Boolean>
         get() = _eventNetworkError
@@ -32,10 +35,10 @@ class MainViewModel (application: Application) : AndroidViewModel(application) {
 
     init {
         refreshDataFromRepository()
-    }
+    }*/
+/*
     private fun refreshDataFromRepository() {
-      */
-/*  viewModelScope.launch {
+  viewModelScope.launch {
             try {
                 videosRepository.refreshVideos()
                 _eventNetworkError.value = false
@@ -46,19 +49,18 @@ class MainViewModel (application: Application) : AndroidViewModel(application) {
                 if(playlist.value.isNullOrEmpty())
                     _eventNetworkError.value = true
             }
-        }*//*
+        }
 
-    }
+    }*/
 
-    */
 /**
      * Resets the network error flag.
-     *//*
+     */
 
-    fun onNetworkErrorShown() {
+   /* fun onNetworkErrorShown() {
         _isNetworkErrorShown.value = true
     }
-
+*/
     class Factory(val app: Application) : ViewModelProvider.Factory {
        override fun <T : ViewModel> create(modelClass: Class<T>): T {
            if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
@@ -68,6 +70,5 @@ class MainViewModel (application: Application) : AndroidViewModel(application) {
            throw IllegalArgumentException("Unable to construct viewmodel")
        }
     }
-*/
 
 }

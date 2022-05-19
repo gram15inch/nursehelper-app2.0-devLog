@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import com.nuhlp.nursehelper.data.DataStoreImpl
 import com.nuhlp.nursehelper.databinding.ActivityMainBinding
@@ -16,16 +17,12 @@ import com.nuhlp.nursehelper.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityMainBinding
-   /* private val _mainViewModel : MainViewModel by lazy {
+    private val _mainViewModel : MainViewModel by lazy {
         ViewModelProvider(this, MainViewModel.Factory(this.application))
             .get(MainViewModel::class.java)
-    }*/
+    }
 
-
-    //private var _isLogin: LiveData <Boolean> = _mainViewModel.isLogin
-    // todo 지우기
-        private lateinit var _isLogin: LiveData <Boolean>
-
+    private var _isLogin: LiveData <Boolean> = _mainViewModel.isLogin
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
