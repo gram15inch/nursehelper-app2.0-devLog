@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         attrs: AttributeSet
     ): View? {
 
-        _isLogin= DataStoreImpl(this).preferenceFlow.asLiveData()
+       // _isLogin= DataStoreImpl(this).preferenceFlow.asLiveData()
         return super.onCreateView(parent, name, context, attrs)
     }
     private fun setIsLoginObserve(isLogin: LiveData<Boolean>){

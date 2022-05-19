@@ -49,4 +49,5 @@ class DataStoreImpl(private val context: Context) :com.nuhlp.nursehelper.data.Da
             preferences[IS_LOGIN] = isLogin
         }
     }
+
 }
