@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import com.nuhlp.nursehelper.data.DataStoreImpl
 import com.nuhlp.nursehelper.repository.LoginRepository
 import kotlinx.coroutines.launch
-import java.io.IOException
 
 class MainViewModel (application: Application) : AndroidViewModel(application) {
 
@@ -16,13 +15,13 @@ class MainViewModel (application: Application) : AndroidViewModel(application) {
 
     fun loginSuccess(){
         viewModelScope.launch{
-            loginRepository.setIsLoginToLiveData(true)
+            loginRepository.setIsLoginToDataStore(true)
         }
     }
 
     fun loginFail(){
         viewModelScope.launch{
-            loginRepository.setIsLoginToLiveData(false)
+            loginRepository.setIsLoginToDataStore(false)
         }
     }
 /*

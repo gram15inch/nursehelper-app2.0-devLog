@@ -10,9 +10,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
-import com.nuhlp.nursehelper.data.DataStoreImpl
 import com.nuhlp.nursehelper.databinding.ActivityMainBinding
+import com.nuhlp.nursehelper.ui.LoginActivity
 
 
 class MainActivity : AppCompatActivity() {

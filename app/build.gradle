@@ -68,7 +68,8 @@ dependencies {
 
 
     // Optional -- Mockito framework
-    testImplementation 'org.mockito:mockito-core:2.19.0'
+    testImplementation 'org.mockito:mockito-core:2.23.0'
+
 
     // Preferences DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"

@@ -2,11 +2,9 @@ package com.nuhlp.nursehelper
 
 
 
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import com.nuhlp.nursehelper.data.DataStore
 import com.nuhlp.nursehelper.repository.LoginRepository
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.runTest
@@ -42,7 +40,7 @@ class LoginRepositoryTest {
 
         val choiceBool :(Boolean)->Unit= {bool->
             runTest {
-                loginRepository.setIsLoginToLiveData(bool)
+                loginRepository.setIsLoginToDataStore(bool)
                 verify(mockDataStore, times(1)).saveIsLoginToPreferencesStore(bool)
             }
         }

@@ -11,7 +11,7 @@ class LoginRepository (private val dataStore: DataStore) {
 
     val isLogin: Flow<Boolean> = dataStore.preferenceFlow
 
-    suspend fun setIsLoginToLiveData(value: Boolean){
+    suspend fun setIsLoginToDataStore(value: Boolean){
         withContext(Dispatchers.IO) {
             dataStore.saveIsLoginToPreferencesStore(value)
         }
