@@ -106,7 +106,7 @@ nursehelper-app 2.0 Development log
 |   | Coroutine | MaterialDesign | Navgation |
 
 
-### 스프린트 Apple : 5/15 ~ 5/28 2w
+### 스프린트 Apple : 5/15 ~ 5/28(예정) 2w
 > 스토리 8 : 간호사는 등록된 정보의 유출방지를 위해 인증된 사용자만 앱에 접근할 수 있어야한다  
 
 |**스토리** |**태스크** | 
