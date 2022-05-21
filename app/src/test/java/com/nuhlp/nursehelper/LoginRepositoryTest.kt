@@ -22,7 +22,6 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class LoginRepositoryTest {
 
-
     @Mock
     lateinit var mockDataStore: DataStore
 
@@ -33,7 +32,7 @@ class LoginRepositoryTest {
     fun setUp(){
         testDispatcher = StandardTestDispatcher()
         `when`(mockDataStore.preferenceFlow).thenReturn(flow { emit(true) })
-        `when`(mockDataStore.IS_LOGIN).thenReturn(booleanPreferencesKey("is_login"))
+       // `when`(mockDataStore.IS_LOGIN).thenReturn(booleanPreferencesKey("is_login"))
         loginRepository = LoginRepository(mockDataStore)
     }
 
