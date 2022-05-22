@@ -17,5 +17,7 @@
     <dimen name="btn_size">18sp</dimen>
     <dimen name="btn_height">65dp</dimen>
     <dimen name="btn_elevation">8dp</dimen>
-    <dimen name="margin_between_group">40dp</dimen>
+    <dimen name="margin_between_group">30dp</dimen>
+    <dimen name="agree_terms_size">20sp</dimen>
+    <dimen name="welcome_regist_size">40sp</dimen>
 </resources>
