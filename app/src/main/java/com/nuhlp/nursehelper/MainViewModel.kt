@@ -24,6 +24,20 @@ class MainViewModel (application: Application) : AndroidViewModel(application) {
             loginRepository.setIsLoginToDataStore(false)
         }
     }
+    fun checkCreate():String{
+        return "created"
+    }
+
+    class Factory(val app: Application) : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return MainViewModel(app) as T
+            }
+            throw IllegalArgumentException("Unable to construct viewmodel")
+        }
+    }
+
 /*
     private var _eventNetworkError = MutableLiveData<Boolean>(false)
     val eventNetworkError: LiveData<Boolean>
@@ -60,14 +74,6 @@ class MainViewModel (application: Application) : AndroidViewModel(application) {
         _isNetworkErrorShown.value = true
     }
 */
-    class Factory(val app: Application) : ViewModelProvider.Factory {
-       override fun <T : ViewModel> create(modelClass: Class<T>): T {
-           if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-               @Suppress("UNCHECKED_CAST")
-               return MainViewModel(app) as T
-           }
-           throw IllegalArgumentException("Unable to construct viewmodel")
-       }
-    }
+
 
 }
