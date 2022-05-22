@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/primaryColorBack"
+    tools:context=".ui.login.LoginFragment"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="150dp"
+        android:background="@color/white"
+        android:elevation="3dp"
+       >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/side_margin"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/logo_image_width"
+                android:layout_height="@dimen/logo_image_height"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_between_elements"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_banner_foreground" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/idTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/marginX_element_login_container"
+                android:layout_marginEnd="@dimen/marginX_element_login_container"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="@string/id_label"
+                app:helperText="@string/insert_id">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/text_view_id_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="#616161" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/pwTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/pw_label"
+                android:layout_marginTop="@dimen/margin_between_elements"
+                android:layout_marginStart="@dimen/marginX_element_login_container"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_marginEnd="@dimen/marginX_element_login_container"
+                app:helperText="@string/insert_pw">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/text_view_pw_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_between_elements" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/text_view_find_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/marginX_element_login_container"
+                android:layout_marginTop="@dimen/margin_between_elements"
+                android:layout_marginEnd="@dimen/marginX_element_login_container"
+                android:gravity="center"
+                android:singleLine="false"
+                android:text="@string/new_user"
+
+                android:textColor="@color/primaryDarkColor"
+                android:textSize="15dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_continue_login"
+                android:layout_width="match_parent"
+
+                android:layout_height="@dimen/btn_height"
+                android:layout_marginStart="@dimen/marginX_element_login_container"
+                android:layout_marginTop="@dimen/margin_between_group"
+                android:layout_marginEnd="@dimen/marginX_element_login_container"
+                android:text="@string/continue_btn"
+                android:textColor="@color/black"
+                android:textSize="@dimen/btn_size"
+                app:elevation="@dimen/btn_elevation" />
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</FrameLayout>

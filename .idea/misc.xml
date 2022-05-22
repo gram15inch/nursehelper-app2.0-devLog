@@ -5,9 +5,11 @@
       <map>
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.271" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout-w936dp/activity_login.xml" value="0.20546875" />
-        <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/activity_login.xml" value="0.2638888888888889" />
+        <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/activity_login.xml" value="0.16" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/activity_login_acitity.xml" value="0.12604166666666666" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/activity_main.xml" value="0.27395833333333336" />
+        <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_login.xml" value="0.1" />
+        <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_regist.xml" value="0.27395833333333336" />
       </map>
     </option>
   </component>

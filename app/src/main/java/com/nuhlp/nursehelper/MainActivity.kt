@@ -1,17 +1,14 @@
 package com.nuhlp.nursehelper
 
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import com.nuhlp.nursehelper.databinding.ActivityMainBinding
-import com.nuhlp.nursehelper.ui.LoginActivity
+import com.nuhlp.nursehelper.ui.login.LoginActivity
 
 
 class MainActivity : AppCompatActivity() {

@@ -1,20 +1,24 @@
-package com.nuhlp.nursehelper.ui
+package com.nuhlp.nursehelper.ui.login
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.nuhlp.nursehelper.MainViewModel
-import com.nuhlp.nursehelper.data.DataStoreImpl
+import com.nuhlp.nursehelper.data.LoginDataStoreImpl
 import com.nuhlp.nursehelper.repository.LoginRepository
 import kotlinx.coroutines.launch
 
 class LoginViewModel(application: Application) : AndroidViewModel(application){
-    private val loginRepository = LoginRepository(DataStoreImpl(application))
+    private val loginRepository = LoginRepository(LoginDataStoreImpl(application))
     val isLogin : LiveData<Boolean> = loginRepository.isLogin.asLiveData()
+    var testLogin ="not change"
 
     fun loginSuccess(){
         viewModelScope.launch{
             loginRepository.setIsLoginToDataStore(true)
         }
+    }
+
+    fun checkCreate(): String {
+        return "created"
     }
 
     class Factory(val app: Application) : ViewModelProvider.Factory {

@@ -2,4 +2,20 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="login_back_margin">150dp</dimen>
+
+
+    <dimen name="image_size">300dp</dimen>
+    <dimen name="logo_image_width">500dp</dimen>
+    <dimen name="logo_image_height">400dp</dimen>
+    <dimen name="order_cupcake_button_width">250dp</dimen>
+    <dimen name="side_margin">16dp</dimen>
+    <dimen name="margin_between_elements">8dp</dimen>
+    <dimen name="marginX_element_login_container">40dp</dimen>
+    <dimen name="radio_button_padding">8dp</dimen>
+    <dimen name="order_summary_margin">4dp</dimen>
+    <dimen name="btn_size">18sp</dimen>
+    <dimen name="btn_height">65dp</dimen>
+    <dimen name="btn_elevation">8dp</dimen>
+    <dimen name="margin_between_group">40dp</dimen>
 </resources>

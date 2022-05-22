@@ -2,7 +2,8 @@ package com.nuhlp.nursehelper
 
 
 
-import com.nuhlp.nursehelper.data.DataStore
+
+import com.nuhlp.nursehelper.data.datastore.LoginDataStore
 import com.nuhlp.nursehelper.repository.LoginRepository
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -21,7 +22,7 @@ import org.mockito.junit.MockitoJUnitRunner
 class LoginRepositoryTest {
 
     @Mock
-    lateinit var mockDataStore: DataStore
+    lateinit var mockDataStore: LoginDataStore
 
     lateinit var loginRepository: LoginRepository
     lateinit var testDispatcher: TestDispatcher

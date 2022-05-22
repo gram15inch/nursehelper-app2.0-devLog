@@ -2,11 +2,13 @@ package com.nuhlp.nursehelper.data
 
 import android.content.Context
 import androidx.datastore.core.DataStore
+
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
+import com.nuhlp.nursehelper.data.datastore.LoginDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -17,13 +19,9 @@ private const val LOGIN_PREFERENCES_NAME = "login_preferences"
 private val Context.DATA_STORE : DataStore<Preferences> by preferencesDataStore(
     name = LOGIN_PREFERENCES_NAME
 )
-interface DataStore{
-    val IS_LOGIN : Preferences.Key<Boolean>
-    val preferenceFlow : Flow<Boolean>
-    suspend fun saveIsLoginToPreferencesStore(isLogin: Boolean)
-}
 
-class DataStoreImpl(private val context: Context) :com.nuhlp.nursehelper.data.DataStore{
+
+class LoginDataStoreImpl(private val context: Context) : LoginDataStore {
 
     override val IS_LOGIN = booleanPreferencesKey("is_login")
 

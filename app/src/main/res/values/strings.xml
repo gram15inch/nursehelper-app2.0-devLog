@@ -10,4 +10,16 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- components -->
+    <string name="continue_btn">계속</string>
+    <string name="id_label">ID</string>
+    <string name="pw_label">PW</string>
+    <string name="find_pw">비밀번호를 찾고싶나요?</string>
+    <string name="new_user">처음이신가요?</string>
+    <string name="insert_id">ID를 입력하세요</string>
+    <string name="insert_pw">PW를 입력하세요</string>
+
 </resources>
