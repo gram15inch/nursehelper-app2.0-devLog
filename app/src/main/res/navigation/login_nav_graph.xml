@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_nav_graph.xml"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/registerFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -18,5 +18,14 @@
         android:id="@+id/registerFragment"
         android:name="com.nuhlp.nursehelper.ui.login.RegisterFragment"
         android:label="fragment_regist"
-        tools:layout="@layout/fragment_regist" />
+        tools:layout="@layout/fragment_regist" >
+        <action
+            android:id="@+id/action_registerFragment_to_register2Fragment"
+            app:destination="@id/register2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/register2Fragment"
+        android:name="com.nuhlp.nursehelper.ui.login.Register2Fragment"
+        android:label="fragment_register2"
+        tools:layout="@layout/fragment_register2" />
 </navigation>

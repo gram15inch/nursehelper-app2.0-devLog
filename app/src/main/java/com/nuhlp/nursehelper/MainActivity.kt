@@ -19,7 +19,8 @@ class MainActivity : AppCompatActivity() {
     }
 
    private val _isLogin: LiveData <Boolean> by lazy{ _mainViewModel.isLogin}
-
+    init{
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)

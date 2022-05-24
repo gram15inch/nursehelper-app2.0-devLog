@@ -16,7 +16,7 @@ import com.nuhlp.nursehelper.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
-   lateinit var binding : FragmentLoginBinding
+    private val binding get() = _binding!!
    val _loginViewModel : LoginViewModel by activityViewModels()
     lateinit var isLogin : LiveData<Boolean>
 
@@ -29,7 +29,6 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater,container,false)
-        binding = _binding!!
         isLogin = _loginViewModel.isLogin
         setListener(binding)
 
@@ -48,4 +47,10 @@ class LoginFragment : Fragment() {
             }
         }
      }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

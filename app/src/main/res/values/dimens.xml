@@ -7,10 +7,11 @@
 
     <dimen name="image_size">300dp</dimen>
     <dimen name="logo_image_width">500dp</dimen>
-    <dimen name="logo_image_height">400dp</dimen>
+    <dimen name="logo_image_height">300dp</dimen>
     <dimen name="order_cupcake_button_width">250dp</dimen>
     <dimen name="side_margin">16dp</dimen>
     <dimen name="margin_between_elements">8dp</dimen>
+    <dimen name="margin_between_elements_x2">16dp</dimen>
     <dimen name="marginX_element_login_container">40dp</dimen>
     <dimen name="radio_button_padding">8dp</dimen>
     <dimen name="order_summary_margin">4dp</dimen>
@@ -18,6 +19,11 @@
     <dimen name="btn_height">65dp</dimen>
     <dimen name="btn_elevation">8dp</dimen>
     <dimen name="margin_between_group">30dp</dimen>
-    <dimen name="agree_terms_size">20sp</dimen>
+    <dimen name="agree_terms_size">18sp</dimen>
     <dimen name="welcome_regist_size">40sp</dimen>
+    <dimen name="progress_bar_thickness">15dp</dimen>
+    <dimen name="regist_contents_margin_x">160dp</dimen>
+    <dimen name="regist_contents_text_size">18sp</dimen>
+    <dimen name="margin_between_group_large">100dp</dimen>
+    <dimen name="margin_between_group_medium">50dp</dimen>
 </resources>

@@ -14,6 +14,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- components -->
+
+
+    <!--ui.login  -->
     <string name="continue_btn">계속</string>
     <string name="id_label">ID</string>
     <string name="pw_label">PW</string>
@@ -23,5 +26,9 @@
     <string name="insert_pw">PW를 입력하세요</string>
     <string name="welcome_regist">환영합니다.</string>
     <string name="agree_terms">서비스 이용을 위해 약관 동의가 필요합니다.</string>
+    <string name="essential">[필수]</string>
+    <string name="agree_terms_checkbox_label_all">전체 약관동의</string>
+    <string name="agree_terms_checkbox_label_essential">nersehelper 필수약관 동의</string>
+    <string name="agree_terms_checkbox_label_userinfo">개인정보 수집 및 이용 동의</string>
 
 </resources>
