@@ -9,11 +9,8 @@ import com.nuhlp.nursehelper.R
 
 
 
-class Register2Fragment : Fragment() {
+class RegisterIdFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

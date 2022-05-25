@@ -7,4 +7,11 @@
         <item name="android:layout_marginBottom">@dimen/margin_between_elements</item>
     </style>
 
+    <style name="elementIcon">
+        <item name="android:src">@drawable/icon_search</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:padding">@dimen/icon_touch_padding</item>
+    </style>
+
+
 </resources>

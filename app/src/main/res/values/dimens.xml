@@ -21,9 +21,12 @@
     <dimen name="margin_between_group">30dp</dimen>
     <dimen name="agree_terms_size">18sp</dimen>
     <dimen name="welcome_regist_size">40sp</dimen>
+    <dimen name="term_detail_tex_size">15sp</dimen>
     <dimen name="progress_bar_thickness">15dp</dimen>
     <dimen name="regist_contents_margin_x">160dp</dimen>
     <dimen name="regist_contents_text_size">18sp</dimen>
     <dimen name="margin_between_group_large">100dp</dimen>
     <dimen name="margin_between_group_medium">50dp</dimen>
+    <dimen name="icon_touch_padding">10dp</dimen>
+    <dimen name="term_detail_size">375dp</dimen>
 </resources>

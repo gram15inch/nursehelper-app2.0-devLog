@@ -1,10 +1,10 @@
 package com.nuhlp.nursehelper.data.datastore
 
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import kotlinx.coroutines.flow.Flow
 
 interface LoginDataStore{
-    val IS_LOGIN : Preferences.Key<Boolean>
-    val preferenceFlow : Flow<Boolean>
-    suspend fun saveIsLoginToPreferencesStore(isLogin: Boolean)
+    suspend fun saveToPreferencesStore(state: Boolean, enum: DataStoreKey)
+    fun getPreferenceFlow(enum: DataStoreKey):Flow<Boolean>
 }

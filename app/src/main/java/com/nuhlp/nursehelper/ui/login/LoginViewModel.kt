@@ -9,12 +9,16 @@ import kotlinx.coroutines.launch
 class LoginViewModel(application: Application) : AndroidViewModel(application){
     private val loginRepository = LoginRepository(LoginDataStoreImpl(application))
     val isLogin : LiveData<Boolean> = loginRepository.isLogin.asLiveData()
-    val isAgreeTerm : LiveData<Boolean> = loginRepository.isLogin.asLiveData()
-    var testLogin ="not change"
+    val isAgreeTerm : LiveData<Boolean> = loginRepository.isAgreeTerms.asLiveData()
 
     fun loginSuccess(){
         viewModelScope.launch{
             loginRepository.setIsLoginToDataStore(true)
+        }
+    }
+    fun agreeTerms(){
+        viewModelScope.launch {
+            loginRepository.setTermsToDataStore(true)
         }
     }
 

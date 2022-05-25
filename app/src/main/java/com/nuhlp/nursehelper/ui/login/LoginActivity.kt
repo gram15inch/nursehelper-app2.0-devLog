@@ -23,11 +23,10 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(_binding.root)
-
         navHostFragment = supportFragmentManager
             .findFragmentById(R.id.login_nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
+        setContentView(_binding.root)
     }
 
 
