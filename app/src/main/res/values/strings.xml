@@ -26,6 +26,10 @@
     <string name="insert_id">ID를 입력하세요</string>
     <string name="insert_pw">PW를 입력하세요</string>
     <string name="welcome_regist">환영합니다.</string>
+    <string name="regist_state_title_almost">거의 다 왔습니다.</string>
+    <string name="regist_state_sub_title_user_id">사용자 확인을 위해 ID를 설정해야 합니다.</string>
+    <string name="regist_state_sub_title_user_pw">사용자 확인을 위해 PW를 설정해야 합니다.</string>
+    <string name="regist_state_title_last">마지막입니다.</string>
     <string name="agree_terms">서비스 이용을 위해 약관 동의가 필요합니다.</string>
     <string name="essential">[필수]</string>
     <string name="agree_terms_checkbox_label_all">전체 약관동의</string>
@@ -44,5 +48,8 @@
 
 </string>
     <string name="agree_terms_checkbox_label_userinfo">개인정보 수집 및 이용 동의</string>
+    <string name="tool_text_state_title">STATE_TITLE</string>
+    <string name="tool_text_state_sub_title">state_sub_title</string>
+    <string name="check_user_id_btn">중복확인</string>
 
 </resources>

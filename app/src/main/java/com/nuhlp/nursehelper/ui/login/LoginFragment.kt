@@ -43,7 +43,7 @@ class LoginFragment : Fragment() {
     private fun setListener( binding: FragmentLoginBinding){
         binding.apply {
             textViewFindLogin.setOnClickListener {
-                findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+                findNavController().navigate(R.id.action_loginFragment_to_registerTermsFragment)
             }
         }
      }

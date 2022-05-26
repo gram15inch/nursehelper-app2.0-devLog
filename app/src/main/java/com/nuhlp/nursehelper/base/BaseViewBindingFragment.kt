@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.viewbinding.ViewBinding
 import com.nuhlp.nursehelper.R
-import com.nuhlp.nursehelper.databinding.FragmentRegistBinding
 import com.nuhlp.nursehelper.ui.login.LoginViewModel
 
 

@@ -29,4 +29,8 @@
     <dimen name="margin_between_group_medium">50dp</dimen>
     <dimen name="icon_touch_padding">10dp</dimen>
     <dimen name="term_detail_size">375dp</dimen>
+    <dimen name="regist_section_logo">300dp</dimen>
+    <dimen name="regist_section_state">150dp</dimen>
+    <dimen name="regist_section_contents">500dp</dimen>
+    <dimen name="regist_section_contents_stateless">650dp</dimen>
 </resources>

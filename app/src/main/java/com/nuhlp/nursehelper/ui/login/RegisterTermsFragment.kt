@@ -11,11 +11,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import com.nuhlp.nursehelper.R
-import com.nuhlp.nursehelper.databinding.FragmentRegistBinding
+
+import com.nuhlp.nursehelper.databinding.FragmentRegisterTermsBinding
 
 
-class RegisterFragment : Fragment() {
-    private var _binding: FragmentRegistBinding? = null
+class RegisterTermsFragment : Fragment() {
+    private var _binding: FragmentRegisterTermsBinding? = null
     private val binding get() = _binding!!
     private val _loginViewModel : LoginViewModel by activityViewModels()
 
@@ -30,27 +31,29 @@ class RegisterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentRegistBinding.inflate(layoutInflater,container,false)
+        _binding = FragmentRegisterTermsBinding.inflate(layoutInflater,container,false)
 
-        setBinding(binding)
+        setValueToView(binding)
         setObserver(binding)
         setListener(binding)
 
         return binding.root
     }
 
-    private fun setBinding(binding: FragmentRegistBinding) = binding.apply {
+    private fun setValueToView(binding: FragmentRegisterTermsBinding) = binding.apply {
         registProgressbar.setProgressCompat(30,true)
+        stateTitle.text = resources.getString(R.string.welcome_regist)
+        stateSubTitle.text = resources.getString(R.string.agree_terms)
     }
 
-    private fun setObserver(binding: FragmentRegistBinding) = binding.apply{
+    private fun setObserver(binding: FragmentRegisterTermsBinding) = binding.apply{
         isAgreeTerm.observe(viewLifecycleOwner){ value->
             btnContinueLogin.isEnabled = value
             agreeTermsCheckboxAll.isChecked = value
         }
     }
 
-    private fun setListener(binding: FragmentRegistBinding) = binding.apply{
+    private fun setListener(binding: FragmentRegisterTermsBinding) = binding.apply{
         setCheckBoxes(allCheck = agreeTermsCheckboxAll,
             agreeTermsCheckboxEssential
             ,agreeTermsCheckboxUserInfo)
@@ -72,7 +75,7 @@ class RegisterFragment : Fragment() {
 
         iconList.map {icon->
             icon.setOnClickListener{v->
-                val action = RegisterFragmentDirections.actionRegisterFragmentToRegisterTermDetailFragment(getTerm(v.id))
+                val action = RegisterTermsFragmentDirections.actionRegisterTermsFragmentToRegisterTermDetailFragment(getTerm(v.id))
                 findNavController().navigate(action)
             }
         }
