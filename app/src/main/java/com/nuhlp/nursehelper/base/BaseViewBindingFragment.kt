@@ -12,7 +12,7 @@ import com.nuhlp.nursehelper.databinding.FragmentRegistBinding
 import com.nuhlp.nursehelper.ui.login.LoginViewModel
 
 
-abstract class  BaseFragment<T : ViewBinding> : Fragment() {
+abstract class  BaseViewBindingFragment<T : ViewBinding> : Fragment() {
     private var _binding: T? = null
     protected val binding get() = _binding!!
 

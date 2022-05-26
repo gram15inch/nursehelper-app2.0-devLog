@@ -22,37 +22,44 @@
             android:orientation="vertical"
             android:padding="@dimen/side_margin">
 
-            <ImageView
-                android:layout_width="@dimen/logo_image_width"
-                android:layout_height="@dimen/logo_image_height"
-
-                android:layout_gravity="top|left"
-                android:layout_marginTop="@dimen/margin_between_elements"
-                android:importantForAccessibility="no"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_banner_foreground" />
-
-            <TextView
+            // 로고 부분
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/marginX_element_login_container"
-                android:layout_marginEnd="@dimen/marginX_element_login_container"
-                android:layout_marginBottom="@dimen/margin_between_elements"
-                android:text="@string/welcome_regist"
-                android:textSize="@dimen/welcome_regist_size" />
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="@dimen/logo_image_width"
+                    android:layout_height="@dimen/logo_image_height"
 
-            <TextView
+                    android:layout_gravity="top|left"
+                    android:layout_marginTop="@dimen/margin_between_elements"
+                    android:importantForAccessibility="no"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_banner_foreground" />
+            </LinearLayout>
+            // 상태 부분
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/marginX_element_login_container"
-                android:layout_marginTop="@dimen/margin_between_group"
-                android:layout_marginEnd="@dimen/marginX_element_login_container"
-                android:gravity="center"
-                android:text="@string/agree_terms"
-                android:textSize="@dimen/agree_terms_size" />
-
-
-            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/marginX_element_login_container"
+                    android:layout_marginEnd="@dimen/marginX_element_login_container"
+                    android:layout_marginBottom="@dimen/margin_between_elements"
+                    android:text="@string/welcome_regist"
+                    android:textSize="@dimen/welcome_regist_size" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/marginX_element_login_container"
+                    android:layout_marginTop="@dimen/margin_between_group"
+                    android:layout_marginEnd="@dimen/marginX_element_login_container"
+                    android:gravity="center"
+                    android:text="@string/agree_terms"
+                    android:textSize="@dimen/agree_terms_size" />
+                <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/regist_progressbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,120 +69,128 @@
                 android:indeterminate="false"
                 android:max="100"
                 app:trackThickness="@dimen/progress_bar_thickness" />
-
-
-            <LinearLayout
-                style="@style/registContainerElements"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_between_group_large"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/essential"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/regist_contents_text_size" />
-
-                <CheckBox
-                    android:id="@+id/agree_terms_checkbox_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:checked="false"
-                    android:text="@string/agree_terms_checkbox_label_all"
-                    android:textSize="@dimen/regist_contents_text_size" />
-
             </LinearLayout>
 
-            <com.google.android.material.divider.MaterialDivider
-                style="@style/registContainerElements"
-                android:layout_width="match_parent"
-                android:layout_height="3dp" />
-
+            // 컨텐츠 부분
             <LinearLayout
-                style="@style/registContainerElements"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    style="@style/registContainerElements"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/essential"
-                    android:textColor="@color/red"
-                    android:textSize="@dimen/regist_contents_text_size" />
+                    android:layout_marginTop="@dimen/margin_between_group_large"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                <CheckBox
-                    android:id="@+id/agree_terms_checkbox_essential"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:checked="false"
-                    android:text="@string/agree_terms_checkbox_label_essential"
-                    android:textSize="@dimen/regist_contents_text_size" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/essential"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/regist_contents_text_size" />
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/essential_term_icon"
-                    android:layout_width="wrap_content"
+                    <CheckBox
+                        android:id="@+id/agree_terms_checkbox_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:checked="false"
+                        android:text="@string/agree_terms_checkbox_label_all"
+                        android:textSize="@dimen/regist_contents_text_size" />
+
+                </LinearLayout>
+                <com.google.android.material.divider.MaterialDivider
+                    style="@style/registContainerElements"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp" />
+                <LinearLayout
+                    style="@style/registContainerElements"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_between_group_medium"
-                    style="@style/elementIcon"/>
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/essential"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/regist_contents_text_size" />
+
+                    <CheckBox
+                        android:id="@+id/agree_terms_checkbox_essential"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:checked="false"
+                        android:text="@string/agree_terms_checkbox_label_essential"
+                        android:textSize="@dimen/regist_contents_text_size" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/essential_term_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_between_group_medium"
+                        style="@style/elementIcon"/>
+                </LinearLayout>
+                <com.google.android.material.divider.MaterialDivider
+                    style="@style/registContainerElements"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp" />
+                <LinearLayout
+                    style="@style/registContainerElements"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    tools:ignore="ExtraText">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/essential"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/regist_contents_text_size" />
+
+                    <CheckBox
+                        android:id="@+id/agree_terms_checkbox_user_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:checked="false"
+                        android:text="@string/agree_terms_checkbox_label_userinfo"
+                        android:textSize="@dimen/regist_contents_text_size" />
+                        v
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/userinfo_term_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_between_group_medium"
+                       style="@style/elementIcon"/>
+
+                </LinearLayout>
             </LinearLayout>
 
-            <com.google.android.material.divider.MaterialDivider
-                style="@style/registContainerElements"
-                android:layout_width="match_parent"
-                android:layout_height="3dp" />
-
+            // 버튼 부분
             <LinearLayout
-                style="@style/registContainerElements"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                tools:ignore="ExtraText">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/essential"
-                    android:textColor="@color/red"
-                    android:textSize="@dimen/regist_contents_text_size" />
-
-                <CheckBox
-                    android:id="@+id/agree_terms_checkbox_user_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:checked="false"
-                    android:text="@string/agree_terms_checkbox_label_userinfo"
-                    android:textSize="@dimen/regist_contents_text_size" />
-                    v
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/userinfo_term_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_between_group_medium"
-                   style="@style/elementIcon"/>
-
+                android:orientation="vertical">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_continue_login"
+                    style="@style/registContainerElements"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/btn_height"
+                    android:enabled="false"
+                    android:text="@string/continue_btn"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/btn_size"
+                    app:elevation="@dimen/btn_elevation" />
             </LinearLayout>
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_continue_login"
-                style="@style/registContainerElements"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/btn_height"
-                android:layout_marginTop="@dimen/margin_between_group_large"
-                android:enabled="false"
-                android:text="@string/continue_btn"
-                android:textColor="@color/black"
-                android:textSize="@dimen/btn_size"
-                app:elevation="@dimen/btn_elevation" />
-
+            // 해상도 문제 해결부터
         </LinearLayout>
 
 

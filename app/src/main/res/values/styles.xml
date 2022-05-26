@@ -4,7 +4,6 @@
 
     <style name="registContainerElements">
         <item name="android:layout_marginHorizontal">@dimen/regist_contents_margin_x</item>
-        <item name="android:layout_marginBottom">@dimen/margin_between_elements</item>
     </style>
 
     <style name="elementIcon">

@@ -28,6 +28,7 @@ class LoginDataStoreImpl(private val context: Context) : LoginDataStore {
     private val isLoginPreferenceFlow: Flow<Boolean> = preferenceFlowFactory(DataStoreKey.IS_LOGIN)
     private val isAgreeTermsPreferenceFlow: Flow<Boolean> = preferenceFlowFactory(DataStoreKey.IS_AGREE_TERMS)
 
+
     override fun getPreferenceFlow(enum: DataStoreKey):Flow<Boolean> = when(enum){
         DataStoreKey.IS_LOGIN->{ isLoginPreferenceFlow }
         DataStoreKey.IS_AGREE_TERMS->{ isAgreeTermsPreferenceFlow }

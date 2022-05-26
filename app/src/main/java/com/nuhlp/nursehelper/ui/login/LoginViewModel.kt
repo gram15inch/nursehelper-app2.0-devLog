@@ -16,6 +16,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application){
             loginRepository.setIsLoginToDataStore(true)
         }
     }
+
     fun agreeTerms(){
         viewModelScope.launch {
             loginRepository.setTermsToDataStore(true)

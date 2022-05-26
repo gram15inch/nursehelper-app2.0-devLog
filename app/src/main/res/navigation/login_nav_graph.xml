@@ -20,17 +20,12 @@
         android:label="fragment_regist"
         tools:layout="@layout/fragment_regist" >
         <action
-            android:id="@+id/action_registerFragment_to_register2Fragment"
-            app:destination="@id/register2Fragment" />
-        <action
             android:id="@+id/action_registerFragment_to_registerTermDetailFragment"
             app:destination="@id/registerTermDetailFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_registerIdFragment"
+            app:destination="@id/registerIdFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/register2Fragment"
-        android:name="com.nuhlp.nursehelper.ui.login.RegisterIdFragment"
-        android:label="fragment_register2"
-        tools:layout="@layout/fragment_register2" />
     <fragment
         android:id="@+id/registerTermDetailFragment"
         android:name="com.nuhlp.nursehelper.ui.login.RegisterTermDetailFragment"
@@ -40,4 +35,9 @@
             android:name="term"
             app:argType="com.nuhlp.nursehelper.ui.login.Term" />
     </fragment>
+    <fragment
+        android:id="@+id/registerIdFragment"
+        android:name="com.nuhlp.nursehelper.ui.login.RegisterIdFragment"
+        android:label="fragment_register_id"
+        tools:layout="@layout/fragment_register_id" />
 </navigation>

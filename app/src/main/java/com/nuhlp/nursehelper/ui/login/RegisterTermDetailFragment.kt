@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.nuhlp.nursehelper.R
-import com.nuhlp.nursehelper.base.BaseFragment
+import com.nuhlp.nursehelper.base.BaseViewBindingFragment
 import com.nuhlp.nursehelper.databinding.FragmentRegisterTermDetailBinding
 import java.lang.IllegalArgumentException
 
 
-class RegisterTermDetailFragment : BaseFragment<FragmentRegisterTermDetailBinding>() {
+class RegisterTermDetailFragment : BaseViewBindingFragment<FragmentRegisterTermDetailBinding>() {
     private val _args: RegisterTermDetailFragmentArgs by navArgs()
     private val term get() = _args.term
 
@@ -28,16 +28,14 @@ class RegisterTermDetailFragment : BaseFragment<FragmentRegisterTermDetailBindin
 
     }
 
-
-
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
     ): FragmentRegisterTermDetailBinding {
+
+
         return FragmentRegisterTermDetailBinding.inflate(inflater,container,false)
     }
-
-
 
     private fun Term.getTermTitle() = when(this.CODE){
         1-> resources.getString(R.string.agree_terms_checkbox_label_essential)

@@ -6,19 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.nuhlp.nursehelper.R
+import com.nuhlp.nursehelper.base.BaseViewBindingFragment
+import com.nuhlp.nursehelper.databinding.FragmentRegisterIdBinding
+
+class RegisterIdFragment : BaseViewBindingFragment<FragmentRegisterIdBinding>() {
 
 
 
-class RegisterIdFragment : Fragment() {
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-
-        return inflater.inflate(R.layout.fragment_register2, container, false)
     }
 
-
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    ): FragmentRegisterIdBinding {
+        return FragmentRegisterIdBinding.inflate(inflater,container,false)
+    }
 }

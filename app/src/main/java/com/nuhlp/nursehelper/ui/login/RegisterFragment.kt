@@ -25,25 +25,22 @@ class RegisterFragment : Fragment() {
         super.onCreate(savedInstanceState)
         isAgreeTerm = _loginViewModel.isAgreeTerm
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentRegistBinding.inflate(layoutInflater,container,false)
+
         setBinding(binding)
-        setListener(binding)
         setObserver(binding)
+        setListener(binding)
+
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
     private fun setBinding(binding: FragmentRegistBinding) = binding.apply {
-
         registProgressbar.setProgressCompat(30,true)
-
     }
 
     private fun setObserver(binding: FragmentRegistBinding) = binding.apply{
@@ -60,11 +57,8 @@ class RegisterFragment : Fragment() {
 
         btnContinueLogin.setOnClickListener{
             _loginViewModel.agreeTerms()
-            findNavController().navigate(R.id.register2Fragment)
+            findNavController().navigate(R.id.action_registerFragment_to_registerIdFragment)
 
-            /*해야할것
-            * 각 테스트
-            * */
         }
         setIcons(
             essentialTermIcon,
