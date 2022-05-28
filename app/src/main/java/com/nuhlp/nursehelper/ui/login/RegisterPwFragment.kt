@@ -1,13 +1,12 @@
 package com.nuhlp.nursehelper.ui.login
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.nuhlp.nursehelper.R
-import com.nuhlp.nursehelper.base.BaseViewBindingFragment
+import com.nuhlp.nursehelper.utill.base.BaseViewBindingFragment
 import com.nuhlp.nursehelper.databinding.FragmentRegisterPwBinding
 
 

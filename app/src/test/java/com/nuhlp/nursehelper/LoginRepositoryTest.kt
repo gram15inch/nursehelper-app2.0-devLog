@@ -32,7 +32,7 @@ class LoginRepositoryTest {
         `when`(mockDataStore.getPreferenceFlow(DataStoreKey.IS_LOGIN)).thenReturn(flow { emit(true) }) // 의미없는 flow
         `when`(mockDataStore.getPreferenceFlow(DataStoreKey.IS_AGREE_TERMS)).thenReturn(flow { emit(true) })
 
-        loginRepository = LoginRepository(mockDataStore)
+        loginRepository = LoginRepository(mockDataStore, )
     }
 
 

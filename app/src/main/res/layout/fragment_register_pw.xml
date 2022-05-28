@@ -79,7 +79,38 @@
                 android:layout_height="@dimen/regist_section_contents"
                 android:orientation="vertical">
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/idTextField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_marginHorizontal="@dimen/regist_contents_margin_x"
+                    android:hint="@string/pw_label"
+                    app:helperText="@string/insert_pw">
 
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_view_pw_regist"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#616161" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_view_pw_check_regist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_marginHorizontal="@dimen/regist_contents_margin_x"
+                    android:hint="PW"
+                    app:helperText="한번더 입력하세요">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_view_id_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#616161" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 

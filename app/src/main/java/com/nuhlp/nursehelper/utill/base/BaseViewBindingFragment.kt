@@ -1,14 +1,11 @@
-package com.nuhlp.nursehelper.base
+package com.nuhlp.nursehelper.utill.base
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.viewbinding.ViewBinding
-import com.nuhlp.nursehelper.R
-import com.nuhlp.nursehelper.ui.login.LoginViewModel
 
 
 abstract class  BaseViewBindingFragment<T : ViewBinding> : Fragment() {

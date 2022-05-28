@@ -25,13 +25,13 @@ private val Context.DATA_STORE : DataStore<Preferences> by preferencesDataStore(
 
 class LoginDataStoreImpl(private val context: Context) : LoginDataStore {
 
-    private val isLoginPreferenceFlow: Flow<Boolean> = preferenceFlowFactory(DataStoreKey.IS_LOGIN)
-    private val isAgreeTermsPreferenceFlow: Flow<Boolean> = preferenceFlowFactory(DataStoreKey.IS_AGREE_TERMS)
+    private val _isLoginPreferenceFlow: Flow<Boolean> = preferenceFlowFactory(DataStoreKey.IS_LOGIN)
+    private val _isAgreeTermsPreferenceFlow: Flow<Boolean> = preferenceFlowFactory(DataStoreKey.IS_AGREE_TERMS)
 
 
     override fun getPreferenceFlow(enum: DataStoreKey):Flow<Boolean> = when(enum){
-        DataStoreKey.IS_LOGIN->{ isLoginPreferenceFlow }
-        DataStoreKey.IS_AGREE_TERMS->{ isAgreeTermsPreferenceFlow }
+        DataStoreKey.IS_LOGIN->{ _isLoginPreferenceFlow }
+        DataStoreKey.IS_AGREE_TERMS->{ _isAgreeTermsPreferenceFlow }
     }
 
     // datastore 가 Preferences 노출하지않고 Boolean 만 노출시키게함

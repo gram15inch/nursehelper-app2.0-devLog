@@ -85,6 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_marginHorizontal="@dimen/regist_contents_margin_x"
                     android:hint="@string/id_label"
                     app:helperText="@string/insert_id">
 
@@ -103,6 +104,7 @@
                     android:text="@string/check_user_id_btn"
                     android:textColor="@color/black"
                     android:textSize="@dimen/btn_size"
+                    android:layout_marginHorizontal="@dimen/regist_contents_margin_x"
                     app:elevation="@dimen/btn_elevation" />
 
             </LinearLayout>
@@ -120,7 +122,8 @@
                     android:text="@string/continue_btn"
                     android:textColor="@color/black"
                     android:textSize="@dimen/btn_size"
-                    app:elevation="@dimen/btn_elevation" />
+                    app:elevation="@dimen/btn_elevation"
+                    android:enabled="false"/>
             </LinearLayout>
 
         </LinearLayout>

@@ -3,13 +3,14 @@ package com.nuhlp.nursehelper
 import android.app.Application
 import androidx.lifecycle.*
 import com.nuhlp.nursehelper.data.LoginDataStoreImpl
+import com.nuhlp.nursehelper.data.room.getUserDatabase
 import com.nuhlp.nursehelper.repository.LoginRepository
 import kotlinx.coroutines.launch
 
 class MainViewModel (application: Application) : AndroidViewModel(application) {
 
 
-    private val loginRepository = LoginRepository(LoginDataStoreImpl(application))
+    private val loginRepository = LoginRepository(LoginDataStoreImpl(application), getUserDatabase(application))
 
     val isLogin : LiveData<Boolean> = loginRepository.isLogin.asLiveData()
 
