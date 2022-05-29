@@ -10,6 +10,7 @@ import com.nuhlp.nursehelper.data.room.UserAccount
 import com.nuhlp.nursehelper.data.room.UserDatabase
 import com.nuhlp.nursehelper.data.room.getUserDatabase
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher
 import org.junit.Assert.assertEquals
@@ -50,19 +51,17 @@ class RoomTest {
             users[1].same(getUser(users[1].id))
             setUser(users[2])
             users[2].same(getUser(users[2].id))
-            assertEquals(0, checkId(users[3].id))
+            assertEquals(0, getAvailableId(users[3].id))
         }
     }
 
     @Test
     fun checkId(){
-
         room.userDao.apply {
 
             setUser(users[0])
-           assertEquals(checkId(users[0].id),1)
-           assertEquals(checkId(users[1].id),0)
-
+           assertEquals(getAvailableId(users[0].id),1)
+           assertEquals(getAvailableId(users[1].id),0)
 
         }
     }

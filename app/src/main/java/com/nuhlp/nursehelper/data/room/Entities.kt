@@ -1,6 +1,7 @@
 package com.nuhlp.nursehelper.data.room
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 /**
@@ -8,14 +9,10 @@ import androidx.room.PrimaryKey
  */
 @Entity
 data class UserAccount constructor(
-
-    @PrimaryKey(autoGenerate = true)
-    val accountNo: Long,
+    @PrimaryKey
     val id: String,
     val pw: String,
     val registrationDate: String,
-
-
 ) {
 
 }

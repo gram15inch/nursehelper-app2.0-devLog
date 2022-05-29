@@ -51,5 +51,8 @@
     <string name="tool_text_state_title">STATE_TITLE</string>
     <string name="tool_text_state_sub_title">state_sub_title</string>
     <string name="check_user_id_btn">중복확인</string>
+    <string name="text_edit_disable_id">이미 있는 사용자 ID입니다</string>
+    <string name="edit_text_hint_verify">확인이 완료되었습니다</string>
+    <string name="edit_text_hint_retry_anather_id">다른 ID를 입력해주세요</string>
 
 </resources>

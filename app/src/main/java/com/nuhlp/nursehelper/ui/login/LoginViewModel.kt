@@ -5,12 +5,16 @@ import androidx.lifecycle.*
 import com.nuhlp.nursehelper.data.LoginDataStoreImpl
 import com.nuhlp.nursehelper.data.room.getUserDatabase
 import com.nuhlp.nursehelper.repository.LoginRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class LoginViewModel(application: Application) : AndroidViewModel(application){
     private val loginRepository = LoginRepository(LoginDataStoreImpl(application),getUserDatabase(application))
     val isLogin : LiveData<Boolean> = loginRepository.isLogin.asLiveData()
     val isAgreeTerm : LiveData<Boolean> = loginRepository.isAgreeTerms.asLiveData()
+
+    var ID=""
+    var PW=""
 
     fun loginSuccess(){
         viewModelScope.launch{
@@ -23,11 +27,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application){
             loginRepository.setTermsToDataStore(true)
         }
     }
-    fun checkId(userId :String){
-        viewModelScope.launch{
-             loginRepository.getAvailableId(userId)
-        } // id 가져오는거부터 다시 
-    }
+    fun getAvailableId(userId :String): Flow<Boolean> = loginRepository.getAvailableId(userId)
+
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

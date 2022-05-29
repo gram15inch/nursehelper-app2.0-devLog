@@ -3,14 +3,13 @@ package com.nuhlp.nursehelper.data.room
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
 
     @Query("select Count(*) from UserAccount where id=:userId ")
-    fun getAvailableId(userId:String):LiveData<Int>
-
-
+    fun getAvailableId(userId:String): Flow<Int>
 
     // crud
 
@@ -49,7 +48,8 @@ fun getUserDatabase(context: Context,databaseName: String = "users"): UserDataba
         if (!::INSTANCE.isInitialized) {
             INSTANCE = Room.databaseBuilder(context.applicationContext,
                 UserDatabase::class.java,
-                databaseName).build()
+                databaseName)
+                .build() // .createFromAsset("database/bus_schedule.db")
         }
 
     }

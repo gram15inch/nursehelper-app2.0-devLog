@@ -93,7 +93,9 @@
                         android:id="@+id/text_view_id_regist"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="#616161" />
+                        android:textColorHint="#616161"
+                        android:inputType="text"
+                        />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

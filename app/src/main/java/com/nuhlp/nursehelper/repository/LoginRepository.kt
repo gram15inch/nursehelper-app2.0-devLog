@@ -8,6 +8,7 @@ import com.nuhlp.nursehelper.data.room.UserAccount
 import com.nuhlp.nursehelper.data.room.UserDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 class LoginRepository(private val dataStore: LoginDataStore,private val room: UserDatabase) {
@@ -34,7 +35,7 @@ class LoginRepository(private val dataStore: LoginDataStore,private val room: Us
         }
     }
 
-    fun getAvailableId(userId: String):LiveData<Boolean>{
+    fun getAvailableId(userId: String):Flow<Boolean>{
         return  room.userDao.getAvailableId(userId).map { asBool(it) }
     }
 
