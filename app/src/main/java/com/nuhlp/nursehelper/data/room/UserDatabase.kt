@@ -1,30 +1,37 @@
 package com.nuhlp.nursehelper.data.room
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
 interface UserDao {
+
     @Query("select Count(*) from UserAccount where id=:userId ")
-    fun checkId(userId:String):Int
+    fun getAvailableId(userId:String):LiveData<Int>
+
+
+
+    // crud
+
+    @Query("select * from UserAccount where id =:userId")
+    fun getUser(userId: String):UserAccount
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun setUser(user: UserAccount)
 
-    @Query("select * from UserAccount where id =:userId")
-    fun getUser(userId: String):UserAccount
+    @Update
+    fun updateUser(user: UserAccount)
+
+
+
+    // test 전용
 
     @Query("select * from UserAccount")
     fun getAll(): List<UserAccount>
 
     @Query("DELETE FROM UserAccount")
     fun deleteAll()
-
-   /* @Query("update sqlite_sequence set seq=0 where name='SequenceAction'")
-    fun resetAccountNo()*/
-
-   /* @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll( videos: List<DatabaseVideo>)*/
 
 }
 

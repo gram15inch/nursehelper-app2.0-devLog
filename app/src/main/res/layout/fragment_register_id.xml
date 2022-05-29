@@ -90,7 +90,7 @@
                     app:helperText="@string/insert_id">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/text_view_id_login"
+                        android:id="@+id/text_view_id_regist"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColorHint="#616161" />

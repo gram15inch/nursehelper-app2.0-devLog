@@ -23,9 +23,10 @@ class LoginViewModel(application: Application) : AndroidViewModel(application){
             loginRepository.setTermsToDataStore(true)
         }
     }
-
-    fun checkCreate(): String {
-        return "created"
+    fun checkId(userId :String){
+        viewModelScope.launch{
+             loginRepository.getAvailableId(userId)
+        } // id 가져오는거부터 다시 
     }
 
     class Factory(val app: Application) : ViewModelProvider.Factory {

@@ -1,5 +1,7 @@
 package com.nuhlp.nursehelper.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.nuhlp.nursehelper.data.datastore.DataStoreKey
 import com.nuhlp.nursehelper.data.datastore.LoginDataStore
 import com.nuhlp.nursehelper.data.room.UserAccount
@@ -13,24 +15,31 @@ class LoginRepository(private val dataStore: LoginDataStore,private val room: Us
     val isLogin: Flow<Boolean> = dataStore.getPreferenceFlow(DataStoreKey.IS_LOGIN)
     val isAgreeTerms: Flow<Boolean> = dataStore.getPreferenceFlow(DataStoreKey.IS_AGREE_TERMS)
 
+
     suspend fun setIsLoginToDataStore(value: Boolean){
         withContext(Dispatchers.IO) {
             dataStore.saveToPreferencesStore(value,DataStoreKey.IS_LOGIN)
         }
     }
+
     suspend fun setTermsToDataStore(value: Boolean){
         withContext(Dispatchers.IO) {
             dataStore.saveToPreferencesStore(value,DataStoreKey.IS_AGREE_TERMS)
         }
     }
+
     suspend fun setUserToDatabase(user: UserAccount){
         withContext(Dispatchers.IO) {
             room.userDao.setUser(user)
         }
     }
 
-    fun isUserId(userId: String):Boolean{
-      return  when(room.userDao.checkId(userId)){
+    fun getAvailableId(userId: String):LiveData<Boolean>{
+        return  room.userDao.getAvailableId(userId).map { asBool(it) }
+    }
+
+    fun asBool(resultInt: Int):Boolean{
+      return  when(resultInt){
             1 -> true
             else -> false
         }

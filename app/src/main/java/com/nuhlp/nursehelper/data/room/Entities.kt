@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class UserAccount constructor(
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     val accountNo: Long,
     val id: String,
     val pw: String,

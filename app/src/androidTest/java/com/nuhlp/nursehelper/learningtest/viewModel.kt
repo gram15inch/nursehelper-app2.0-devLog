@@ -50,10 +50,6 @@ class viewModel {
 
     }
 
-    @Test
-    fun checkCreate() {
-        assertEquals("created", (loginViewModel).checkCreate())
-    }
 
     @Test
     fun checkViewModelSingleton(){
