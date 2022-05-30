@@ -54,5 +54,6 @@
     <string name="text_edit_disable_id">이미 있는 사용자 ID입니다</string>
     <string name="edit_text_hint_verify">확인이 완료되었습니다</string>
     <string name="edit_text_hint_retry_anather_id">다른 ID를 입력해주세요</string>
+    <string name="user_create_btn">새 계정 생성</string>
 
 </resources>

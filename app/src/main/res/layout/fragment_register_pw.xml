@@ -80,7 +80,7 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/idTextField"
+                    android:id="@+id/text_layout_pw"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -89,14 +89,15 @@
                     app:helperText="@string/insert_pw">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/text_view_pw_regist"
+                        android:id="@+id/text_edit_pw"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="#616161" />
+                        android:textColorHint="#616161"
+                        android:inputType="textPassword"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/text_view_pw_check_regist"
+                    android:id="@+id/text_layout_pw_check"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -105,10 +106,11 @@
                     app:helperText="한번더 입력하세요">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/text_view_id_login"
+                        android:id="@+id/text_Edit_pw_check"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="#616161" />
+                        android:textColorHint="#616161"
+                        android:inputType="textPassword"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,10 +126,11 @@
                     style="@style/registContainerElements"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/btn_height"
-                    android:text="@string/continue_btn"
+                    android:text="@string/user_create_btn"
                     android:textColor="@color/black"
                     android:textSize="@dimen/btn_size"
-                    app:elevation="@dimen/btn_elevation" />
+                    app:elevation="@dimen/btn_elevation"
+                    android:enabled="false"/>
             </LinearLayout>
 
         </LinearLayout>
