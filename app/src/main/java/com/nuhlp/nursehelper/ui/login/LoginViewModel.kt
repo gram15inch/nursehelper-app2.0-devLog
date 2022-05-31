@@ -43,9 +43,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application){
     }
 
     private fun createUser(): UserAccount {
-        val cal = Calendar.getInstance()
-
-        val today = UserAccount.asFormattedDate(cal)
+        val today = UserAccount.asFormattedDate(Calendar.getInstance())
         return UserAccount(ID, PW, today)
     }
 
