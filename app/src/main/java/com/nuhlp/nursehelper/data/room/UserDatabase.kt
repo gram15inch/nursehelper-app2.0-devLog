@@ -5,37 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
-@Dao
-interface UserDao {
-
-    @Query("select Count(*) from UserAccount where id=:userId ")
-    fun getAvailableId(userId:String): Flow<Int>
-
-    // crud
-
-    @Query("select * from UserAccount where id =:userId")
-    fun getUser(userId: String):UserAccount
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun setUser(user: UserAccount)
-
-    @Update
-    fun updateUser(user: UserAccount)
-
-
-
-    // test 전용
-
-    @Query("select * from UserAccount")
-    fun getAll(): List<UserAccount>
-
-    @Query("DELETE FROM UserAccount")
-    fun deleteAll()
-
-    @Query("select Count(*) FROM UserAccount where id=:id and pw=:pw")
-    fun countExistedUser(id: String, pw: String):Int
-
-}
 
 
 
@@ -51,8 +20,8 @@ fun getUserDatabase(context: Context,databaseName: String = "users"): UserDataba
         if (!::INSTANCE.isInitialized) {
             INSTANCE = Room.databaseBuilder(context.applicationContext,
                 UserDatabase::class.java,
-                databaseName)
-                .build() // .createFromAsset("database/bus_schedule.db")
+                databaseName) // .createFromAsset("database/bus_schedule.db")
+                .build()
         }
 
     }

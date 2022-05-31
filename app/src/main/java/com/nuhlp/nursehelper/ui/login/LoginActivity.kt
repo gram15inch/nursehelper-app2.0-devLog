@@ -2,17 +2,14 @@ package com.nuhlp.nursehelper.ui.login
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.nuhlp.nursehelper.MainActivity
 import com.nuhlp.nursehelper.R
 import com.nuhlp.nursehelper.databinding.ActivityLoginBinding
 

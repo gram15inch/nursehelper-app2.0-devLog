@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerTermsFragment"
-        android:name="com.nuhlp.nursehelper.ui.login.RegisterTermsFragment"
+        android:name="com.nuhlp.nursehelper.ui.login.register.RegisterTermsFragment"
         android:label="fragment_regist_terms"
         tools:layout="@layout/fragment_register_terms">
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerTermDetailFragment"
-        android:name="com.nuhlp.nursehelper.ui.login.RegisterTermDetailFragment"
+        android:name="com.nuhlp.nursehelper.ui.login.register.RegisterTermDetailFragment"
         android:label="fragment_register_term_detail"
         tools:layout="@layout/fragment_register_term_detail" >
         <argument
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerIdFragment"
-        android:name="com.nuhlp.nursehelper.ui.login.RegisterIdFragment"
+        android:name="com.nuhlp.nursehelper.ui.login.register.RegisterIdFragment"
         android:label="fragment_register_id"
         tools:layout="@layout/fragment_register_id" >
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerPwFragment"
-        android:name="com.nuhlp.nursehelper.ui.login.RegisterPwFragment"
+        android:name="com.nuhlp.nursehelper.ui.login.register.RegisterPwFragment"
         android:label="fragment_register_pw"
         tools:layout="@layout/fragment_register_pw" >
         <action

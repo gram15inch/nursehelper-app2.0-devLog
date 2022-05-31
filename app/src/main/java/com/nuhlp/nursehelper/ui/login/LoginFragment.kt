@@ -12,7 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 
 import androidx.navigation.fragment.findNavController
-import com.nuhlp.nursehelper.MainActivity
+import com.nuhlp.nursehelper.ui.main.MainActivity
 import com.nuhlp.nursehelper.R
 import com.nuhlp.nursehelper.databinding.FragmentLoginBinding
 import kotlinx.coroutines.CoroutineScope

@@ -1,4 +1,4 @@
-package com.nuhlp.nursehelper.ui.login
+package com.nuhlp.nursehelper.ui.login.register
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +13,8 @@ import androidx.navigation.fragment.findNavController
 import com.nuhlp.nursehelper.R
 
 import com.nuhlp.nursehelper.databinding.FragmentRegisterTermsBinding
+import com.nuhlp.nursehelper.ui.login.LoginViewModel
+import com.nuhlp.nursehelper.ui.login.Term
 
 
 class RegisterTermsFragment : Fragment() {
@@ -75,15 +77,22 @@ class RegisterTermsFragment : Fragment() {
 
         iconList.map {icon->
             icon.setOnClickListener{v->
-                val action = RegisterTermsFragmentDirections.actionRegisterTermsFragmentToRegisterTermDetailFragment(getTerm(v.id))
+                val action =
+                   RegisterTermsFragmentDirections.actionRegisterTermsFragmentToRegisterTermDetailFragment(
+                        getTerm(v.id)
+                    )
                 findNavController().navigate(action)
             }
         }
     }
 
     private fun getTerm(id:Int) = when(id){
-            binding.essentialTermIcon.id->{ Term.ESSENTIAL}
-            binding.userinfoTermIcon.id->{ Term.USERINFO}
+            binding.essentialTermIcon.id->{
+                Term.ESSENTIAL
+            }
+            binding.userinfoTermIcon.id->{
+                Term.USERINFO
+            }
             else -> { throw IllegalArgumentException("unknown Term") }
     }
 

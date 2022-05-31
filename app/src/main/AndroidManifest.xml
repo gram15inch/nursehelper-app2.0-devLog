@@ -17,7 +17,7 @@
             android:theme="@style/Theme.Login"
             />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true"
             >
 

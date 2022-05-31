@@ -1,4 +1,4 @@
-package com.nuhlp.nursehelper.ui.login
+package com.nuhlp.nursehelper.ui.login.register
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.navigation.fragment.navArgs
 import com.nuhlp.nursehelper.R
 import com.nuhlp.nursehelper.utill.base.BaseViewBindingFragment
 import com.nuhlp.nursehelper.databinding.FragmentRegisterTermDetailBinding
+import com.nuhlp.nursehelper.ui.login.Term
 import java.lang.IllegalArgumentException
 
 

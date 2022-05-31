@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryColorBack"
-    tools:context=".ui.login.RegisterTermsFragment">
+    tools:context=".ui.login.register.RegisterTermsFragment">
 
 
     <ScrollView

@@ -1,4 +1,4 @@
-package com.nuhlp.nursehelper.ui.login
+package com.nuhlp.nursehelper.ui.login.register
 
 import android.app.Activity
 import android.content.Context
@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.nuhlp.nursehelper.R
 import com.nuhlp.nursehelper.databinding.FragmentRegisterIdBinding
+import com.nuhlp.nursehelper.ui.login.LoginViewModel
 import com.nuhlp.nursehelper.utill.base.BaseViewBindingFragment
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect

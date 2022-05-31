@@ -1,19 +1,17 @@
-package com.nuhlp.nursehelper.ui.login
+package com.nuhlp.nursehelper.ui.login.register
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.nuhlp.nursehelper.R
-import com.nuhlp.nursehelper.data.room.UserAccount
 import com.nuhlp.nursehelper.utill.base.BaseViewBindingFragment
 import com.nuhlp.nursehelper.databinding.FragmentRegisterPwBinding
-import java.util.*
+import com.nuhlp.nursehelper.ui.login.LoginViewModel
 
 
 class RegisterPwFragment : BaseViewBindingFragment<FragmentRegisterPwBinding>() {

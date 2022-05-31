@@ -2,13 +2,12 @@ package com.nuhlp.nursehelper.viewmodel
 
 import android.app.Application
 import android.content.Context
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.nuhlp.nursehelper.MainActivity
-import com.nuhlp.nursehelper.MainViewModel
+import com.nuhlp.nursehelper.ui.main.MainActivity
+import com.nuhlp.nursehelper.ui.main.MainViewModel
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher
 import org.junit.Assert.assertEquals
@@ -25,7 +24,7 @@ class MainViewModelTest {
     lateinit var context : Context
     lateinit var application : Application
     lateinit var mainViewModel: MainViewModel
-    lateinit var mainActivity :MainActivity
+    lateinit var mainActivity : MainActivity
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
@@ -38,7 +37,7 @@ class MainViewModelTest {
         dispatcher = StandardTestDispatcher()
         context = InstrumentationRegistry.getInstrumentation().targetContext
         scenario.onActivity { application = it.application
-            mainViewModel = ViewModelProvider(it,MainViewModel.Factory(application) )
+            mainViewModel = ViewModelProvider(it, MainViewModel.Factory(application) )
                 .get(MainViewModel::class.java)
         }
     }
