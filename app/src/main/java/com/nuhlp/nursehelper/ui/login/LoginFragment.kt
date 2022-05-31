@@ -1,56 +1,85 @@
 package com.nuhlp.nursehelper.ui.login
 
-import android.content.Context
+
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModelProvider
+
 import androidx.navigation.fragment.findNavController
+import com.nuhlp.nursehelper.MainActivity
 import com.nuhlp.nursehelper.R
 import com.nuhlp.nursehelper.databinding.FragmentLoginBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-   val _loginViewModel : LoginViewModel by activityViewModels()
-    lateinit var isLogin : LiveData<Boolean>
+    val _loginViewModel: LoginViewModel by activityViewModels()
+    lateinit var isLogin: LiveData<Boolean>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
-        _binding = FragmentLoginBinding.inflate(inflater,container,false)
+    ): View {
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
         isLogin = _loginViewModel.isLogin
-        setListener(binding)
+        setListener()
 
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun setListener() = binding.apply {
 
-    }
+        textViewFindLogin.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerTermsFragment)
+        }
+        btnContinueLogin.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                if (isValidUser()) {
+                    _loginViewModel.loginSuccess()
+                    startMainActivity()
+                } else{
+                    _loginViewModel.loginFail()
+                    showToast(resources.getString(R.string.wrongUser))
+                }
 
-    private fun setListener( binding: FragmentLoginBinding){
-        binding.apply {
-            textViewFindLogin.setOnClickListener {
-                findNavController().navigate(R.id.action_loginFragment_to_registerTermsFragment)
             }
         }
-     }
+    }
+
+    private fun startMainActivity() {
+        val intent = Intent(context, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
+    private suspend fun isValidUser(): Boolean {
+        binding.apply {
+            val id = textViewIdLogin.text.toString()
+            val pw = textViewPwLogin.text.toString()
+            return _loginViewModel.validUser(id, pw)
+        }
+    }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun showToast(str: String) = CoroutineScope(Dispatchers.Main).launch {
+        Toast.makeText(context, "$str", Toast.LENGTH_SHORT).show()
+    }
+
+
 }

@@ -70,15 +70,19 @@
 
             <TextView
                 android:id="@+id/text_view_find_login"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginStart="@dimen/marginX_element_login_container"
                 android:layout_marginTop="@dimen/margin_between_elements"
                 android:layout_marginEnd="@dimen/marginX_element_login_container"
+                android:paddingTop="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="15dp"
                 android:gravity="center"
                 android:singleLine="false"
                 android:text="@string/new_user"
-
                 android:textColor="@color/primaryDarkColor"
                 android:textSize="15dp" />
 

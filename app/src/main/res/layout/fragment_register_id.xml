@@ -79,7 +79,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/regist_section_contents"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="@dimen/margin_between_group_medium">
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/idTextField"
                     android:layout_width="match_parent"

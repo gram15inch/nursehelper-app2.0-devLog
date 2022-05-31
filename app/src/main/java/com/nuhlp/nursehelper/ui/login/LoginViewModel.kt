@@ -25,7 +25,11 @@ class LoginViewModel(application: Application) : AndroidViewModel(application){
             loginRepository.setIsLoginToDataStore(true)
         }
     }
-
+    fun loginFail(){
+        viewModelScope.launch{
+            loginRepository.setIsLoginToDataStore(false)
+        }
+    }
     fun agreeTerms(){
         viewModelScope.launch {
             loginRepository.setTermsToDataStore(true)
@@ -35,18 +39,27 @@ class LoginViewModel(application: Application) : AndroidViewModel(application){
     fun getAvailableId(userId :String): Flow<Boolean> = loginRepository.getAvailableId(userId)
 
    fun setUser()= CoroutineScope(Dispatchers.IO).launch {
-       val user = createUser()
+       val user = createUser(ID,PW)
        if(user.isValid())
            loginRepository.setUserToDatabase(user)
        else
            throw java.lang.IllegalArgumentException("user not Valid :${user.id}/${user.pw}/${user.registrationDate}")
     }
 
-    private fun createUser(): UserAccount {
+    private fun createUser(id: String, pw: String): UserAccount {
         val today = UserAccount.asFormattedDate(Calendar.getInstance())
-        return UserAccount(ID, PW, today)
+        return UserAccount(id, pw, today)
     }
 
+
+    fun propertyReset(){
+        ID = ""
+        PW = ""
+    }
+
+    suspend fun validUser(id: String, pw: String): Boolean {
+        return loginRepository.validUser(createUser(id,pw))
+    }
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

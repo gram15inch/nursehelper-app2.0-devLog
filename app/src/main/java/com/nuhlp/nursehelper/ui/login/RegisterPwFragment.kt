@@ -56,7 +56,11 @@ class RegisterPwFragment : BaseViewBindingFragment<FragmentRegisterPwBinding>() 
         }
 
         btnContinueLogin.setOnClickListener {
-            _loginViewModel.setUser()
+
+            _loginViewModel.apply {
+                setUser()
+                propertyReset()
+            }
             findNavController().navigate(R.id.action_registerPwFragment_to_loginFragment)
         }
     }
@@ -69,10 +73,7 @@ class RegisterPwFragment : BaseViewBindingFragment<FragmentRegisterPwBinding>() 
             textEditPw.text.toString() == textEditPwCheck.text.toString() == textEditPwCheck.text.toString().isNotBlank()
     }
 
-/*    todo
-       1. 가입 화면 너비 조정
-       2. 로그인
-       3. */
+
     private fun setValueToView() = binding.apply {
         registProgressbar.setProgressCompat(90, true)
         stateTitle.text = resources.getString(R.string.regist_state_title_last)

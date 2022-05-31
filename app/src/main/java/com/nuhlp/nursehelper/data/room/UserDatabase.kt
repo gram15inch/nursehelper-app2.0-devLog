@@ -32,6 +32,9 @@ interface UserDao {
     @Query("DELETE FROM UserAccount")
     fun deleteAll()
 
+    @Query("select Count(*) FROM UserAccount where id=:id and pw=:pw")
+    fun countExistedUser(id: String, pw: String):Int
+
 }
 
 

@@ -18,13 +18,13 @@
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_register2.xml" value="0.27395833333333336" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_registerID.xml" value="0.1" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_register_id.xml" value="0.536" />
-        <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_register_pw.xml" value="0.536" />
+        <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_register_pw.xml" value="0.4" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_register_term_detail.xml" value="0.4" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_register_terms.xml" value="0.4" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

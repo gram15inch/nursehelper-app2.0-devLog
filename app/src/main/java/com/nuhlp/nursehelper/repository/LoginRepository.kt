@@ -10,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-
 class LoginRepository(private val dataStore: LoginDataStore,private val room: UserDatabase) {
 
     val isLogin: Flow<Boolean> = dataStore.getPreferenceFlow(DataStoreKey.IS_LOGIN)
@@ -39,14 +38,22 @@ class LoginRepository(private val dataStore: LoginDataStore,private val room: Us
         return  room.userDao.getAvailableId(userId).map { asBool(it) }
     }
 
-    fun asBool(resultInt: Int):Boolean{
+    private fun asBool(resultInt: Int):Boolean{
       return  when(resultInt){
             1 -> true
             else -> false
         }
     }
 
+    suspend fun validUser(user :UserAccount) :Boolean = withContext(Dispatchers.IO){
+        asBool(room.userDao.countExistedUser(user.id,user.pw))
+    }
+
+
+
+
 
 
 
 }
+
