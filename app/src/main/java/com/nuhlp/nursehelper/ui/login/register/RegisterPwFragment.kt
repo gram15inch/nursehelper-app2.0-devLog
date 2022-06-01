@@ -11,7 +11,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.nuhlp.nursehelper.R
 import com.nuhlp.nursehelper.utill.base.BaseViewBindingFragment
 import com.nuhlp.nursehelper.databinding.FragmentRegisterPwBinding
-import com.nuhlp.nursehelper.ui.login.LoginViewModel
+import com.nuhlp.nursehelper.viewmodel.LoginViewModel
 
 
 class RegisterPwFragment : BaseViewBindingFragment<FragmentRegisterPwBinding>() {

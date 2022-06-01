@@ -11,7 +11,7 @@
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout-w936dp/activity_login.xml" value="0.20546875" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/activity_login_acitity.xml" value="0.12604166666666666" />
-        <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/activity_main.xml" value="0.27395833333333336" />
+        <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_base.xml" value="0.27395833333333336" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_home.xml" value="0.4109375" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_login.xml" value="0.4" />
@@ -22,6 +22,7 @@
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_register_pw.xml" value="0.4" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_register_term_detail.xml" value="0.4" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_register_terms.xml" value="0.4" />
+        <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/menu/bottom_app_bar.xml" value="0.1" />
       </map>
     </option>
   </component>

@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.nuhlp.nursehelper.R
 import com.nuhlp.nursehelper.databinding.ActivityMainBinding
 import com.nuhlp.nursehelper.ui.login.LoginActivity
+import com.nuhlp.nursehelper.viewmodel.MainViewModel
 
 
 class MainActivity : AppCompatActivity() {

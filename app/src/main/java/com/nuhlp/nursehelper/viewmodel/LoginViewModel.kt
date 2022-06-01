@@ -1,4 +1,4 @@
-package com.nuhlp.nursehelper.ui.login
+package com.nuhlp.nursehelper.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*

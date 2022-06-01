@@ -56,5 +56,9 @@
     <string name="edit_text_hint_retry_anather_id">다른 ID를 입력해주세요</string>
     <string name="user_create_btn">새 계정 생성</string>
     <string name="wrongUser">\"아이디 혹은 비밀번호가 잘못되었습니다.\"</string>
+    <string name="search">검색</string>
+    <string name="content_description_search">검색설명</string>
+    <string name="more">더보기</string>
+    <string name="content_description_more">더보기 설명</string>
 
 </resources>
