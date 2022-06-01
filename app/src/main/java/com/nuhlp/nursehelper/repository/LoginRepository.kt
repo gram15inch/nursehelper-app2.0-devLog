@@ -38,15 +38,15 @@ class LoginRepository(private val dataStore: LoginDataStore,private val room: Us
         return  room.userDao.getAvailableId(userId).map { asBool(it) }
     }
 
+    suspend fun validUser(user :UserAccount) :Boolean = withContext(Dispatchers.IO){
+        asBool(room.userDao.countExistedUser(user.id,user.pw))
+    }
+
     private fun asBool(resultInt: Int):Boolean{
-      return  when(resultInt){
+        return  when(resultInt){
             1 -> true
             else -> false
         }
-    }
-
-    suspend fun validUser(user :UserAccount) :Boolean = withContext(Dispatchers.IO){
-        asBool(room.userDao.countExistedUser(user.id,user.pw))
     }
 
 

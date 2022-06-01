@@ -80,7 +80,18 @@ class RoomTest {
             deleteAll()
             assertEquals(0, getAll().size)
         }
+    }
 
+    @Test
+    fun verifyLoginUser(){
+        room.userDao.apply {
+            assertEquals(countExistedUser(users[0].id,users[0].pw),0)
+
+            setUser(users[0])
+            assertEquals(countExistedUser(users[0].id,users[0].pw),1)
+            assertEquals(countExistedUser("noExistId",users[0].pw),0)
+            assertEquals(countExistedUser(users[0].id,"noExistPw"),0)
+        }
     }
 
     // 헬퍼메소드
