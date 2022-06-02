@@ -22,7 +22,10 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="128dp"
+        tools:layout_editor_absoluteY="-237dp">
+
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"
             style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
@@ -30,14 +33,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:menu="@menu/bottom_app_bar"
-            app:navigationIcon="@drawable/ic_menu_24" />
+            app:navigationIcon="@drawable/ic_menu_24"
+            app:fabCradleMargin="0dp"
+            app:fabCradleRoundedCornerRadius="0dp"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_add_24"
             app:layout_anchor="@id/bottomAppBar"
-            />
+            app:srcCompat="@drawable/ic_add_24" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
