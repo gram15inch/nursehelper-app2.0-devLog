@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+
     <group
         android:id="@+id/group1"
         android:checkableBehavior="single">
@@ -17,7 +21,7 @@
             android:icon="@drawable/icon_search"
             android:title="@string/search"/>
     </group>
-    <group
+ <!--   <group
         android:id="@+id/group2"
         android:checkableBehavior="single">
         <item
@@ -36,5 +40,6 @@
 
             </menu>
         </item>
-    </group>
+    </group>-->
+
 </menu>
