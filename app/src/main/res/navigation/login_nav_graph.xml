@@ -14,6 +14,7 @@
             android:id="@+id/action_loginFragment_to_registerTermsFragment"
             app:destination="@id/registerTermsFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/registerTermsFragment"
         android:name="com.nuhlp.nursehelper.ui.login.register.RegisterTermsFragment"

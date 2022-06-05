@@ -18,7 +18,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.nuhlp.nursehelper.R
 import com.nuhlp.nursehelper.databinding.ActivityMainBinding
 import com.nuhlp.nursehelper.ui.login.LoginActivity
-import com.nuhlp.nursehelper.viewmodel.MainViewModel
 
 
 class MainActivity : AppCompatActivity() {
@@ -74,17 +73,18 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
-        appBarBottomDrawer.bottomAppBar.setOnClickListener {
-            true
-        }
+
         navHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
+
         appBarConfiguration = AppBarConfiguration(
-              setOf(
-                  R.id.item1, R.id.item2, R.id.item3
-              ), mainLayout
-          )
-        //appBarConfiguration = AppBarConfiguration(navController.graph)
+            setOf(
+                R.id.homeFragment, R.id.documentFragment), mainLayout
+        )
+      /*  appBarConfiguration = AppBarConfiguration(
+             navController.graph, mainLayout
+        )*/
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }

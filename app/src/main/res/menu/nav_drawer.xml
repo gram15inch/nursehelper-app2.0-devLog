@@ -8,18 +8,20 @@
         android:id="@+id/group1"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/item1"
+            android:id="@+id/homeFragment"
             android:icon="@drawable/icon_search"
-            android:title="@string/search"
-            android:checked="true" />
+            android:title="home"
+             />
+<!--        android:checked="true"-->
+
         <item
-            android:id="@+id/item2"
-            android:icon="@drawable/icon_search"
-            android:title="@string/search"/>
-        <item
+            android:id="@+id/documentFragment"
+            android:icon="@drawable/ic_add_24"
+            android:title="document"/>
+      <!--  <item
             android:id="@+id/item3"
             android:icon="@drawable/icon_search"
-            android:title="@string/search"/>
+            android:title="@string/search"/>-->
     </group>
  <!--   <group
         android:id="@+id/group2"

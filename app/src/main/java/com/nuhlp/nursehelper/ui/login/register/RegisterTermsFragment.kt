@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.nuhlp.nursehelper.R
 
 import com.nuhlp.nursehelper.databinding.FragmentRegisterTermsBinding
-import com.nuhlp.nursehelper.viewmodel.LoginViewModel
+import com.nuhlp.nursehelper.ui.login.LoginViewModel
 import com.nuhlp.nursehelper.ui.login.Term
 
 

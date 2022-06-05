@@ -1,4 +1,4 @@
-package com.nuhlp.nursehelper.ui.main
+package com.nuhlp.nursehelper.ui.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

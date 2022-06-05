@@ -7,7 +7,12 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.nuhlp.nursehelper.ui.main.HomeFragment"
+        android:name="com.nuhlp.nursehelper.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/documentFragment"
+        android:name="com.nuhlp.nursehelper.ui.document.DocumentFragment"
+        android:label="fragment_document"
+        tools:layout="@layout/fragment_document" />
 </navigation>

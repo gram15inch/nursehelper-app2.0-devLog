@@ -21,11 +21,9 @@
         app:fabCradleRoundedCornerRadius="0dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:fabAlignmentMode="center"
-        app:menu="@menu/nav_drawer"
-        />
-
-
+        app:fabAlignmentMode="center" />
+    <!--app:menu="@menu/nav_drawer"
+-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/appBarFloatingActionButton"
         android:layout_width="wrap_content"
