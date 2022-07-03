@@ -1,4 +1,4 @@
-package com.nuhlp.nursehelper.data.room
+package com.nuhlp.nursehelper.data.room.user
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +13,7 @@ interface UserDao {
     // crud
 
     @Query("select * from UserAccount where id =:userId")
-    fun getUser(userId: String):UserAccount
+    fun getUser(userId: String): UserAccount
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun setUser(user: UserAccount)

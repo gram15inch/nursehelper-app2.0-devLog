@@ -1,11 +1,7 @@
-package com.nuhlp.nursehelper.data.room
+package com.nuhlp.nursehelper.data.room.user
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.room.*
-import kotlinx.coroutines.flow.Flow
-
-
 
 
 @Database(entities = [UserAccount::class], version =1)

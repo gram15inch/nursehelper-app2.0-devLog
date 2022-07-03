@@ -1,11 +1,9 @@
 package com.nuhlp.nursehelper.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import com.nuhlp.nursehelper.data.datastore.DataStoreKey
 import com.nuhlp.nursehelper.data.datastore.LoginDataStore
-import com.nuhlp.nursehelper.data.room.UserAccount
-import com.nuhlp.nursehelper.data.room.UserDatabase
+import com.nuhlp.nursehelper.data.room.user.UserAccount
+import com.nuhlp.nursehelper.data.room.user.UserDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -38,7 +36,7 @@ class LoginRepository(private val dataStore: LoginDataStore,private val room: Us
         return  room.userDao.getAvailableId(userId).map { asBool(it) }
     }
 
-    suspend fun validUser(user :UserAccount) :Boolean = withContext(Dispatchers.IO){
+    suspend fun validUser(user : UserAccount) :Boolean = withContext(Dispatchers.IO){
         asBool(room.userDao.countExistedUser(user.id,user.pw))
     }
 

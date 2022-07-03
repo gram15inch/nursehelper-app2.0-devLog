@@ -5,18 +5,15 @@ package com.nuhlp.nursehelper
 
 import com.nuhlp.nursehelper.data.datastore.DataStoreKey
 import com.nuhlp.nursehelper.data.datastore.LoginDataStore
-import com.nuhlp.nursehelper.data.room.UserAccount
-import com.nuhlp.nursehelper.data.room.UserDao
-import com.nuhlp.nursehelper.data.room.UserDatabase
+import com.nuhlp.nursehelper.data.room.user.UserAccount
+import com.nuhlp.nursehelper.data.room.user.UserDao
+import com.nuhlp.nursehelper.data.room.user.UserDatabase
 import com.nuhlp.nursehelper.repository.LoginRepository
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.withContext
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -49,7 +46,8 @@ class LoginRepositoryTest {
             UserAccount( "user2", "pw2", "20220102"),
             UserAccount( "user3", "pw3", "20220103"),
             UserAccount( "user4", "pw4", "20220104"),
-            UserAccount( "user5", "pw5", "20220104"))
+            UserAccount( "user5", "pw5", "20220104")
+                )
 
         `when`(mockDataStore.getPreferenceFlow(DataStoreKey.IS_LOGIN)).thenReturn(flow { emit(true) }) // 의미없는 flow
         `when`(mockDataStore.getPreferenceFlow(DataStoreKey.IS_AGREE_TERMS)).thenReturn(flow { emit(true) })

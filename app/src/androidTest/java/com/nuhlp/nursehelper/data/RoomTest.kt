@@ -1,22 +1,14 @@
 package com.nuhlp.nursehelper.data
 
 import android.content.Context
-import android.util.Log
-import androidx.lifecycle.asLiveData
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.nuhlp.nursehelper.data.datastore.DataStoreKey
-import com.nuhlp.nursehelper.data.datastore.LoginDataStore
-import com.nuhlp.nursehelper.data.room.UserAccount
-import com.nuhlp.nursehelper.data.room.UserDatabase
-import com.nuhlp.nursehelper.data.room.getUserDatabase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
+import com.nuhlp.nursehelper.data.room.user.UserAccount
+import com.nuhlp.nursehelper.data.room.user.UserDatabase
+import com.nuhlp.nursehelper.data.room.user.getUserDatabase
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -40,7 +32,8 @@ class RoomTest {
             UserAccount( "user2", "pw2", "20220102"),
             UserAccount( "user3", "pw3", "20220103"),
             UserAccount( "user4", "pw4", "20220104"),
-            UserAccount( "user5", "pw5", "20220104"))
+            UserAccount( "user5", "pw5", "20220104")
+        )
 
         room.userDao.deleteAll()
 

@@ -3,7 +3,7 @@ package com.nuhlp.nursehelper.ui.main
 import android.app.Application
 import androidx.lifecycle.*
 import com.nuhlp.nursehelper.data.LoginDataStoreImpl
-import com.nuhlp.nursehelper.data.room.getUserDatabase
+import com.nuhlp.nursehelper.data.room.user.getUserDatabase
 import com.nuhlp.nursehelper.repository.LoginRepository
 import kotlinx.coroutines.launch
 

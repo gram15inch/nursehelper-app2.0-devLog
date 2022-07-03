@@ -1,4 +1,4 @@
-package com.nuhlp.nursehelper.data.room
+package com.nuhlp.nursehelper.data.room.user
 
 import android.annotation.SuppressLint
 import androidx.room.Entity
@@ -7,9 +7,7 @@ import androidx.room.PrimaryKey
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * DatabaseVideo represents a video entity in the database.
- */
+
 @Entity
 data class UserAccount constructor(
     @PrimaryKey
