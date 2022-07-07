@@ -28,7 +28,8 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
     @Override
     override fun onCreateViewAfterBinding() {
-
+        binding.viewModel = _homeViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
     }
 
 

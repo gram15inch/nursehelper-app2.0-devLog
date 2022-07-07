@@ -11,14 +11,15 @@ data class Document constructor(
     val docNo: Int, // * document no
     val patNo: Int,  // * patient no
     val tmpNo: Int, // * template no 문서 종류 ex) 경과기록지, 가정간호 동의서... domain 에 정의
-    val contents: String, // json
+    val contentsJs: String, // json
 ) {
+
 }
 @Entity
 data class Patient constructor(
     @PrimaryKey(autoGenerate = true)
     val patNo: Int,  // * patient no
-    val adrNo : Int, // * address no (요양원)
+    val adrJs : String, // * address (요양원) (json)
     val name: String,
     val rrn: String, // * Resident Registration Number (주민등록번호)
     val gender: String

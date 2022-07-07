@@ -8,7 +8,7 @@ package com.nuhlp.nursehelper.domain
 - 가정간호 종결 요약지 (여러줄텍스트, 텍스트, 체크박스)
 - 가정간호 경과 기록지 (여러줄텍스트)
 
- - CONSENT TO HOME CARE (HUMAN MATTERS, GUARDIAN'S SIGNATURE)
+- CONSENT TO HOME CARE (HUMAN MATTERS, GUARDIAN'S SIGNATURE)
 - CONSENT TO COLLECT AND USE PERSONAL INFORMATION (SIGNATURE OF GUARDIAN)
 - HOME CARE REQUEST FORM (TEXT, CHECK BOX)
 - HOME NURSING PATIENT SELECTION / CLASSIFICATION FORM (CHECK BOX)
@@ -24,4 +24,8 @@ enum class Template(private val tpNo:Int) {
     HOME_CARE_TERMINATION_SUMMARY_FORM(4),
     HOME_NURSING_PROGRESS_REPORT(5);
     fun no() = tpNo
+}
+// todo 컨텐츠를 JSON으로 바꾸는 방법 학습
+data class DATA_HOME_NURSING_PROGRESS_REPORT(val progressContents : String){
+    val template = Template.HOME_NURSING_PROGRESS_REPORT
 }

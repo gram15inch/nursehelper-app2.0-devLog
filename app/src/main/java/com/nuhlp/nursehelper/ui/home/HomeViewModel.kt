@@ -2,6 +2,7 @@ package com.nuhlp.nursehelper.ui.home
 
 import android.app.Application
 import androidx.lifecycle.*
+import androidx.recyclerview.widget.RecyclerView
 import com.nuhlp.nursehelper.data.room.app.getAppDatabase
 import com.nuhlp.nursehelper.repository.AppRepository
 
@@ -9,13 +10,11 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
     private val appRepository = AppRepository(
         getAppDatabase(application)
     )
+        val count = MutableLiveData(0)
 
-/*
-    val isLogin : LiveData<Boolean> = loginRepository.isLogin.asLiveData()
-    val isAgreeTerm : LiveData<Boolean> = loginRepository.isAgreeTerms.asLiveData()
-*/
-
-
+fun countUp(){
+    count.value = count.value!! + 1
+}
 
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
@@ -28,3 +27,5 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
         }
     }
 }
+
+
