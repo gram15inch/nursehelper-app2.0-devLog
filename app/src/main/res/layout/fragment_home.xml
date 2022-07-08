@@ -1,56 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
         <variable
             name="viewModel"
             type="com.nuhlp.nursehelper.ui.home.HomeViewModel" />
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-
-    <TextView
-        android:id="@+id/textView2"
-        style="@style/fragmentText"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#88EAE1"
-        android:text="Home"
-        app:textAny="@{viewModel.count}"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:context=".ui.home.HomeFragment">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="305dp"
-        android:layout_height="76dp"
-        android:layout_marginEnd="244dp"
-        android:layout_marginBottom="324dp"
-        android:onClick="@{()-> viewModel.countUp()}"
-        android:textSize="24sp"
+        <TextView
+            android:id="@+id/textViewLive"
+            style="@style/fragmentText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#88EAE1"
+            android:text="Home"
+            app:textAny="@{viewModel.docLive}"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
 
-        app:layout_constraintBottom_toBottomOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <Button
+            android:id="@+id/button"
+            android:layout_width="305dp"
+            android:layout_height="76dp"
+            android:layout_marginEnd="244dp"
+            android:layout_marginBottom="324dp"
+            android:onClick="@{()-> viewModel.btnClick()}"
+            android:textSize="24sp"
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="301dp"
-        android:layout_height="90dp"
-        android:layout_marginBottom="24dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="34sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewLive"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintStart_toStartOf="@+id/button" />
+        <EditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="301dp"
+            android:layout_height="90dp"
+            android:layout_marginBottom="24dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="34sp"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintStart_toStartOf="@+id/button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

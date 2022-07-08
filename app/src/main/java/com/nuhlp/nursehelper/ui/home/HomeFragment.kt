@@ -26,6 +26,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
             .get(HomeViewModel::class.java)
     }
 
+
     @Override
     override fun onCreateViewAfterBinding() {
         binding.viewModel = _homeViewModel

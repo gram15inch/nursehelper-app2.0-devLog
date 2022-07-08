@@ -8,7 +8,7 @@ import java.lang.IllegalArgumentException
 
 
 object TemplateParser {
-    val moshi by lazy{  Moshi.Builder()
+    private val moshi by lazy{  Moshi.Builder()
         .addLast(KotlinJsonAdapterFactory())
         .build() }
    private val _DATA_HOME_NURSING_PROGRESS_REPORT

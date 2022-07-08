@@ -12,6 +12,7 @@ object BindingAdapters {
      * @param view 속성을 사용하는 view
      * @param isVisible visibility를 변경시키는 기준이 되는 값
      */
+
     @JvmStatic
     @BindingAdapter("textAny")
     fun setTextAny(view: View, text: Any) {

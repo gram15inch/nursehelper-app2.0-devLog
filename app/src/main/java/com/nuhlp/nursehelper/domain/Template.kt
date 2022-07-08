@@ -18,15 +18,18 @@ import com.squareup.moshi.JsonClass
 - HOME NURSING PROGRESS REPORT (MULTIPLE LINES OF TEXT)
 */
 
-enum class Template(private val tpNo:Int) {
-    CONSENT_TO_HOME_CARE(0),
-    CONSENT_TO_COLLECT_AND_USE_PERSONAL_INFORMATION(1),
-    HOME_CARE_REQUEST_FORM(2),
-    HOME_NURSING_PATIENT_SELECTION(3),
-    HOME_CARE_TERMINATION_SUMMARY_FORM(4),
-    HOME_NURSING_PROGRESS_REPORT(5);
-    fun no() = tpNo
+
+interface Template{
+    enum class Type(private val tpNo:Int) {
+        CONSENT_TO_HOME_CARE(0),
+        CONSENT_TO_COLLECT_AND_USE_PERSONAL_INFORMATION(1),
+        HOME_CARE_REQUEST_FORM(2),
+        HOME_NURSING_PATIENT_SELECTION(3),
+        HOME_CARE_TERMINATION_SUMMARY_FORM(4),
+        HOME_NURSING_PROGRESS_REPORT(5);
+        fun no() = tpNo
+    }
 }
 
 @JsonClass(generateAdapter = true)
-data class DATA_HOME_NURSING_PROGRESS_REPORT(val progressContents : String)
+data class DATA_HOME_NURSING_PROGRESS_REPORT(val progressContents : String) :Template
