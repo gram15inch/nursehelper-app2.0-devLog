@@ -1,5 +1,7 @@
 package com.nuhlp.nursehelper.domain
 
+import com.squareup.moshi.JsonClass
+
 /*
 - 가정간호 동의서 (인적사항,보호자 서명)
 - 개인정보 수집 및 이용 동의서(보호자 서명)
@@ -25,7 +27,6 @@ enum class Template(private val tpNo:Int) {
     HOME_NURSING_PROGRESS_REPORT(5);
     fun no() = tpNo
 }
-// todo 컨텐츠를 JSON으로 바꾸는 방법 학습
-data class DATA_HOME_NURSING_PROGRESS_REPORT(val progressContents : String){
-    val template = Template.HOME_NURSING_PROGRESS_REPORT
-}
+
+@JsonClass(generateAdapter = true)
+data class DATA_HOME_NURSING_PROGRESS_REPORT(val progressContents : String)
