@@ -3,6 +3,7 @@ package com.nuhlp.nursehelper.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
 import androidx.navigation.fragment.findNavController
 import com.nuhlp.nursehelper.ui.main.MainActivity
@@ -34,14 +36,16 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         isLogin = _loginViewModel.isLogin
         setListener()
-
         return binding.root
     }
+
+
 
     private fun setListener() = binding.apply {
 
         textViewFindLogin.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerTermsFragment)
+            _loginViewModel.propertyReset() // 임시 ( 백그라운드에서 작업시 오류)
         }
         btnContinueLogin.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {

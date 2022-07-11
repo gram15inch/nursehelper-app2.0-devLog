@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.*
 
 
-@Database(entities = [Document::class,Patient::class,Product::class,Stock::class], version =1)
+@Database(entities = [Document::class,Patient::class,Product::class,Stock::class], version =2)
 abstract class AppDatabase: RoomDatabase() {
     abstract val appDao: AppDao
 }

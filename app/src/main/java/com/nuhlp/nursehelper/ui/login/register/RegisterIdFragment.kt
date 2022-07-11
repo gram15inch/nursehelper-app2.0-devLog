@@ -3,6 +3,7 @@ package com.nuhlp.nursehelper.ui.login.register
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,10 +28,6 @@ class RegisterIdFragment : BaseViewBindingFragment<FragmentRegisterIdBinding>() 
         super.onViewCreated(view, savedInstanceState)
         setValueToView(binding)
         setListeners()
-        /*
-        * pw 작성시 유저생성
-        * 최종 생성  데이터 저장
-        * 로그인 구현 */
     }
 
     private fun setListeners()= binding.apply {
@@ -45,7 +42,9 @@ class RegisterIdFragment : BaseViewBindingFragment<FragmentRegisterIdBinding>() 
 
         btnContinueLogin.setOnClickListener {
             findNavController().navigate(R.id.action_registerIdFragment_to_registerPwFragment)
-            _loginViewModel.ID = binding.textViewIdRegist.text.toString()
+            _loginViewModel.ID.value = binding.textViewIdRegist.text.toString()
+            Log.d("LoginViewModel","model ID = ${_loginViewModel.ID} ui ID ${binding.textViewIdRegist.text.toString()}")
+            Log.d("LoginViewModel","model: ${_loginViewModel}")
         }
 
 

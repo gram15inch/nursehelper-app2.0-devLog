@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Document constructor(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     val docNo: Int, // * document no
     val patNo: Int,  // * patient no
     val tmpNo: Int, // * template no 문서 종류 ex) 경과기록지, 가정간호 동의서... domain 에 정의

@@ -9,6 +9,8 @@
             type="com.nuhlp.nursehelper.ui.home.HomeViewModel" />
     </data>
 
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,7 +23,9 @@
             android:layout_height="match_parent"
             android:background="#88EAE1"
             android:text="Home"
-            app:textAny="@{viewModel.docLive}"
+
+            app:listToText="@{viewModel.docLive}"
+
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp" />
 

@@ -1,9 +1,14 @@
 package com.nuhlp.nursehelper.data.room.app
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AppDao {
+
+
+    @Query("select * from Document")
+    fun getAllDocFlowList(): Flow<List<Document>>
 
 
     // CRUD

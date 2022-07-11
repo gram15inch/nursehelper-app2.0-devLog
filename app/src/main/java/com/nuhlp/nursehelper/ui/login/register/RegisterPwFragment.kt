@@ -1,6 +1,7 @@
 package com.nuhlp.nursehelper.ui.login.register
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,8 +44,9 @@ class RegisterPwFragment : BaseViewBindingFragment<FragmentRegisterPwBinding>() 
                 {
                     if(isMatchingPw()){
                         layout.error = null
-                        _loginViewModel.PW = text.toString()
+                        _loginViewModel.PW.value = text.toString()
                         btnContinueLogin.isEnabled =true
+                        Log.d("LoginViewModel","model ID = ${_loginViewModel.ID} PW: ${_loginViewModel.PW}")
                     }else
                         textLayoutPwCheck.error = "PW가 일치하지 않습니다"
                 }
@@ -54,11 +56,10 @@ class RegisterPwFragment : BaseViewBindingFragment<FragmentRegisterPwBinding>() 
         }
 
         btnContinueLogin.setOnClickListener {
-
             _loginViewModel.apply {
                 setUser()
-                propertyReset()
             }
+
             findNavController().navigate(R.id.action_registerPwFragment_to_loginFragment)
         }
     }

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/drawable/backgrounds.xml" value="0.1655" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/drawable/ic_banner_foreground.xml" value="0.1655" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1655" />
@@ -22,7 +23,7 @@
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_base.xml" value="0.27395833333333336" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_document.xml" value="0.4109375" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_gallery.xml" value="0.3725" />
-        <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_home.xml" value="0.4109375" />
+        <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_home.xml" value="0.39543726235741444" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_login.xml" value="0.4" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_regist.xml" value="0.264" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/layout/fragment_register2.xml" value="0.27395833333333336" />
@@ -41,6 +42,9 @@
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/menu/nav_drawer.xml" value="0.6" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/menu/navigation_drawer.xml" value="0.4" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/menu/option_menu_drawer.xml" value="0.4109375" />
+        <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/mipmap-anydpi-v26/ic_banner.xml" value="0.1" />
+        <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
       </map>
     </option>
   </component>

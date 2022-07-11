@@ -17,6 +17,7 @@ data class UserAccount constructor(
 ) {
 
     fun isValid():Boolean = (id !="" && pw != "" && registrationDate !="")
+
     @SuppressLint("SimpleDateFormat")
     companion object{
        fun asFormattedDate(date: Calendar): String =  SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date.time)

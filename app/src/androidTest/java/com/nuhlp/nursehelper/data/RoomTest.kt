@@ -34,7 +34,6 @@ class RoomTest {
             UserAccount( "user4", "pw4", "20220104"),
             UserAccount( "user5", "pw5", "20220104")
         )
-
         room.userDao.deleteAll()
 
     }

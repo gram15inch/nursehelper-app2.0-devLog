@@ -1,6 +1,7 @@
 package com.nuhlp.nursehelper.ui.login
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.nuhlp.nursehelper.data.LoginDataStoreImpl
 import com.nuhlp.nursehelper.data.room.user.UserAccount
@@ -8,6 +9,7 @@ import com.nuhlp.nursehelper.data.room.user.getUserDatabase
 import com.nuhlp.nursehelper.repository.LoginRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.util.*
@@ -19,8 +21,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application){
     val isLogin : LiveData<Boolean> = loginRepository.isLogin.asLiveData()
     val isAgreeTerm : LiveData<Boolean> = loginRepository.isAgreeTerms.asLiveData()
 
-    var ID=""
-    var PW=""
+    var ID=MutableLiveData("")
+    var PW=MutableLiveData("")
 
     fun loginSuccess(){
         viewModelScope.launch{
@@ -41,9 +43,14 @@ class LoginViewModel(application: Application) : AndroidViewModel(application){
     fun getAvailableId(userId :String): Flow<Boolean> = loginRepository.getAvailableId(userId)
 
    fun setUser()= CoroutineScope(Dispatchers.IO).launch {
-       val user = createUser(ID,PW)
-       if(user.isValid())
+       Log.d("LoginViewModel","call setUser")
+       val user = createUser(ID.value!!,PW.value!!)
+       Log.d("LoginViewModel","create user : ${user}")
+
+       if(user.isValid()){
            loginRepository.setUserToDatabase(user)
+           //propertyReset()
+       }
        else
            throw java.lang.IllegalArgumentException("user not Valid :${user.id}/${user.pw}/${user.registrationDate}")
     }
@@ -55,8 +62,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application){
 
 
     fun propertyReset(){
-        ID = ""
-        PW = ""
+        ID.value = ""
+        PW.value = ""
     }
 
     suspend fun validUser(id: String, pw: String): Boolean {

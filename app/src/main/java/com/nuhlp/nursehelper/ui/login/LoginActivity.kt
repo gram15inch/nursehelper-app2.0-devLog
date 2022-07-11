@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
@@ -29,9 +30,18 @@ class LoginActivity : AppCompatActivity() {
             .findFragmentById(R.id.login_nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         setContentView(_binding.root)
+
+        setObserver()
     }
 
-
+    private fun setObserver() {
+        _loginViewModel.ID.observe(this){
+            Log.d("LoginViewModel","$it")
+        }
+        _loginViewModel.PW.observe(this){
+            Log.d("LoginViewModel","$it")
+        }
+    }
 
 
 
