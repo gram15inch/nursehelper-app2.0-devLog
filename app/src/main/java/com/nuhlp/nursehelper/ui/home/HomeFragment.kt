@@ -2,6 +2,7 @@ package com.nuhlp.nursehelper.ui.home
 
 import android.app.Application
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,10 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
     override fun onCreateViewAfterBinding() {
         binding.viewModel = _homeViewModel
         binding.lifecycleOwner = viewLifecycleOwner
+       /* _homeViewModel.docLive.observe(this){
+            if(it.isNotEmpty())
+                _homeViewModel.docLiveT.value = it.last()
+        }*/
     }
 
 

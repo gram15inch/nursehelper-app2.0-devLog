@@ -7,6 +7,7 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import org.w3c.dom.Document
 
 object BindingAdapters {
@@ -19,11 +20,19 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("textAny")
-    fun setTextAny(view: View, text: Any) {
+    fun setTextAny(view: View, text: Any?) {
         if(view is TextView)
-            view.text  ="$text"
-    } // todo flow 로 바꾼 list 튕기지 않고 출력
-    // todo room 에서 말고 mutable로 생성하면 튕기지않음
+            view.text  ="${text?:"?"}"
+    }
+    @JvmStatic
+    @BindingAdapter("textList")
+    fun setTextList(view: View, live: MutableLiveData<Document?>) {
+        if(view is TextView)
+            live.observe(view.findViewTreeLifecycleOwner()!!){
+                view.text  ="${live.value?:"?"}"
+            }
+
+    }
 
 
 }

@@ -7,6 +7,7 @@
         <variable
             name="viewModel"
             type="com.nuhlp.nursehelper.ui.home.HomeViewModel" />
+
     </data>
 
 
@@ -23,8 +24,7 @@
             android:layout_height="match_parent"
             android:background="#88EAE1"
             android:text="Home"
-
-            app:listToText="@{viewModel.docLive}"
+            app:textList="@{viewModel.docLiveT}"
 
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp" />
