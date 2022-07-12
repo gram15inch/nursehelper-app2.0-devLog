@@ -13,22 +13,13 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class HomeViewModel (application: Application) : AndroidViewModel(application) {
+    init { CoroutineScope(Dispatchers.IO).launch{  } } // todo 전체삭제
+
     private val appRepository = AppRepository(getAppDatabase(application))
-    private val dummy = Document(0,0,0,"dummy0")
     var docLive = appRepository.docList.asLiveData()
-    var docLiveT = MutableLiveData<Document?>()
-    init {
-        CoroutineScope(Dispatchers.IO).launch{
-            appRepository.deleteAll()
-        }
-    }
+
     fun setDoc(doc:Document) = CoroutineScope(Dispatchers.IO).launch{
         appRepository.setDocument(doc)
-    }
-    var countT = 0
-    fun btnClick(){
-        setDoc(Document(countT,0,0,"doc$countT"))
-        countT++
     }
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
@@ -41,8 +32,12 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
         }
     }
     // ** test 용 **
-    val count = MutableLiveData(0)
-    val countList = MutableLiveData(listOf(0,1,2,3))
+
+    private var countT = 0
+    fun btnClick(){
+        setDoc(Document(countT,0,0,"20220101","doc$countT"))
+        countT++
+    }
 
 
 }

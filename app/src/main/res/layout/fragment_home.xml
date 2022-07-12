@@ -7,7 +7,9 @@
         <variable
             name="viewModel"
             type="com.nuhlp.nursehelper.ui.home.HomeViewModel" />
-
+        <variable
+            name="live"
+            type="androidx.lifecycle.LiveData" />
     </data>
 
 
@@ -17,6 +19,22 @@
         android:layout_height="match_parent"
         tools:context=".ui.home.HomeFragment">
 
+        <com.nuhlp.nursehelper.utill.component.IndexRecyclerView
+            android:id="@+id/index_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="72dp"
+            android:background="#FFD6D6"
+            android:elevation="3dp"
+            android:overScrollMode="never"
+            android:paddingStart="60dp"
+            android:paddingTop="60dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="5dp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="24dp" />
+
         <TextView
             android:id="@+id/textViewLive"
             style="@style/fragmentText"
@@ -24,8 +42,7 @@
             android:layout_height="match_parent"
             android:background="#88EAE1"
             android:text="Home"
-            app:textList="@{viewModel.docLiveT}"
-
+            app:textLive="@{viewModel.docLive}"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp" />
 

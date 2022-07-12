@@ -1,6 +1,7 @@
 package com.nuhlp.nursehelper.utill.useapp
 
 
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -21,18 +22,24 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("textAny")
     fun setTextAny(view: View, text: Any?) {
-        if(view is TextView)
-            view.text  ="${text?:"?"}"
+        if (view is TextView)
+            view.text = "${text ?: "?"}"
     }
+
     @JvmStatic
-    @BindingAdapter("textList")
-    fun setTextList(view: View, live: MutableLiveData<Document?>) {
-        if(view is TextView)
-            live.observe(view.findViewTreeLifecycleOwner()!!){
-                view.text  ="${live.value?:"?"}"
+    @BindingAdapter("textLive")
+    fun setTextLive(view: View, live: LiveData<*>) {
+
+        if (view is TextView)
+            (live as LiveData<List<Document>>).apply {
+                view.text  ="${this.value}"
             }
 
+
+
     }
 
 
-}
+    }
+
+

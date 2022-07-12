@@ -31,12 +31,12 @@ class AppDataBaseTest {
         context = InstrumentationRegistry.getInstrumentation().targetContext
         AppDB = getAppDatabase(context, "testApp")
         docs = listOf(
-            Document( 0, 0, 0," 0s contents"),
-            Document( 1, 0, 1," 0s contents"),
-            Document( 2, 1, 0," 1s contents"),
-            Document( 3, 1, 1," 1s contents"),
-            Document( 4, 2, 0," 2s contents"),
-            Document( 5, 2, 1," 2s contents"),
+            Document( 0, 0, 0,"20220101"," 0s contents"),
+            Document( 1, 0, 1,"20220101"," 0s contents"),
+            Document( 2, 1, 0,"20220101"," 1s contents"),
+            Document( 3, 1, 1,"20220101"," 1s contents"),
+            Document( 4, 2, 0,"20220101"," 2s contents"),
+            Document( 5, 2, 1,"20220101"," 2s contents"),
         )
         AppDB.appDao.deleteAll()
 
@@ -51,7 +51,7 @@ class AppDataBaseTest {
             docs[1].same(getDoc(docs[1].docNo))
             setDoc(docs[2])
             docs[2].same(getDoc(docs[2].docNo))
-          Assert.assertEquals(null, getDoc(docs[3].patNo))
+          Assert.assertEquals(null, getDoc(docs[3].docNo))
         }
     }
 
@@ -64,7 +64,7 @@ class AppDataBaseTest {
             docs[0].same(getDoc(docs[0].docNo))
             docs[1].same(getDoc(docs[1].docNo))
 
-            val upDoc1 = Document(1,0,3,"0s contents")
+            val upDoc1 = Document(1,0,3,"20220101","0s contents")
             updateDoc(upDoc1)
             upDoc1.same(getDoc(upDoc1.docNo))
             deleteDoc(upDoc1)

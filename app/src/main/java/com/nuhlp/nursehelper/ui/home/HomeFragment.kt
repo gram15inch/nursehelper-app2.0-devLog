@@ -32,6 +32,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
     override fun onCreateViewAfterBinding() {
         binding.viewModel = _homeViewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.live = _homeViewModel.docLive
        /* _homeViewModel.docLive.observe(this){
             if(it.isNotEmpty())
                 _homeViewModel.docLiveT.value = it.last()
