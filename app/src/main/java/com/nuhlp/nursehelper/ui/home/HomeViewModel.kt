@@ -31,8 +31,9 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
     }
-    // ** test 용 **
 
+
+    // ** test 용 **
     private var countT = 0
     fun btnClick(){
         setDoc(Document(countT,0,0,"20220101","doc$countT"))

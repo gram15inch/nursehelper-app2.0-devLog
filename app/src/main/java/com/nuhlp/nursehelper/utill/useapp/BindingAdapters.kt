@@ -28,18 +28,14 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("textLive")
-    fun setTextLive(view: View, live: LiveData<*>) {
+    fun setTextLive(view: TextView, live: LiveData<*>) {
 
-        if (view is TextView)
-            (live as LiveData<List<Document>>).apply {
-                view.text  ="${this.value}"
-            }
-
-
-
+        (live as LiveData<List<Document>>).apply {
+            view.text  ="${this.value}"
+        }
     }
 
 
-    }
+}
 
 

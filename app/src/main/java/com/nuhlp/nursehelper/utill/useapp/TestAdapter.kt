@@ -9,8 +9,8 @@ import com.nuhlp.nursehelper.data.room.app.Document
 import com.nuhlp.nursehelper.databinding.ItemHolderDocumentBinding
 
 
-class DocListAdapter (private val onItemClicked: (Document) -> Unit) :
-    ListAdapter<Document, DocListAdapter.ItemViewHolder>(DiffCallback){
+class TestAdapter :
+    ListAdapter<Document, TestAdapter.ItemViewHolder>(DiffCallback){
 
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<Document>() {
@@ -19,37 +19,32 @@ class DocListAdapter (private val onItemClicked: (Document) -> Unit) :
             }
 
             override fun areContentsTheSame(oldDoc: Document, newDoc: Document): Boolean {
-                return (oldDoc.docNo == newDoc.docNo)
-                        && (oldDoc.patNo == newDoc.patNo)
-                        && (oldDoc.tmpNo == newDoc.tmpNo)
-                        && (oldDoc.crtDate == newDoc.crtDate)
-                        && (oldDoc.contentsJs == newDoc.contentsJs)
+                /*   return (oldDoc.docNo == newDoc.docNo)
+                           && (oldDoc.patNo == newDoc.patNo)
+                           && (oldDoc.tmpNo == newDoc.tmpNo)
+                           && (oldDoc.crtDate == newDoc.crtDate)
+                           && (oldDoc.contentsJs == newDoc.contentsJs)*/
+                return oldDoc == newDoc
             }
         }
     }
 
     class ItemViewHolder(private var binding: ItemHolderDocumentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(doc: Document) {
-            binding.apply {
-                title.text = doc.docNo.toString()
-                content.text = doc.crtDate
-            }
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(
-            ItemHolderDocumentBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            ItemHolderDocumentBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val current = getItem(position)
-        holder.itemView.setOnClickListener {
-            onItemClicked(current)
-        }
-        holder.bind(current)
+
     }
 }
