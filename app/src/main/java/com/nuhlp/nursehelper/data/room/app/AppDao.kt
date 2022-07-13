@@ -2,6 +2,7 @@ package com.nuhlp.nursehelper.data.room.app
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.selects.select
 
 @Dao
 interface AppDao {
@@ -10,6 +11,8 @@ interface AppDao {
     @Query("select * from Document")
     fun getAllDocFlowList(): Flow<List<Document>>
 
+/*    @Query("select crtDate group by  from Document")
+    fun getMonth():Flow<List<Int>>*/
 
     // CRUD
     @Query("select * from Document where docNo =:documentNo")
