@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 
 class AppRepository(private val AppDB: AppDatabase) {
     val docList = AppDB.appDao.getAllDocFlowList()
-
+    val monthList = AppDB.appDao.getCountMFlow("2022%")
     suspend fun getDocument(docNo: Int) :Document = withContext(Dispatchers.IO) {
         AppDB.appDao.getDoc(docNo)
     }

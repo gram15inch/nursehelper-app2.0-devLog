@@ -2,7 +2,6 @@ package com.nuhlp.nursehelper.data.room.app
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.selects.select
 
 @Dao
 interface AppDao {
@@ -11,8 +10,16 @@ interface AppDao {
     @Query("select * from Document")
     fun getAllDocFlowList(): Flow<List<Document>>
 
-/*    @Query("select crtDate group by  from Document")
-    fun getMonth():Flow<List<Int>>*/
+    @Query("SELECT strftime('%m',crtDate) data , count(*) as count from document where crtDate like :year group by data")
+    fun getCountM(year:String): List<DataCount>
+    @Query("SELECT strftime('%m',crtDate) data , count(*) as count from document where crtDate like :year group by data")
+    fun getCountMFlow(year:String): Flow<List<DataCount>>
+
+    @Query("SELECT strftime(:expr,crtDate) data , count(*) as count from document where crtDate like :year group by data")
+    fun getCountYM(expr:String, year: String): List<DataCount>
+    @Query("SELECT strftime('%m',crtDate) data , count(*) as count from document where crtDate like :year group by data")
+    fun getCountYMFlow(expr:String, year: String): Flow<List<DataCount>>
+
 
     // CRUD
     @Query("select * from Document where docNo =:documentNo")

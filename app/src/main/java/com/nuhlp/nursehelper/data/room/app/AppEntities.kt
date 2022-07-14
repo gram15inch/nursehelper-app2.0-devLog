@@ -52,6 +52,11 @@ data class Product constructor(
 
 }
 
+@Entity
+data class DataCount(
+    val data :String,
+    val count :Int
+)
 
 
 

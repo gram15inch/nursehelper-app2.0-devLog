@@ -42,6 +42,13 @@ class IndexRecyclerView  @JvmOverloads constructor(
         liveIndexV.onDraw(c)
     }
 
+    fun updateItem(list:List<Int>,isHorizontal: Boolean){
+        if(isHorizontal)
+            liveIndexH.updateItem(list)
+        else
+            liveIndexV.updateItem(list)
+    }
+
     fun getLiveData(isHorizontal:Boolean):LiveData<Int>{
         return if(isHorizontal)
             liveIndexH.unit

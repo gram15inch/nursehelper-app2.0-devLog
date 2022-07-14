@@ -1,14 +1,19 @@
 package com.nuhlp.nursehelper.ui.home
 
+import androidx.core.view.forEachIndexed
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nuhlp.nursehelper.R
+import com.nuhlp.nursehelper.data.room.app.DataCount
 import com.nuhlp.nursehelper.data.room.app.Document
 import com.nuhlp.nursehelper.databinding.FragmentHomeBinding
 import com.nuhlp.nursehelper.utill.base.BaseDataBindingFragment
 import com.nuhlp.nursehelper.utill.useapp.MarginItemDecoration
 import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
 import com.nuhlp.nursehelper.utill.useapp.TestAdapter
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
@@ -43,13 +48,22 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
         // ** data **
         _homeViewModel.docLive.observe(this@HomeFragment){ _liveAdapter.submitList(it) }
-
+        _homeViewModel.monthLive.observe(this@HomeFragment){
+            binding.indexRecyclerView.updateItem(dataToIndex(it),false) }
+        
         // ** deco **
         val mid =  MarginItemDecoration(5)
         addItemDecoration(mid)
         itemAnimator = null
     }
 
+    private fun dataToIndex(dataList: List<DataCount>):List<Int> {
+        val list = mutableListOf<Int>()
+        
+        //todo 잘해봐
+        
+        return list
+    }
 
 
     // todo **** Test ****

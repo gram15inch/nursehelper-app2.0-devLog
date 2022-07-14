@@ -20,16 +20,14 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
 
     private val appRepository = AppRepository(getAppDatabase(application))
     var docLive = appRepository.docList.asLiveData()
-    val indexLiveH = MutableLiveData<List<Int>>()
-    val indexLiveV = MutableLiveData<List<Int>>()
+    var monthLive = appRepository.monthList.asLiveData()
+
 
     fun setDoc(doc:Document) = CoroutineScope(Dispatchers.IO).launch{
         appRepository.setDocument(doc)
     }
 
-    fun setIndex(){
-        // todo indexLive 업데이트
-    }
+
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -40,7 +38,6 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
     }
-
 
     // todo **** test ****
     private var countT = 0

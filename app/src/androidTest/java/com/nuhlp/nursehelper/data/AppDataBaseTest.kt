@@ -1,18 +1,15 @@
 package com.nuhlp.nursehelper.data
 
 import android.content.Context
+import android.icu.util.Calendar
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.nuhlp.nursehelper.data.room.app.AppDatabase
 import com.nuhlp.nursehelper.data.room.app.Document
 import com.nuhlp.nursehelper.data.room.app.getAppDatabase
-import com.nuhlp.nursehelper.data.room.user.UserAccount
-import com.nuhlp.nursehelper.data.room.user.UserDatabase
-import com.nuhlp.nursehelper.data.room.user.getUserDatabase
-import kotlinx.coroutines.flow.first
+import com.nuhlp.nursehelper.utill.useapp.AppTime
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher
-import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -74,19 +71,34 @@ class AppDataBaseTest {
             docs[2].same(getDoc(2))
 
         }
-
     }
 
-    /*@Test
-    fun checkId(){
-        room.userDao.apply {
-            setUser(users[0])
-            runTest(dispatcher){
-                Assert.assertEquals(1,getAvailableId(users[0].id).first())
-                Assert.assertEquals(0,getAvailableId(users[1].id).first())
+    @Test
+    fun countYM(){
+        AppDB.appDao.apply {
+            roomDummy.forEach {
+                setDoc(it)
             }
         }
-    }*/
+        AppDB.appDao.getCountM("2022%").apply { println("ym: ${this[0]}")
+            Assert.assertEquals("01", this[0].data)
+            Assert.assertEquals(31, this[0].count)
+        }
+    }
+    @Test
+    fun countYM2(){
+        AppDB.appDao.apply {
+            roomDummy.forEach {
+                setDoc(it)
+            }
+        }
+        val year=2022
+        AppDB.appDao.getCountYM("$year-%m","$year%").apply { println("ym: ${this[0]}")
+            Assert.assertEquals("2022-01", this[0].data)
+            Assert.assertEquals(31, this[0].count)
+        }
+    }
+
 
 
     // 헬퍼 메소드
@@ -95,5 +107,20 @@ class AppDataBaseTest {
         Assert.assertEquals(doc.patNo, this.patNo)
         Assert.assertEquals(doc.tmpNo, this.tmpNo)
         Assert.assertEquals(doc.contentsJs, this.contentsJs)
+    }
+
+    private val roomDummy :List<Document> by lazy{
+        val list = mutableListOf<Document>()
+        val time = Calendar.getInstance()
+        time.set(Calendar.YEAR,2021)
+        time.set(Calendar.MONTH,11)
+        time.set(Calendar.DAY_OF_MONTH,25)
+
+        repeat(90){
+            val t= AppTime.SDF.format(time.time)
+            list.add(Document(it,0,0,t,t))
+            time.add(Calendar.DAY_OF_MONTH,1)
+        }
+        list.toList()
     }
 }
