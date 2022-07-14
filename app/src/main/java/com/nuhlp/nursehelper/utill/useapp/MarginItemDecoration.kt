@@ -14,9 +14,12 @@ class MarginItemDecoration(val margin:Int) : RecyclerView.ItemDecoration() {
     ) {
      //   super.getItemOffsets(outRect, view, parent, state)
     val position = parent.getChildLayoutPosition(view)
+        val count = parent.childCount
         outRect.left = margin
         outRect.top = margin
         outRect.bottom  = margin
+
+
 
     }
 }

@@ -17,13 +17,16 @@ interface AppDao {
 
     @Query("SELECT strftime(:expr,crtDate) data , count(*) as count from document where crtDate like :year group by data")
     fun getCountYM(expr:String, year: String): List<DataCount>
-    @Query("SELECT strftime('%m',crtDate) data , count(*) as count from document where crtDate like :year group by data")
+    @Query("SELECT strftime(:expr,crtDate) data , count(*) as count from document where crtDate like :year group by data")
     fun getCountYMFlow(expr:String, year: String): Flow<List<DataCount>>
 
 
     // CRUD
     @Query("select * from Document where docNo =:documentNo")
     fun getDoc(documentNo: Int):Document
+    @Query("select * from Document where crtDate like :yearMonth")
+    fun getDoc(yearMonth: String):List<Document>
+
     @Query ("select * from Product where prdNo =:productNo")
     fun getPd(productNo: Int):Product
     @Query("select * from Patient where patNo =:patientNo")

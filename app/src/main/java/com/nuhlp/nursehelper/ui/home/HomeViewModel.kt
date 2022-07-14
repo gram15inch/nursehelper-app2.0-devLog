@@ -27,7 +27,7 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
         appRepository.setDocument(doc)
     }
 
-
+  suspend fun getDocWithM(m:String):List<Document>{ return appRepository.getDocWithM(m) }
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

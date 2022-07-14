@@ -20,8 +20,8 @@ class IndexRecyclerView  @JvmOverloads constructor(
 
     init{
         liveIndexV.isHorizontal = false
-        liveIndexH.updateItem(createItem(1))
-        liveIndexV.updateItem(createItem(121))
+  /*      liveIndexH.updateItem(createItem(1))
+        liveIndexV.updateItem(createItem(121))*/
         background = context.resources.getDrawable(R.drawable.bg_rect_round_2)
     }
 
@@ -42,14 +42,14 @@ class IndexRecyclerView  @JvmOverloads constructor(
         liveIndexV.onDraw(c)
     }
 
-    fun updateItem(list:List<Int>,isHorizontal: Boolean){
+    fun updateIndex(list:List<Int>, isHorizontal: Boolean){
         if(isHorizontal)
             liveIndexH.updateItem(list)
         else
             liveIndexV.updateItem(list)
     }
 
-    fun getLiveData(isHorizontal:Boolean):LiveData<Int>{
+    fun getPickIndexLive(isHorizontal:Boolean):LiveData<Int>{
         return if(isHorizontal)
             liveIndexH.unit
         else
