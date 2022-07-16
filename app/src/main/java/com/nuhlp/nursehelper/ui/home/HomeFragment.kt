@@ -48,17 +48,20 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         // ** data **
         _homeViewModel.apply {
             monthLive.observe(this@HomeFragment){
-                binding.indexRecyclerView.updateIndex(dataToIndex(it),false) } }
+                binding.indexRecyclerView.updateIndex(countToIndex(it),false) }
+        }
+
         binding.indexRecyclerView.apply{
-            getPickIndexLive(false).observe(this@HomeFragment){pick->
-                CoroutineScope(Dispatchers.IO).launch{
-                    _homeViewModel.getDocWithM(String.format("%02d",pick)).apply {
-                        _liveAdapter.submitList(this)
-                        binding.indexRecyclerView.updateIndex(docToIndex(this),true) } }
-            }
-            getPickIndexLive(true).observe(this@HomeFragment){pick->
-                (layoutManager as LinearLayoutManager).scrollToPositionWithOffset(pick,0)
-            }
+                getPickIndexLive(false).observe(this@HomeFragment){pick->
+                    CoroutineScope(Dispatchers.IO).launch{
+                        _homeViewModel.getDocWithM(String.format("%02d",pick)).apply {
+                            _liveAdapter.submitList(this)
+                            binding.indexRecyclerView.updateIndex(docToIndex(this),true) } }
+                }
+
+                getPickIndexLive(true).observe(this@HomeFragment){pick->
+                    (layoutManager as LinearLayoutManager).scrollToPositionWithOffset(pick,0)
+                }
         }
 
 
@@ -67,11 +70,11 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         addItemDecoration(mid)
         itemAnimator = null
 
-        // todo test
+        /* test */
         CoroutineScope(Dispatchers.IO).launch {
            _liveAdapter.submitList(_homeViewModel.getDocWithM(String.format("%02d", 1)))
         }
-        //todo 초기 업데이트시 인덱스 가려지는 문제 해결
+
     }
 
     private fun docToIndex(docList: List<Document>): List<Int> {
@@ -86,7 +89,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         return list
     }
 
-    private fun dataToIndex(dataList: List<DataCount>):List<Int> {
+    private fun countToIndex(dataList: List<DataCount>):List<Int> {
         val list = mutableListOf<Int>()
         dataList.forEach { dc ->
             dc.data.toInt().apply { if(this!=0) list.add(this) } }
@@ -94,7 +97,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
     }
 
 
-    // todo **** Test ****
+     /* **** Test **** */
     fun dummy(size:Int):List<Document>{
         val list = mutableListOf<Document>()
         repeat(size){

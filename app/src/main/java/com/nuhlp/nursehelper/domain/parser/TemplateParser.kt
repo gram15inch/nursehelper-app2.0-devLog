@@ -19,7 +19,7 @@ object TemplateParser {
             DATA_HOME_NURSING_PROGRESS_REPORT::class.java -> _DATA_HOME_NURSING_PROGRESS_REPORT
             else -> { println("e: $ct");throw  IllegalArgumentException()
             }
-        }// todo 이것으로 테스트 코드 작성 + 맥락 이해
+        }
     }
 
     fun<T> fromJson(json:String,ct:Class<T>):T{

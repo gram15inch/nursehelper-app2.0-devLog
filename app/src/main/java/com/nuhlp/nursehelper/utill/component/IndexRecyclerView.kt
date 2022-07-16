@@ -10,7 +10,7 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.nuhlp.nursehelper.R
 
-
+// 0 hi hello
 class IndexRecyclerView  @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null,
 ) : RecyclerView(context, attrs) {

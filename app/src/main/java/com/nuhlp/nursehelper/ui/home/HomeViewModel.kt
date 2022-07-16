@@ -39,7 +39,7 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // todo **** test ****
+   /* **** test **** */
     private var countT = 0
     fun btnClick(){
         //setDoc(Document(countT,0,0,"2022010$countT","doc$countT"))

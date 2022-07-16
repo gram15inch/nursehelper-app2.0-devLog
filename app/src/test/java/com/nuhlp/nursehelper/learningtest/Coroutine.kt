@@ -41,7 +41,7 @@ class Coroutine {
 
 
 
-    /* todo [헬퍼 클래스,메소드]*/
+    /* [헬퍼 클래스,메소드] */
     interface People{
         fun showPeoPle()
         fun hidePeoPle()

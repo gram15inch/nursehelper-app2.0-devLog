@@ -27,7 +27,7 @@ class Mockito {
     }
 
 
-    /* todo [verify] */
+    // ! [verify]
     @Test // 호출횟수 테스트
     fun verifyTimesTest(){
         people.showPeoPle()
@@ -77,7 +77,7 @@ class Mockito {
 
 
 
-   /* todo [헬퍼 클래스,메소드]*/
+   /* [헬퍼 클래스,메소드]*/
 
        interface People{
            fun showPeoPle()
@@ -107,7 +107,7 @@ class Mockito {
 
 
 
-    /*todo [공식문서 테스트]*/
+    /*[공식문서 테스트]*/
     suspend fun fetchData(): String {
         delay(1000L)
         return "Hello world"
@@ -134,7 +134,7 @@ class Mockito {
 
 
 
-    /* todo [앱 테스트] */
+    /*  [앱 테스트] */
     @Mock
     lateinit var testMock : TestDataStore
     @Test

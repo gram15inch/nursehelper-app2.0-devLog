@@ -124,7 +124,7 @@ abstract class typeable {
     abstract val adapter :JsonAdapter<*>
     //abstract fun toJson():String
 
-    // todo json 에 있는 데이터를 외부 참조없이 data class 로 변경하기
+    //  json 에 있는 데이터를 외부 참조없이 data class 로 변경하기
     // json -> datClass (adapter.formJson)
     // dataClass -> json  (adapter.toJson)
     // 어답터 채택기 ( json 혹은 dataclass 의 타입 속성을 확인하여 어답터 채택) - 채택후 반환타입을 변경할 수 없어 안됨
