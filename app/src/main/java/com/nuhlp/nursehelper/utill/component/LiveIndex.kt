@@ -32,6 +32,8 @@ class LiveIndex {
         parentPaddingLeft = recyclerView.paddingLeft.toFloat()
         parentPaddingTop = recyclerView.paddingTop.toFloat()
     }
+    //todo 실제 문서를 리스트로 리클라이어뷰 업데이트 (인덱스,어답터 동기화)
+    //todo 한글 인덱스 리클라이어뷰 생성
 
 
     // * state *

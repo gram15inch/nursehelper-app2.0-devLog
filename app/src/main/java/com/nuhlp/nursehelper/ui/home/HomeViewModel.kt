@@ -18,16 +18,17 @@ import java.util.*
 
 class HomeViewModel (application: Application) : AndroidViewModel(application) {
 
+    var STATE_FIRST = true
     private val appRepository = AppRepository(getAppDatabase(application))
     var docLive = appRepository.docList.asLiveData()
-    var monthLive = appRepository.monthList.asLiveData()
-
+    var dayOfMonthCountLive = appRepository.monthList.asLiveData()
+    var dayOfMonthDocument = MutableLiveData<List<Document>>()
 
     fun setDoc(doc:Document) = CoroutineScope(Dispatchers.IO).launch{
         appRepository.setDocument(doc)
     }
 
-  suspend fun getDocWithM(m:String):List<Document>{ return appRepository.getDocWithM(m) }
+  suspend fun getDocInMonth(m:Int):List<Document>{ return appRepository.getDocWithM(String.format("%02d",m) ) }
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

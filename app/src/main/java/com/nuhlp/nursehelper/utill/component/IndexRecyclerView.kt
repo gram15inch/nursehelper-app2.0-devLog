@@ -47,6 +47,7 @@ class IndexRecyclerView  @JvmOverloads constructor(
             liveIndexH.updateItem(list)
         else
             liveIndexV.updateItem(list)
+        invalidate()
     }
 
     fun getPickIndexLive(isHorizontal:Boolean):LiveData<Int>{
