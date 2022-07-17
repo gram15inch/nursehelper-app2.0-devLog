@@ -10,6 +10,7 @@ import com.nuhlp.nursehelper.utill.base.BaseDataBindingFragment
 import com.nuhlp.nursehelper.utill.useapp.AppTime
 import com.nuhlp.nursehelper.utill.useapp.MarginItemDecoration
 import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,10 +20,14 @@ import java.util.*
 class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
     override var layoutResourceId = R.layout.fragment_home
-    private lateinit var _liveAdapter :DocListAdapter
-    private val _homeViewModel : HomeViewModel by lazy {
-        ViewModelProvider(this, HomeViewModel.Factory(activity?.application?: throw IllegalAccessException("no exist activity")) )
-            .get(HomeViewModel::class.java)
+    private lateinit var _liveAdapter: DocListAdapter
+    private val _homeViewModel: HomeViewModel by lazy {
+        ViewModelProvider(
+            this,
+            HomeViewModel.Factory(
+                activity?.application ?: throw IllegalAccessException("no exist activity")
+            )
+        ).get(HomeViewModel::class.java)
     }
 
 
@@ -35,73 +40,58 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
     }
 
 
-
-    private fun setRecyclerView() =binding.indexRecyclerView.apply {
+    private fun setRecyclerView() = binding.indexRecyclerView.apply {
         // ** layoutManager **
-        layoutManager = LinearLayoutManager(this@HomeFragment.context,
-            LinearLayoutManager.HORIZONTAL,false)
+        layoutManager = LinearLayoutManager(
+            this@HomeFragment.context,
+            LinearLayoutManager.HORIZONTAL, false
+        )
 
         // ** Adapter **
-        _liveAdapter = DocListAdapter{}
+        _liveAdapter = DocListAdapter {}
         adapter = _liveAdapter
-
-        // ** data **
-
-        _homeViewModel.dayOfMonthCountLive.observe(this@HomeFragment){dc->
-                countToIndex(dc).apply {
-                    if (_homeViewModel.STATE_FIRST) {
-                        recyclerViewInit(this.last()) // todo 이동 시키기
-                        _homeViewModel.STATE_FIRST = false
-                    } else{
-                        binding.indexRecyclerView.let{
-                            it.updateIndex(this,false)
-                            getPickIndexLive(false).observe(this@HomeFragment){pick->
-                                CoroutineScope(Dispatchers.IO).launch{
-                                    _homeViewModel.getDocInMonth(pick).apply {
-                                        this.updateRecyclerView(isHorizontal = true)
-                                    }
-                                }
-                            }
-                        }
-
-                }
-            }
-
-                getPickIndexLive(true).observe(this@HomeFragment){pick->
-                    (layoutManager as LinearLayoutManager).scrollToPositionWithOffset(pick,0)
-                }
-        }
-
 
         // ** deco **
         val mid =  MarginItemDecoration(7)
         addItemDecoration(mid)
         itemAnimator = null
 
-        /* test */
-        /*CoroutineScope(Dispatchers.IO).launch {
-           _liveAdapter.submitList(_homeViewModel.getDocInMonth(String.format("%02d", 1)))
-        }*/
-
-    }
-
-    private fun recyclerViewInit(pick: Int) {
-        CoroutineScope(Dispatchers.IO).launch {
-            _homeViewModel.getDocInMonth(pick).apply {
-                this.updateRecyclerView(isHorizontal = true)
-                this.updateRecyclerView(isHorizontal = false)
+        // ** data **
+        _homeViewModel.dayOfMonthCountLive.observe(this@HomeFragment) { dc ->
+            countToIndex(dc).let { list ->
+                binding.indexRecyclerView.updateIndex(list, false)
+                if(_homeViewModel.STATE_FIRST) {
+                    recyclerViewPick(list.last(),false)
+                    _homeViewModel.STATE_FIRST = false
+                }
             }
         }
+
+        binding.indexRecyclerView.let{
+            getPickIndexLive(true).observe(this@HomeFragment) { pickH ->
+                recyclerViewPick(pickH,true)
+            }
+            getPickIndexLive(false).observe(this@HomeFragment){ pickV->
+                recyclerViewPick(pickV,false)
+            }
+        }
+
     }
 
-    private fun List<Document>.updateRecyclerView(isHorizontal: Boolean) {
-        {   if (isHorizontal) docToIndex(this)
-            else countToIndex(_homeViewModel.dayOfMonthCountLive.value?:
-                throw IllegalAccessError("[HomeFragment call] count no exist!!"))
-        }.apply{
-            binding.indexRecyclerView.updateIndex(this.invoke() , isHorizontal)
-            _liveAdapter.submitList(this@updateRecyclerView)
-        }
+    private fun recyclerViewPick(pick: Int, isHorizontal:Boolean) {
+        if(isHorizontal)
+            (index_recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(pick,0)
+        else
+            CoroutineScope(Dispatchers.IO).launch {
+                _homeViewModel.getDocInMonth(pick).apply {
+                    this.updateAdapter()
+                }
+            }
+    }
+
+    private fun List<Document>.updateAdapter() {
+        binding.indexRecyclerView.updateIndex(docToIndex(this), true)
+        _liveAdapter.submitList(this@updateAdapter)
     }
 
     private fun docToIndex(docList: List<Document>): List<Int> {

@@ -10,7 +10,6 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.nuhlp.nursehelper.R
 
-// 0 hi hello
 class IndexRecyclerView  @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null,
 ) : RecyclerView(context, attrs) {
@@ -20,12 +19,8 @@ class IndexRecyclerView  @JvmOverloads constructor(
 
     init{
         liveIndexV.isHorizontal = false
-  /*      liveIndexH.updateItem(createItem(1))
-        liveIndexV.updateItem(createItem(121))*/
         background = context.resources.getDrawable(R.drawable.bg_rect_round_2)
     }
-
-    // * state *
 
     override fun onTouchEvent(e: MotionEvent?): Boolean {
        if(liveIndexH.onTouchEvent(e)||liveIndexV.onTouchEvent(e)){

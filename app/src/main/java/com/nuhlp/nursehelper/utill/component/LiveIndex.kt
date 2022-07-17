@@ -9,6 +9,10 @@ import androidx.lifecycle.MutableLiveData
 import com.nuhlp.nursehelper.R
 
 
+//todo 1. 인덱스 글자 파라미터로 받기
+//todo 2. 인덱스 글자 크기 비례 픽커 생성
+//todo 3. 익덱스 글자 크기 별 위치 조정
+//todo * 동시에 인덱스 글자종류에 의존하면 안됨
 class LiveIndex {
     // * constructor *
     val context :Context
@@ -134,9 +138,9 @@ class LiveIndex {
         if(isHorizontal)
             drawHorizontal(canvas)
         else
-            drawVertical(canvas)
-    }
+        drawVertical(canvas)
 
+    }
     fun updateItem(list: List<Int>) {
         itemList = list
 
