@@ -23,6 +23,7 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
     var docLive = appRepository.docList.asLiveData()
     var dayOfMonthCountLive = appRepository.monthList.asLiveData()
     var dayOfMonthDocument = MutableLiveData<List<Document>>()
+    var patientNoLive = MutableLiveData<Int>()
 
     fun setDoc(doc:Document) = CoroutineScope(Dispatchers.IO).launch{
         appRepository.setDocument(doc)

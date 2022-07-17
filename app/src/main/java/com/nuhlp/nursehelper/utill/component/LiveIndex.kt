@@ -8,7 +8,9 @@ import android.view.MotionEvent
 import androidx.lifecycle.MutableLiveData
 import com.nuhlp.nursehelper.R
 
-
+// todo db에 환자 2명 각각 문서 300개 주입
+// todo db no 자동증가로 변경
+// todo 데이터 적을때 나는 오류 해결
 //todo 0. 인덱스가 글자종류에 의존하면 안됨
 //todo 1. 인덱스 글자 파라미터로 받기
 //todo 2. 인덱스 글자 크기 비례 픽커 생성

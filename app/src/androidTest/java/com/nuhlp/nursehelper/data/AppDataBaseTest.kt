@@ -21,7 +21,7 @@ class AppDataBaseTest {
     lateinit var AppDB: AppDatabase
     lateinit var context: Context
     lateinit var docs: List<Document>
-
+//nuhlpDB
     @Before
     fun setUp() {
         dispatcher = StandardTestDispatcher()
@@ -36,7 +36,6 @@ class AppDataBaseTest {
             Document( 5, 2, 1,"20220101"," 2s contents"),
         )
         AppDB.appDao.deleteAll()
-
     }
 
     @Test
