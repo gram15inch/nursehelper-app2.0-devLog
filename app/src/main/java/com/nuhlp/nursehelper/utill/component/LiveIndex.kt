@@ -9,10 +9,11 @@ import androidx.lifecycle.MutableLiveData
 import com.nuhlp.nursehelper.R
 
 
+//todo 0. 인덱스가 글자종류에 의존하면 안됨
 //todo 1. 인덱스 글자 파라미터로 받기
 //todo 2. 인덱스 글자 크기 비례 픽커 생성
 //todo 3. 익덱스 글자 크기 별 위치 조정
-//todo * 동시에 인덱스 글자종류에 의존하면 안됨
+
 class LiveIndex {
     // * constructor *
     val context :Context
@@ -26,6 +27,9 @@ class LiveIndex {
     val TAG = "LiveIndex"
     val pickIcH : Drawable
     val pickIcV : Drawable
+    val HANGUL_ARRAY = "ㄱ ㄴ ㄷ ㄹ ㅁ ㅂ ㅅ ㅇ ㅈ ㅊ ㅋ ㅌ ㅎ".split(" ").toTypedArray()
+    val NUMBER_ARRAY = "0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49".split(", ").toTypedArray()
+
 
     constructor(c: Context, rView: IndexRecyclerView)
     {
@@ -43,7 +47,7 @@ class LiveIndex {
     // * state *
     var isIndex = false
     var isHorizontal = true
-    var lastElement = 0
+    var lastElementIndex = 0
     var unit  = MutableLiveData<Int>()
     var itemList = listOf<Int>()
     lateinit var colors :Array<Boolean>
@@ -106,15 +110,16 @@ class LiveIndex {
                 }
 
             }
+
             MotionEvent.ACTION_MOVE -> {
                 if (isIndex) {
-                    colors?.set(lastElement,false)
-                    val curElement = getElement(e.x,e.y)
-                    colors?.set(curElement,true)
-                    if(isHorizontal)
-                        unit.value = curElement // ** index 접근
-                    lastElement = curElement
 
+                    colors?.set(lastElementIndex,false)
+                    val curElementIndex = getElementIndexByEvent(e.x,e.y)
+                    colors?.set(curElementIndex,true)
+                    if(isHorizontal)
+                        unit.value = getElementByIndex(curElementIndex) // ** index 접근
+                    lastElementIndex = curElementIndex
 
                     return true // move 는 반드시 false 반환
                 }
@@ -122,15 +127,18 @@ class LiveIndex {
             MotionEvent.ACTION_UP -> {
                 if (isIndex) {
                     isIndex = false
-
-                    colors?.set(lastElement,false)
-                    unit.value = itemList[lastElement] // ** value 접근
+                    colors?.set(lastElementIndex,false)
+                    unit.value = itemList[lastElementIndex] // ** value 접근
                     return true
                 }
             }
         }
 
         return false
+    }
+
+    private fun getElementByIndex(index: Int): Int? {
+        return index
     }
 
     fun onDraw(canvas:Canvas?){
@@ -141,13 +149,12 @@ class LiveIndex {
         drawVertical(canvas)
 
     }
+
     fun updateItem(list: List<Int>) {
         itemList = list
-
         arrayInit()
         //invalidate()
     }
-
 
     private fun drawVertical(canvas: Canvas?) =canvas?.apply {
         val indexPaint = Paint().apply {
@@ -276,7 +283,7 @@ class LiveIndex {
     }
 
 
-    fun getElement(x: Float,y:Float) :Int {
+    private fun getElementIndexByEvent(x: Float, y:Float) :Int {
 
         if(isHorizontal) {
             val a= pos_x_element.filter { it > 0 }.indexOfLast { it < x }
@@ -287,7 +294,7 @@ class LiveIndex {
             if (a!=-1) return a
         }
 
-        return lastElement
+        return lastElementIndex
     }
 
     private fun printLog(str: Any) {
