@@ -50,7 +50,7 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
         }*/
         countT++
     }
-    fun deletAllDoc()=CoroutineScope(Dispatchers.IO).launch{
+    fun deleteAllDoc()=CoroutineScope(Dispatchers.IO).launch{
         appRepository.deleteAll()
     }
     private val roomDummy :List<Document> by lazy{
