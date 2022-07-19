@@ -61,8 +61,10 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
             countToIndex(dc).let { list ->
                 binding.indexRecyclerView.updateIndex(list, false)
                 if(_homeViewModel.STATE_FIRST) {
-                    recyclerViewPick(list.last(),false)
-                    _homeViewModel.STATE_FIRST = false
+                    if(list.isNotEmpty()) {
+                        recyclerViewPick(list.last(), false)
+                        _homeViewModel.STATE_FIRST = false
+                    }
                 }
             }
         }

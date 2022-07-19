@@ -6,26 +6,30 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AppDao {
 
+    //** 사용중 **
+    @Query("SELECT strftime('%m',crtDate) data , count(*) as count from document where patNo =:patientNo and crtDate like :year group by data")
+    fun getCountMFlow(year: String, patientNo: Int): Flow<List<DataCount>>
 
-    @Query("select * from Document")
-    fun getAllDocFlowList(): Flow<List<Document>>
+    @Query("select * from Document where patNo =:patientNo and crtDate like :yearMonth")
+    fun getDoc(yearMonth: String, patientNo: Int):List<Document>
 
-    @Query("SELECT strftime('%m',crtDate) data , count(*) as count from document where crtDate like :year group by data")
-    fun getCountM(year:String): List<DataCount>
-    @Query("SELECT strftime('%m',crtDate) data , count(*) as count from document where crtDate like :year group by data")
-    fun getCountMFlow(year:String): Flow<List<DataCount>>
+    //** 사용 안함 **
+    @Query("SELECT strftime('%m',crtDate) data , count(*) as count from document where patNo =:patientNo and crtDate like :year group by data")
+    fun getCountM(year: String, patientNo: Int): List<DataCount>
+    @Query("SELECT strftime(:expr,crtDate) data , count(*) as count from document where patNo =:patientNo and crtDate like :year group by data")
+    fun getCountYM(expr: String, year: String, patientNo: Int): List<DataCount>
+    @Query("SELECT strftime(:expr,crtDate) data , count(*) as count from document where patNo =:patientNo and crtDate like :year group by data")
+    fun getCountYMFlow(expr: String, year: String, patientNo: Int): Flow<List<DataCount>>
 
-    @Query("SELECT strftime(:expr,crtDate) data , count(*) as count from document where crtDate like :year group by data")
-    fun getCountYM(expr:String, year: String): List<DataCount>
-    @Query("SELECT strftime(:expr,crtDate) data , count(*) as count from document where crtDate like :year group by data")
-    fun getCountYMFlow(expr:String, year: String): Flow<List<DataCount>>
+
+    //** learning test **
+    @Query("SELECT *  from document where patNo =:patientNo ")
+    fun getAllFlow(patientNo: Int): Flow<List<Document>>
 
 
     // CRUD
-    @Query("select * from Document where docNo =:documentNo")
-    fun getDoc(documentNo: Int):Document
-    @Query("select * from Document where crtDate like :yearMonth")
-    fun getDoc(yearMonth: String):List<Document>
+    @Query("select * from Document where patNo =:patientNo and docNo =:documentNo")
+    fun getDoc(documentNo: Int, patientNo: Int):Document
 
     @Query ("select * from Product where prdNo =:productNo")
     fun getPd(productNo: Int):Product

@@ -3,12 +3,13 @@ package com.nuhlp.nursehelper.data.room.app
 import androidx.annotation.Nullable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 
 @Entity
 data class Document constructor(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     val docNo: Int, // * document no
     val patNo: Int,  // * patient no
     val tmpNo: Int, // * template no 문서 종류 ex) 경과기록지, 가정간호 동의서... domain 에 정의

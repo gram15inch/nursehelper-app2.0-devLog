@@ -20,7 +20,6 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
 
     var STATE_FIRST = true
     private val appRepository = AppRepository(getAppDatabase(application))
-    var docLive = appRepository.docList.asLiveData()
     var dayOfMonthCountLive = appRepository.monthList.asLiveData()
     var dayOfMonthDocument = MutableLiveData<List<Document>>()
     var patientNoLive = MutableLiveData<Int>()
@@ -44,11 +43,10 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
    /* **** test **** */
     private var countT = 0
     fun btnClick(){
-        //setDoc(Document(countT,0,0,"2022010$countT","doc$countT"))
-        /* roomDummy().forEach {
-             setDoc(it)
-        }*/
-        countT++
+        if(appRepository.pNo == 1)
+            appRepository.pNo = 0
+        else
+            appRepository.pNo = 1
     }
     fun deleteAllDoc()=CoroutineScope(Dispatchers.IO).launch{
         appRepository.deleteAll()

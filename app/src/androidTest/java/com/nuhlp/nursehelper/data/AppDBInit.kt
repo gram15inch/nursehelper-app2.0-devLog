@@ -58,9 +58,9 @@ class AppDBInit {
         time.set(Calendar.MONTH,0)
         time.set(Calendar.DAY_OF_MONTH,1)
 
-        repeat(365){
+        repeat(700){
             val t= AppTime.SDF.format(time.time)
-            list.add(Document(it+365,1,0,t,t))
+            list.add(Document(0,if(it<360) 0 else 1 ,0,t,t))
             time.add(Calendar.DAY_OF_MONTH,1)
         }
         list.toList()

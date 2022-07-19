@@ -34,7 +34,7 @@ class DocListAdapter (private val onItemClicked: (Document) -> Unit) :
         fun bind(doc: Document) {
             binding.apply {
                 title.text = doc.docNo.toString()
-                content.text = doc.crtDate
+                content.text = "${doc.crtDate}\n환자번호: ${doc.patNo}\n문서종류: ${doc.tmpNo}"
             }
         }
     }

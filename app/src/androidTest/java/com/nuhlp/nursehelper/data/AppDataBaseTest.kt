@@ -2,15 +2,26 @@ package com.nuhlp.nursehelper.data
 
 import android.content.Context
 import android.icu.util.Calendar
+import androidx.lifecycle.liveData
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.nuhlp.nursehelper.data.room.app.AppDatabase
 import com.nuhlp.nursehelper.data.room.app.Document
 import com.nuhlp.nursehelper.data.room.app.getAppDatabase
 import com.nuhlp.nursehelper.utill.useapp.AppTime
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -42,12 +53,12 @@ class AppDataBaseTest {
     fun setAndGetDocument() {
         AppDB.appDao.apply {
             setDoc(docs[0])
-            docs[0].same(getDoc(docs[0].docNo))
+            docs[0].same(getDoc(docs[0].docNo,0))
             setDoc(docs[1])
-            docs[1].same(getDoc(docs[1].docNo))
+            docs[1].same(getDoc(docs[1].docNo,0))
             setDoc(docs[2])
-            docs[2].same(getDoc(docs[2].docNo))
-          Assert.assertEquals(null, getDoc(docs[3].docNo))
+            docs[2].same(getDoc(docs[2].docNo,0))
+          Assert.assertEquals(null, getDoc(docs[3].docNo,0))
         }
     }
 
@@ -57,18 +68,17 @@ class AppDataBaseTest {
             setDoc(docs[0])
             setDoc(docs[1])
             setDoc(docs[2])
-            docs[0].same(getDoc(docs[0].docNo))
-            docs[1].same(getDoc(docs[1].docNo))
+            docs[0].same(getDoc(docs[0].docNo,0))
+            docs[1].same(getDoc(docs[1].docNo,0))
 
             val upDoc1 = Document(1,0,3,"20220101","0s contents")
             updateDoc(upDoc1)
-            upDoc1.same(getDoc(upDoc1.docNo))
+            upDoc1.same(getDoc(upDoc1.docNo,0))
             deleteDoc(upDoc1)
-            Assert.assertEquals(null, getDoc(upDoc1.docNo))
+            Assert.assertEquals(null, getDoc(upDoc1.docNo,0))
 
-            docs[0].same(getDoc(0))
-            docs[2].same(getDoc(2))
-
+            docs[0].same(getDoc(docs[0].docNo,0))
+            docs[1].same(getDoc(docs[1].docNo,2))
         }
     }
 
@@ -79,7 +89,7 @@ class AppDataBaseTest {
                 setDoc(it)
             }
         }
-        AppDB.appDao.getCountM("2022%").apply { println("ym: ${this[0]}")
+        AppDB.appDao.getCountM("2022%",0).apply { println("ym: ${this[0]}")
             Assert.assertEquals("01", this[0].data)
             Assert.assertEquals(31, this[0].count)
         }
@@ -92,10 +102,44 @@ class AppDataBaseTest {
             }
         }
         val year=2022
-        AppDB.appDao.getCountYM("$year-%m","$year%").apply { println("ym: ${this[0]}")
+        AppDB.appDao.getCountYM("$year-%m", "$year%",0).apply { println("ym: ${this[0]}")
             Assert.assertEquals("2022-01", this[0].data)
             Assert.assertEquals(31, this[0].count)
         }
+    }
+
+    @Test
+    fun flowParameterRuntimeChange(){
+        var pNo = 0
+        var live = AppDB.appDao.getAllFlow(pNo)
+        runTest(StandardTestDispatcher()) {
+            live.collect(){
+               // assertEquals(pNo,it?.get(0).patNo)
+                println("=============== ${live.first()}")
+            }
+        }
+        runTest(StandardTestDispatcher()) {
+            pNo =0
+            Thread.sleep(100)
+            pNo =1
+            Thread.sleep(100)
+        }
+    }
+    @Test
+    fun flowTest(){
+        var count = 0
+        fun flow1() = flow(){
+            repeat(3){
+                delay(1000)
+                emit(count)
+            }
+        }
+         runBlocking {
+            flow1().collect(){
+                assertEquals(count++,it)
+            }
+        }
+
     }
 
 
