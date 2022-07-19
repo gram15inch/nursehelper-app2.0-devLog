@@ -111,36 +111,16 @@ class AppDataBaseTest {
     @Test
     fun flowParameterRuntimeChange(){
         var pNo = 0
-        var live = AppDB.appDao.getAllFlow(pNo)
-        runTest(StandardTestDispatcher()) {
-            live.collect(){
-               // assertEquals(pNo,it?.get(0).patNo)
-                println("=============== ${live.first()}")
-            }
-        }
-        runTest(StandardTestDispatcher()) {
-            pNo =0
-            Thread.sleep(100)
-            pNo =1
-            Thread.sleep(100)
-        }
-    }
-    @Test
-    fun flowTest(){
-        var count = 0
-        fun flow1() = flow(){
-            repeat(3){
-                delay(1000)
-                emit(count)
-            }
-        }
-         runBlocking {
-            flow1().collect(){
-                assertEquals(count++,it)
+        fun flow() = AppDB.appDao.getAllFlow(pNo)
+
+        runBlocking() {
+            flow().collect(){
+                assertEquals(0,0)
             }
         }
 
     }
+
 
 
 

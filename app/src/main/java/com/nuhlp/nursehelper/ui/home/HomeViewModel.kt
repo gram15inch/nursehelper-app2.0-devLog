@@ -30,6 +30,12 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
 
   suspend fun getDocInMonth(m:Int):List<Document>{ return appRepository.getDocWithM(String.format("%02d",m) ) }
 
+
+    // test
+
+    fun test(){
+        // todo 환자번호 바꾸기 연결
+    }
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
