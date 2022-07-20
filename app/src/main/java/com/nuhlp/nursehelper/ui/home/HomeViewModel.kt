@@ -28,13 +28,14 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
         appRepository.setDocument(doc)
     }
 
-  suspend fun getDocInMonth(m:Int):List<Document>{ return appRepository.getDocWithM(String.format("%02d",m) ) }
+  fun getDocInMonth(m:Int):List<Document>{ return appRepository.getDocWithM(String.format("%02d",m) ) }
 
 
     // test
-
     fun test(){
         // todo 환자번호 바꾸기 연결
+        STATE_FIRST = true
+        appRepository.pNo = 1
     }
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -49,10 +50,7 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
    /* **** test **** */
     private var countT = 0
     fun btnClick(){
-        if(appRepository.pNo == 1)
-            appRepository.pNo = 0
-        else
-            appRepository.pNo = 1
+        test()
     }
     fun deleteAllDoc()=CoroutineScope(Dispatchers.IO).launch{
         appRepository.deleteAll()

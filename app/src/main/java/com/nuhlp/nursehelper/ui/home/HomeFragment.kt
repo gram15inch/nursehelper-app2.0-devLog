@@ -1,5 +1,6 @@
 package com.nuhlp.nursehelper.ui.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nuhlp.nursehelper.R
@@ -21,6 +22,9 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
     override var layoutResourceId = R.layout.fragment_home
     private lateinit var _liveAdapter: DocListAdapter
+    val ll = "HomeFragment"
+
+
     private val _homeViewModel: HomeViewModel by lazy {
         ViewModelProvider(
             this,
@@ -38,7 +42,6 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         testInit() // todo 완성시 삭제
         setRecyclerView()
     }
-
 
     private fun setRecyclerView() = binding.indexRecyclerView.apply {
         // ** layoutManager **
@@ -66,7 +69,8 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
                         _homeViewModel.STATE_FIRST = false
                     }
                 }
-            }
+            } //todo 업데이트 주체 바꾸기
+            Log.d(ll,"call count:$dc")
         }
 
         binding.indexRecyclerView.let{

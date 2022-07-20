@@ -3,6 +3,7 @@ package com.nuhlp.nursehelper.repository
 import com.nuhlp.nursehelper.data.room.app.AppDatabase
 import com.nuhlp.nursehelper.data.room.app.DataCount
 import com.nuhlp.nursehelper.data.room.app.Document
+import com.nuhlp.nursehelper.utill.useapp.AppProxy
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -15,8 +16,13 @@ class AppRepository(private val AppDB: AppDatabase) {
       return AppDB.appDao.getDoc("2022-$m%",pNo)
     }
 
-    fun createFlow(str :String , no :Int): Flow<List<DataCount>> {
-        return AppDB.appDao.getCountMFlow(str,pNo)
+    fun createCountFlow(): Flow<List<DataCount>> {
+        if(pNo == 1) pNo= 0 else pNo =1
+        return AppDB.appDao.getCountMFlow("2022%",pNo).apply {
+          AppProxy.coProxy(this)
+
+        }
+
     }
 
     suspend fun getDocument(docNo: Int) :Document = withContext(Dispatchers.IO) {
