@@ -13,6 +13,9 @@ interface AppDao {
     @Query("select * from Document where patNo =:patientNo and crtDate like :yearMonth")
     fun getDoc(yearMonth: String, patientNo: Int):List<Document>
 
+    // todo 옵저버 변경용
+    @Query("SELECT strftime('%m',crtDate) data , count(*) as count from document where patNo =:patientNo and crtDate like :year group by data")
+    fun getCountPerMonth(year: String, patientNo: Int): List<DataCount>
 
 
 

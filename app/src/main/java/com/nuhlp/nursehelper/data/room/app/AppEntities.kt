@@ -59,6 +59,13 @@ data class DataCount(
     val count :Int
 )
 
+fun List<DataCount>.toInt():List<Int>{
+    val list = mutableListOf<Int>()
+    this.forEach { dc ->
+        dc.data.toInt().apply { if(this!=0) list.add(this) } }
+    return list
+}
+
 
 
 

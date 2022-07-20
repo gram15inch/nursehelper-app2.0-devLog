@@ -16,13 +16,8 @@ class AppRepository(private val AppDB: AppDatabase) {
       return AppDB.appDao.getDoc("2022-$m%",pNo)
     }
 
-    fun createCountFlow(): Flow<List<DataCount>> {
-        if(pNo == 1) pNo= 0 else pNo =1
-        return AppDB.appDao.getCountMFlow("2022%",pNo).apply {
-          AppProxy.coProxy(this)
-
-        }
-
+    fun getDocCountPM(pNo:Int):List<DataCount>{
+        return AppDB.appDao.getCountPerMonth("2022%",pNo)
     }
 
     suspend fun getDocument(docNo: Int) :Document = withContext(Dispatchers.IO) {

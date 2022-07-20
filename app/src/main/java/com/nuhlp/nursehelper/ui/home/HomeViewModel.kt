@@ -8,6 +8,7 @@ import androidx.lifecycle.*
 import androidx.recyclerview.widget.RecyclerView
 import com.nuhlp.nursehelper.data.room.app.Document
 import com.nuhlp.nursehelper.data.room.app.getAppDatabase
+import com.nuhlp.nursehelper.data.room.app.toInt
 import com.nuhlp.nursehelper.repository.AppRepository
 import com.nuhlp.nursehelper.utill.useapp.AppTime
 import kotlinx.coroutines.CoroutineScope
@@ -20,22 +21,32 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
 
     var STATE_FIRST = true
     private val appRepository = AppRepository(getAppDatabase(application))
+
     var dayOfMonthCountLive = appRepository.monthList.asLiveData()
-    var dayOfMonthDocument = MutableLiveData<List<Document>>()
+
+    // todo 옵저버 주체 바꾸기위해 임시생성
     var patientNoLive = MutableLiveData<Int>()
+    fun getCountPerMonth(pNo:Int):List<Int>{
+        return appRepository.getDocCountPM(pNo).toInt()
+    }
 
     fun setDoc(doc:Document) = CoroutineScope(Dispatchers.IO).launch{
         appRepository.setDocument(doc)
     }
 
-  fun getDocInMonth(m:Int):List<Document>{ return appRepository.getDocWithM(String.format("%02d",m) ) }
 
+
+    fun getDocInMonth(m:Int):List<Document>{ return appRepository.getDocWithM(String.format("%02d",m) ) }
+
+    fun setPatientNo(no:Int){
+        patientNoLive.value = no
+    }
 
     // test
     fun test(){
         // todo 환자번호 바꾸기 연결
         STATE_FIRST = true
-        appRepository.pNo = 1
+
     }
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

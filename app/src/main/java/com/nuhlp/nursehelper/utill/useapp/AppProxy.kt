@@ -11,9 +11,14 @@ import org.w3c.dom.Document
 
 class AppProxy {
     companion object{
-        fun coProxy(co: Flow<List<DataCount>>){
+        fun coInList(co: Flow<List<DataCount>>){
             CoroutineScope(Dispatchers.IO).launch {
                 Log.d("HomeViewModel", co.first().toString())
+            }
+        }
+        fun coInLambda(ld:()->Unit){
+            CoroutineScope(Dispatchers.IO).launch {
+                ld.invoke()
             }
         }
     }

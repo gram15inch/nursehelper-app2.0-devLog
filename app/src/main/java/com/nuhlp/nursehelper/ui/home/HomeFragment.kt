@@ -8,6 +8,7 @@ import com.nuhlp.nursehelper.data.room.app.DataCount
 import com.nuhlp.nursehelper.data.room.app.Document
 import com.nuhlp.nursehelper.databinding.FragmentHomeBinding
 import com.nuhlp.nursehelper.utill.base.BaseDataBindingFragment
+import com.nuhlp.nursehelper.utill.useapp.AppProxy
 import com.nuhlp.nursehelper.utill.useapp.AppTime
 import com.nuhlp.nursehelper.utill.useapp.MarginItemDecoration
 import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
@@ -60,6 +61,16 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         itemAnimator = null
 
         // ** data **
+        _homeViewModel.patientNoLive.observe(this@HomeFragment){ pNo->
+            _homeViewModel.getCountPerMonth(pNo).let{ list->
+               Log.d(ll,list.toString())
+                if(list.isNotEmpty())
+                    index_recyclerView.updateIndex(list, false) }
+        }
+        _homeViewModel.setPatientNo(0)
+        // todo 메인에서 접근 백에서 접근 둘다오류 잡기
+
+        /*
         _homeViewModel.dayOfMonthCountLive.observe(this@HomeFragment) { dc ->
             countToIndex(dc).let { list ->
                 binding.indexRecyclerView.updateIndex(list, false)
@@ -69,10 +80,10 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
                         _homeViewModel.STATE_FIRST = false
                     }
                 }
-            } //todo 업데이트 주체 바꾸기
+            }
             Log.d(ll,"call count:$dc")
         }
-
+*/
         binding.indexRecyclerView.let{
             getPickIndexLive(true).observe(this@HomeFragment) { pickH ->
                 recyclerViewPick(pickH,true)
