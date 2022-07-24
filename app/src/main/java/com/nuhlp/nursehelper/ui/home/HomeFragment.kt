@@ -15,6 +15,7 @@ import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -62,13 +63,17 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
         // ** data **
         _homeViewModel.patientNoLive.observe(this@HomeFragment){ pNo->
-            _homeViewModel.getCountPerMonth(pNo).let{ list->
-               Log.d(ll,list.toString())
-                if(list.isNotEmpty())
-                    index_recyclerView.updateIndex(list, false) }
+
+            CoroutineScope(Dispatchers.IO).launch {
+                _homeViewModel.getCountPerMonth(pNo).let { list ->
+                    Log.d(ll, list.toString())
+                    if (list.isNotEmpty())
+                        index_recyclerView.updateIndex(list, false)
+                }
+            }
         }
         _homeViewModel.setPatientNo(0)
-        // todo 메인에서 접근 백에서 접근 둘다오류 잡기
+        // todo 어답터 업데이트
 
         /*
         _homeViewModel.dayOfMonthCountLive.observe(this@HomeFragment) { dc ->
@@ -84,6 +89,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
             Log.d(ll,"call count:$dc")
         }
 */
+
         binding.indexRecyclerView.let{
             getPickIndexLive(true).observe(this@HomeFragment) { pickH ->
                 recyclerViewPick(pickH,true)

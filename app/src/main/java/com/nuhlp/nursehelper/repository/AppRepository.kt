@@ -16,7 +16,7 @@ class AppRepository(private val AppDB: AppDatabase) {
       return AppDB.appDao.getDoc("2022-$m%",pNo)
     }
 
-    fun getDocCountPM(pNo:Int):List<DataCount>{
+   fun getDocCountPM(pNo:Int):List<DataCount>{
         return AppDB.appDao.getCountPerMonth("2022%",pNo)
     }
 
