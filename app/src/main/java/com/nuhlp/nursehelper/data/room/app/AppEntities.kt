@@ -66,7 +66,12 @@ fun List<DataCount>.toInt():List<Int>{
     return list
 }
 
+/*@Entity
+data class Address(
+)*/
 
-
-
-
+//todo today
+//todo 요양원 정보로 어떻게 지도에 표시할지
+//todo 요양원 정보를 어디까지 저장할지 (어떤정보가 필요한지)
+//todo 요양원 정보를 어디서 어떤화면에서 어떤 api로 입력받을지
+//todo 요양원 정보를 환자에 json / 테이블을 따로 만들어 저장할지

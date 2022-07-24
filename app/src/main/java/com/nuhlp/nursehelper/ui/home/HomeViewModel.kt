@@ -22,6 +22,7 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
     var STATE_FIRST = true
     private val appRepository = AppRepository(getAppDatabase(application))
 
+
     var dayOfMonthCountLive = appRepository.monthList.asLiveData()
 
     // todo 옵저버 주체 바꾸기위해 임시생성
@@ -35,18 +36,17 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
     }
 
 
-
     fun getDocInMonth(m:Int):List<Document>{ return appRepository.getDocWithM(String.format("%02d",m) ) }
 
     fun setPatientNo(no:Int){
         patientNoLive.value = no
+        appRepository.pNo = no
     }
 
     // test
     fun test(){
-        // todo 환자번호 바꾸기 연결
         STATE_FIRST = true
-
+        setPatientNo((patientNoLive.value!! + 1)%2)
     }
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

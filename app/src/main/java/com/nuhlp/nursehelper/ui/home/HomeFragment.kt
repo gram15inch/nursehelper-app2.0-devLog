@@ -63,17 +63,22 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
         // ** data **
         _homeViewModel.patientNoLive.observe(this@HomeFragment){ pNo->
-
             CoroutineScope(Dispatchers.IO).launch {
-                _homeViewModel.getCountPerMonth(pNo).let { list ->
-                    Log.d(ll, list.toString())
-                    if (list.isNotEmpty())
+                   _homeViewModel.getCountPerMonth(pNo).let { list ->
+                    Log.d(ll, "$list \n first: ${_homeViewModel.patientNoLive.value}")
+                    if (list.isNotEmpty()){
                         index_recyclerView.updateIndex(list, false)
+                        if(_homeViewModel.STATE_FIRST) {
+                            recyclerViewPick(list.last(), false)
+                            _homeViewModel.STATE_FIRST = false
+
+                        }
+                    }
                 }
             }
         }
         _homeViewModel.setPatientNo(0)
-        // todo 어답터 업데이트
+
 
         /*
         _homeViewModel.dayOfMonthCountLive.observe(this@HomeFragment) { dc ->
