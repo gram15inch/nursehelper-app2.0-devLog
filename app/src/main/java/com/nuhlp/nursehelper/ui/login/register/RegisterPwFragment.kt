@@ -10,7 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.nuhlp.nursehelper.R
-import com.nuhlp.nursehelper.utill.base.BaseViewBindingFragment
+import com.nuhlp.nursehelper.utill.base.binding.BaseViewBindingFragment
 import com.nuhlp.nursehelper.databinding.FragmentRegisterPwBinding
 import com.nuhlp.nursehelper.ui.login.LoginViewModel
 

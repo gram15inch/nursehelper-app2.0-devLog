@@ -6,49 +6,33 @@ import android.provider.DocumentsContract
 import android.util.Log
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.model.LatLng
+import com.nuhlp.nursehelper.data.network.KaKaoApi
+import com.nuhlp.nursehelper.data.network.getAppKakaoApi
+import com.nuhlp.nursehelper.data.network.model.place.Place
 import com.nuhlp.nursehelper.data.room.app.Document
 import com.nuhlp.nursehelper.data.room.app.getAppDatabase
 import com.nuhlp.nursehelper.data.room.app.toInt
 import com.nuhlp.nursehelper.repository.AppRepository
+import com.nuhlp.nursehelper.utill.base.map.BaseMapViewModel
+import com.nuhlp.nursehelper.utill.base.recyclerview.BaseRecyclerViewModel
 import com.nuhlp.nursehelper.utill.useapp.AppTime
+import com.nuhlp.nursehelper.utill.useapp.Constants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
 
-class HomeViewModel (application: Application) : AndroidViewModel(application) {
-
-    var STATE_FIRST = true
-    private val appRepository = AppRepository(getAppDatabase(application))
+class HomeViewModel (application: Application) : BaseRecyclerViewModel(application) {
 
 
-    var dayOfMonthCountLive = appRepository.monthList.asLiveData()
-
-    // todo 옵저버 주체 바꾸기위해 임시생성
-    var patientNoLive = MutableLiveData<Int>()
-
-    fun getCountPerMonth(pNo:Int):List<Int>{
-        return appRepository.getDocCountPM(pNo).toInt() // dataCount[0,3,0,7,9] -> month[2,4,5]
-    }
-
-    fun setDoc(doc:Document) = CoroutineScope(Dispatchers.IO).launch{
-        appRepository.setDocument(doc)
-    }
+    override val appRepositoryRecyclerView = AppRepository(
+        getAppDatabase(application), getAppKakaoApi()
+    )
+    private val appRepository = appRepositoryRecyclerView
 
 
-    fun getDocInMonth(m:Int):List<Document>{ return appRepository.getDocWithM(String.format("%02d",m) ) }
-
-    fun setPatientNo(no:Int){
-        patientNoLive.value = no
-        appRepository.pNo = no
-    }
-
-    // test
-    fun test(){
-        STATE_FIRST = true
-        setPatientNo((patientNoLive.value!! + 1)%2)
-    }
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
@@ -59,8 +43,12 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
         }
     }
 
+
    /* **** test **** */
     private var countT = 0
+    fun testCall(){
+       updatePlaces(Constants.LATLNG_DONGBAEK)
+    }
     fun btnClick(){
         test()
     }

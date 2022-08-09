@@ -1,4 +1,4 @@
-package com.nuhlp.nursehelper.utill.base
+package com.nuhlp.nursehelper.utill.base.binding
 
 import android.os.Bundle
 import android.view.LayoutInflater

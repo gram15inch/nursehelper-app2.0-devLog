@@ -1,14 +1,21 @@
 package com.nuhlp.nursehelper.ui.home
 
+import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.maps.model.LatLng
 import com.nuhlp.nursehelper.R
+import com.nuhlp.nursehelper.data.network.KaKaoApi
 import com.nuhlp.nursehelper.data.room.app.DataCount
 import com.nuhlp.nursehelper.data.room.app.Document
 import com.nuhlp.nursehelper.databinding.FragmentHomeBinding
-import com.nuhlp.nursehelper.utill.base.BaseDataBindingFragment
+import com.nuhlp.nursehelper.utill.base.binding.BaseDataBindingFragment
 import com.nuhlp.nursehelper.utill.useapp.AppTime
+import com.nuhlp.nursehelper.utill.useapp.Constants
 import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
 import com.nuhlp.nursehelper.utill.useapp.MarginItemDecoration
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -43,8 +50,20 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         binding.lifecycleOwner = viewLifecycleOwner
         testInit() // todo 완성시 삭제
         setRecyclerView()
+
+        _homeViewModel.places.observe(this){
+            Log.d(ll,it.toString())
+        }
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        //_homeViewModel.testCall() todo null 오류 찾기 ㅜㅜ
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
     private fun setRecyclerView() = binding.indexRecyclerView.apply {
         // ** layoutManager **
         layoutManager = LinearLayoutManager(
@@ -157,6 +176,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
     private fun testInit() {
         // _homeViewModel.deletAllDoc()
+
     }
 
 

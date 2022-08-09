@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.nuhlp.nursehelper.R
-import com.nuhlp.nursehelper.utill.base.BaseViewBindingFragment
+import com.nuhlp.nursehelper.utill.base.binding.BaseViewBindingFragment
 import com.nuhlp.nursehelper.databinding.FragmentRegisterTermDetailBinding
 import com.nuhlp.nursehelper.ui.login.Term
 import java.lang.IllegalArgumentException
