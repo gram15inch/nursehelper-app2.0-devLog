@@ -8,18 +8,18 @@ import com.nuhlp.nursehelper.data.room.app.DataCount
 import com.nuhlp.nursehelper.data.room.app.Document
 import com.nuhlp.nursehelper.databinding.FragmentHomeBinding
 import com.nuhlp.nursehelper.utill.base.BaseDataBindingFragment
-import com.nuhlp.nursehelper.utill.useapp.AppProxy
 import com.nuhlp.nursehelper.utill.useapp.AppTime
-import com.nuhlp.nursehelper.utill.useapp.MarginItemDecoration
 import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
+import com.nuhlp.nursehelper.utill.useapp.MarginItemDecoration
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.util.*
 
-
+// ** 인덱스 어답터 베이스 프래그먼트로 빼기 **
+// todo 최대한 xml에 livedata를 이용하게 바꾸기
+// todo repository retrofit 사용 가능하게 바꾸기
 class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
     override var layoutResourceId = R.layout.fragment_home
@@ -61,17 +61,19 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         addItemDecoration(mid)
         itemAnimator = null
 
+        //todo 장소 라이브 생성후 환자 옵저버달기
+        //todo 월개수 라이브로 가져오기
+        //todo 라이브월개수로 어답터로 돌릴지 메인에서 추가할지 결정
         // ** data **
         _homeViewModel.patientNoLive.observe(this@HomeFragment){ pNo->
             CoroutineScope(Dispatchers.IO).launch {
-                   _homeViewModel.getCountPerMonth(pNo).let { list ->
+                _homeViewModel.getCountPerMonth(pNo).let { list ->
                     Log.d(ll, "$list \n first: ${_homeViewModel.patientNoLive.value}")
                     if (list.isNotEmpty()){
                         index_recyclerView.updateIndex(list, false)
                         if(_homeViewModel.STATE_FIRST) {
                             recyclerViewPick(list.last(), false)
                             _homeViewModel.STATE_FIRST = false
-
                         }
                     }
                 }
@@ -95,6 +97,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         }
 */
 
+        // todo 인덱스 클래스 생성시 인덱스 변경 콜백함수를 넣어서 초기화로 변경
         binding.indexRecyclerView.let{
             getPickIndexLive(true).observe(this@HomeFragment) { pickH ->
                 recyclerViewPick(pickH,true)
@@ -105,6 +108,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         }
 
     }
+
 
     private fun recyclerViewPick(pick: Int, isHorizontal:Boolean) {
         if(isHorizontal)

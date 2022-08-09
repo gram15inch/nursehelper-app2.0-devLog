@@ -31,18 +31,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private val _isLogin: LiveData <Boolean> by lazy{ _mainViewModel.isLogin}
+    private val _isLogin: LiveData <Boolean> by lazy{_mainViewModel.isLogin}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setIsLoginObserve(isLogin = _isLogin)
         setBottomAppBar()
-
         setContentView(_binding.root)
-
-
-
     }
 
 
@@ -51,7 +47,6 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.option_menu_drawer, menu)
         return true
     }
-
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
@@ -73,15 +68,15 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
-
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
+        navHostFragment = _binding.appBarBottomDrawer.contentDrawer.mainNavHostFragment.getFragment()
+        //navHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.homeFragment, R.id.documentFragment), mainLayout
+            setOf(R.id.homeFragment, R.id.documentFragment),
+            mainLayout
         )
-      /*  appBarConfiguration = AppBarConfiguration(
+        /*  appBarConfiguration = AppBarConfiguration(
              navController.graph, mainLayout
         )*/
 

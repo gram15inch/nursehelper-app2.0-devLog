@@ -27,8 +27,9 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
 
     // todo 옵저버 주체 바꾸기위해 임시생성
     var patientNoLive = MutableLiveData<Int>()
+
     fun getCountPerMonth(pNo:Int):List<Int>{
-        return appRepository.getDocCountPM(pNo).toInt() // dataCount -> [0,1]
+        return appRepository.getDocCountPM(pNo).toInt() // dataCount[0,3,0,7,9] -> month[2,4,5]
     }
 
     fun setDoc(doc:Document) = CoroutineScope(Dispatchers.IO).launch{
