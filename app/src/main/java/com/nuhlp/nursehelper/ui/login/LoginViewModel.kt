@@ -3,13 +3,12 @@ package com.nuhlp.nursehelper.ui.login
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.nuhlp.nursehelper.data.LoginDataStoreImpl
-import com.nuhlp.nursehelper.data.room.user.UserAccount
-import com.nuhlp.nursehelper.data.room.user.getUserDatabase
+import com.nuhlp.nursehelper.datasource.LoginDataStoreImpl
+import com.nuhlp.nursehelper.datasource.room.user.UserAccount
+import com.nuhlp.nursehelper.datasource.room.user.getUserDatabase
 import com.nuhlp.nursehelper.repository.LoginRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.util.*

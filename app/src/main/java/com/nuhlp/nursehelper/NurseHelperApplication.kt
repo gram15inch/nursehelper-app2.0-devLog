@@ -3,11 +3,12 @@ package com.nuhlp.nursehelper
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 
-class NurseHelperApplication : Application() {
+class  NurseHelperApplication : Application() {
 
     /**
      * onCreate is called before the first screen is shown to the user.
@@ -19,7 +20,9 @@ class NurseHelperApplication : Application() {
         super.onCreate()
 
     }
-
+    fun appTest(){
+        Log.d("test","hi")
+    }
 
 
 }

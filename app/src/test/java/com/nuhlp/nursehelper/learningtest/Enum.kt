@@ -21,4 +21,7 @@ enum class testState(private val CODE :Int){
     fun CODE () = CODE
 }
 
+
+
+
 }

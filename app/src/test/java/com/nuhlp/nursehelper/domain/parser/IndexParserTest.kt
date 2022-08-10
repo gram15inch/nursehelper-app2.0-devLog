@@ -1,8 +1,7 @@
 package com.nuhlp.nursehelper.domain.parser
 
-import com.nuhlp.nursehelper.data.room.app.DataCount
+import com.nuhlp.nursehelper.datasource.room.app.DataCount
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
 
 class IndexParserTest {

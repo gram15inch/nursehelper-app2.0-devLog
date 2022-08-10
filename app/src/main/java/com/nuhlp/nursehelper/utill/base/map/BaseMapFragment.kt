@@ -23,7 +23,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import com.google.android.gms.tasks.Task
 import com.nuhlp.googlemapapi.util.PermissionPolicy
-import com.nuhlp.nursehelper.data.network.model.place.Place
+import com.nuhlp.nursehelper.datasource.network.model.place.Place
 import com.nuhlp.nursehelper.utill.base.binding.BaseDataBindingFragment
 import com.nuhlp.nursehelper.utill.useapp.Constants
 import java.util.*

@@ -7,15 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.gms.maps.model.LatLng
 import com.nuhlp.nursehelper.R
-import com.nuhlp.nursehelper.data.network.KaKaoApi
-import com.nuhlp.nursehelper.data.room.app.DataCount
-import com.nuhlp.nursehelper.data.room.app.Document
+import com.nuhlp.nursehelper.datasource.room.app.DataCount
+import com.nuhlp.nursehelper.datasource.room.app.Document
 import com.nuhlp.nursehelper.databinding.FragmentHomeBinding
 import com.nuhlp.nursehelper.utill.base.binding.BaseDataBindingFragment
 import com.nuhlp.nursehelper.utill.useapp.AppTime
-import com.nuhlp.nursehelper.utill.useapp.Constants
 import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
 import com.nuhlp.nursehelper.utill.useapp.MarginItemDecoration
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -25,8 +22,16 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 // ** 인덱스 어답터 베이스 프래그먼트로 빼기 **
-// todo 최대한 xml에 livedata를 이용하게 바꾸기
-// todo repository retrofit 사용 가능하게 바꾸기
+// 최대한 xml에 livedata를 이용하게 바꾸기
+// repository retrofit 사용 가능하게 바꾸기
+//
+//todo appDB에 place 저장할 테이블 생성 (place에서 사용하는 값만 파라미터로 가지고있는)
+//todo 환자 더미 데이터 place 번호 사용하게 생성
+//todo 지도 추가해서 내위치 근처 병원 출력
+//todo 환자목록 리클라이어뷰 추가
+//todo 가장 가까운 병원으로 환자검색후 환자목록 리클라이어뷰 어답터에 주입
+//todo 가장 첫번째 환자 검색후 기존 뷰모델 환자 라이브에 주입
+
 class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
     override var layoutResourceId = R.layout.fragment_home
@@ -61,9 +66,11 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //_homeViewModel.testCall() todo null 오류 찾기 ㅜㅜ
+        Log.d("test","homefragment")
+        _homeViewModel.testCall()
         return super.onCreateView(inflater, container, savedInstanceState)
     }
+
     private fun setRecyclerView() = binding.indexRecyclerView.apply {
         // ** layoutManager **
         layoutManager = LinearLayoutManager(

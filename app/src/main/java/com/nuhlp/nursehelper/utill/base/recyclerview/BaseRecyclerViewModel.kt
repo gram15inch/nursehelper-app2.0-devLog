@@ -3,9 +3,9 @@ package com.nuhlp.nursehelper.utill.base.recyclerview
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
-import com.nuhlp.nursehelper.data.room.app.Document
-import com.nuhlp.nursehelper.data.room.app.getAppDatabase
-import com.nuhlp.nursehelper.data.room.app.toInt
+import com.nuhlp.nursehelper.datasource.room.app.Document
+import com.nuhlp.nursehelper.datasource.room.app.getAppDatabase
+import com.nuhlp.nursehelper.datasource.room.app.toInt
 import com.nuhlp.nursehelper.repository.AppRepository
 import com.nuhlp.nursehelper.utill.base.map.BaseMapViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -14,11 +14,9 @@ import kotlinx.coroutines.launch
 
 abstract class BaseRecyclerViewModel(application:Application):BaseMapViewModel(application) {
 
-    abstract val appRepositoryRecyclerView : AppRepository
+    private val appRepository = AppRepository(getAppDatabase(application))
 
     var STATE_FIRST = true
-    override val appRepositoryMap: AppRepository = appRepositoryRecyclerView
-    private val appRepository get() =  appRepositoryRecyclerView
 
     val dayOfMonthCountLive by lazy { appRepository.monthList.asLiveData() }
 
@@ -44,5 +42,8 @@ abstract class BaseRecyclerViewModel(application:Application):BaseMapViewModel(a
     fun test(){
         STATE_FIRST = true
         setPatientNo((patientNoLive.value!! + 1)%2)
+    }
+    fun deleteAllDoc()=CoroutineScope(Dispatchers.IO).launch{
+        appRepository.deleteAll()
     }
 }

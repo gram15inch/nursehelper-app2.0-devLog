@@ -1,21 +1,19 @@
 package com.nuhlp.nursehelper.utill.base.map
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
-import com.nuhlp.nursehelper.data.network.KaKaoApi
-import com.nuhlp.nursehelper.data.network.model.place.Place
-import com.nuhlp.nursehelper.repository.AppRepository
+import com.nuhlp.nursehelper.datasource.network.getAppKakaoApi
+import com.nuhlp.nursehelper.datasource.network.model.place.Place
+import com.nuhlp.nursehelper.repository.MapRepository
 import kotlinx.coroutines.launch
 
 abstract class BaseMapViewModel(application: Application) : AndroidViewModel(application) {
 
-    abstract val appRepositoryMap :AppRepository
-    private val appRepository get() =  appRepositoryMap
+    private val mapRepository = MapRepository(getAppKakaoApi())
 
     private val _places = MutableLiveData<List<Place>>()
     val places : LiveData<List<Place>> = _places
@@ -25,7 +23,7 @@ abstract class BaseMapViewModel(application: Application) : AndroidViewModel(app
 
     fun updatePlaces(latLng: LatLng){
         viewModelScope.launch{
-            _places.value = appRepository.testGetPlace(latLng)
+         _places.value = mapRepository.getPlaces("HP8",latLng)
         }
     }
     fun updateMyLocation(latLng: LatLng){
