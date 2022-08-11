@@ -3,9 +3,8 @@ package com.nuhlp.nursehelper.utill.base.recyclerview
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
-import com.nuhlp.nursehelper.datasource.room.app.Document
-import com.nuhlp.nursehelper.datasource.room.app.getAppDatabase
-import com.nuhlp.nursehelper.datasource.room.app.toInt
+import androidx.lifecycle.viewModelScope
+import com.nuhlp.nursehelper.datasource.room.app.*
 import com.nuhlp.nursehelper.repository.AppRepository
 import com.nuhlp.nursehelper.utill.base.map.BaseMapViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -32,16 +31,26 @@ abstract class BaseRecyclerViewModel(application:Application):BaseMapViewModel(a
         appRepository.setDocument(doc)
     }
     fun getDocInMonth(m:Int):List<Document>{ return appRepository.getDocWithM(String.format("%02d",m) ) }
-    fun setPatientNo(no:Int){
+
+    fun selectPatientNo(no:Int){
         patientNoLive.value = no
         appRepository.pNo = no
     }
-
+    fun setBusinessPlace(businessPlace: BusinessPlace){
+        viewModelScope.launch{
+            appRepository.setBusinessPlace(businessPlace)
+        }
+    }
+    fun setPatient(patient: Patient){
+        viewModelScope.launch{
+            appRepository.setPatient(patient)
+        }
+    }
 
     // test
     fun test(){
         STATE_FIRST = true
-        setPatientNo((patientNoLive.value!! + 1)%2)
+        selectPatientNo((patientNoLive.value!! + 1)%2)
     }
     fun deleteAllDoc()=CoroutineScope(Dispatchers.IO).launch{
         appRepository.deleteAll()

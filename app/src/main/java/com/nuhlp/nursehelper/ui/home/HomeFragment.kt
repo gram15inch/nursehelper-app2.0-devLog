@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nuhlp.nursehelper.R
-import com.nuhlp.nursehelper.datasource.room.app.DataCount
-import com.nuhlp.nursehelper.datasource.room.app.Document
 import com.nuhlp.nursehelper.databinding.FragmentHomeBinding
+import com.nuhlp.nursehelper.datasource.room.app.*
 import com.nuhlp.nursehelper.utill.base.binding.BaseDataBindingFragment
+import com.nuhlp.nursehelper.utill.test.DummyDataUtil
 import com.nuhlp.nursehelper.utill.useapp.AppTime
 import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
 import com.nuhlp.nursehelper.utill.useapp.MarginItemDecoration
@@ -24,8 +24,8 @@ import java.util.*
 // ** 인덱스 어답터 베이스 프래그먼트로 빼기 **
 // 최대한 xml에 livedata를 이용하게 바꾸기
 // repository retrofit 사용 가능하게 바꾸기
-//
 //todo appDB에 place 저장할 테이블 생성 (place에서 사용하는 값만 파라미터로 가지고있는)
+//todo 테이블에 place 초기 데이터(카카오 place) 주입
 //todo 환자 더미 데이터 place 번호 사용하게 생성
 //todo 지도 추가해서 내위치 근처 병원 출력
 //todo 환자목록 리클라이어뷰 추가
@@ -38,7 +38,6 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
     private lateinit var _liveAdapter: DocListAdapter
     val ll = "HomeFragment"
 
-
     private val _homeViewModel: HomeViewModel by lazy {
         ViewModelProvider(
             this,
@@ -48,17 +47,20 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         ).get(HomeViewModel::class.java)
     }
 
-
     @Override
     override fun onCreateViewAfterBinding() {
         binding.viewModel = _homeViewModel
         binding.lifecycleOwner = viewLifecycleOwner
         testInit() // todo 완성시 삭제
         setRecyclerView()
-
-        _homeViewModel.places.observe(this){
-            Log.d(ll,it.toString())
+      //  _homeViewModel.deleteAllDoc()
+        _homeViewModel.places.observe(this){ list ->
+          /*  list.map{it.toBusiness()}
+                .forEach{
+                    _homeViewModel.setBusinessPlace(it)
+                }*/
         }
+
     }
 
     override fun onCreateView(
@@ -105,7 +107,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
                 }
             }
         }
-        _homeViewModel.setPatientNo(0)
+        _homeViewModel.selectPatientNo(1)
 
 
         /*
@@ -173,17 +175,63 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
 
      /* **** Test **** */
-    fun dummy(size:Int):List<Document>{
+
+    private val roomDummy :List<Document> by lazy{
         val list = mutableListOf<Document>()
-        repeat(size){
-           list.add (Document(it,0,0,"$it",""))
+        val time = android.icu.util.Calendar.getInstance()
+        time.set(android.icu.util.Calendar.YEAR,2022)
+        time.set(android.icu.util.Calendar.MONTH,0)
+        time.set(android.icu.util.Calendar.DAY_OF_MONTH,1)
+
+        repeat(365){
+            val t= AppTime.SDF.format(time.time)
+            list.add(Document(it,0,0,t,t))
+            time.add(android.icu.util.Calendar.DAY_OF_MONTH,1)
         }
-        return  list.toList()
+        list.toList()
+    }
+    fun createDocumentDummy(){
+        val list = mutableListOf<Document>()
+        val time = android.icu.util.Calendar.getInstance()
+        time.set(android.icu.util.Calendar.YEAR,2022)
+        time.set(android.icu.util.Calendar.MONTH,0)
+        time.set(android.icu.util.Calendar.DAY_OF_MONTH,1)
+
+        val pNo = 2
+        val dNo = 366
+            for(day in dNo..dNo+365) {
+                val t = AppTime.SDF.format(time.time)
+                val doc = Document(day, pNo, 0, t, "$pNo's document$day")
+                list.add(doc)
+                time.add(android.icu.util.Calendar.DAY_OF_MONTH, 1)
+                _homeViewModel.setDoc(doc)
+            }
+
+
+    }
+    fun createPatientDummy(){
+        val list = mutableListOf<Patient>()
+        repeat(10){
+            val no =  if (it <= 5) 0 else 1
+            val bp = DummyDataUtil.placeList[no].bpNo
+            list.add(Patient(it,bp,"name1$it","19010101","M"))
+        }
+        list.forEach {
+            _homeViewModel.setPatient(it)
+        }
+    }
+    fun createPlaceDummy(){
+        val list = mutableListOf<BusinessPlace>()
+        DummyDataUtil.placeList.forEachIndexed(){no,item->
+            list.add(item)
+        }
+        list.forEach {
+            _homeViewModel.setBusinessPlace(it)
+        }
     }
 
     private fun testInit() {
-        // _homeViewModel.deletAllDoc()
-
+       //createDocumentDummy()
     }
 
 

@@ -7,7 +7,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 
 @Database(version =2,
-    entities = [Document::class,Patient::class,Product::class,Stock::class])
+    entities = [Document::class,Patient::class,Product::class,Stock::class,BusinessPlace::class])
 abstract class AppDatabase: RoomDatabase() {
     abstract val appDao: AppDao
 }

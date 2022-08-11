@@ -51,16 +51,19 @@ interface AppDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE) fun setPd(product: Product)
     @Insert(onConflict = OnConflictStrategy.REPLACE) fun setPt(patient: Patient)
     @Insert(onConflict = OnConflictStrategy.REPLACE) fun setStk(stock: Stock)
-    
+    @Insert(onConflict = OnConflictStrategy.REPLACE) fun setBP(businessPlace: BusinessPlace)
+
     @Update fun updateDoc(document: Document)
     @Update fun updatePd(product: Product)
     @Update fun updatePt(patient: Patient)
     @Update fun updateStk(stock: Stock)
+    @Update fun updateBP(businessPlace: BusinessPlace)
     
     @Delete fun deleteDoc(document: Document)
     @Delete fun deletePd(product: Product)
     @Delete fun deletePt(patient: Patient)
     @Delete fun deleteStk(stock: Stock)
+    @Delete fun deleteBP(businessPlace: BusinessPlace)
 
 
     // test 전용

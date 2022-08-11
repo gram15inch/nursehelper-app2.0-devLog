@@ -1,7 +1,9 @@
 package com.nuhlp.nursehelper.datasource.network.model.place
 
 
+import androidx.annotation.Nullable
 import com.google.android.gms.maps.model.LatLng
+import com.nuhlp.nursehelper.datasource.room.app.BusinessPlace
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -33,5 +35,10 @@ data class Place(
     val y: String
 ){
     fun toLatLng()= LatLng(this.y.toDouble(),this.x.toDouble())
-
+    fun toBusiness()= BusinessPlace(bpNo = this.id.toInt(),
+        placeName= this.placeName,
+        addressName = this.addressName,
+        roadAddressName = this.roadAddressName,
+        phone = this.phone
+    )
 }

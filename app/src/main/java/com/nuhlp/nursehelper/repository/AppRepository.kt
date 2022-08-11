@@ -1,13 +1,11 @@
 package com.nuhlp.nursehelper.repository
 
-import com.nuhlp.nursehelper.datasource.room.app.AppDatabase
-import com.nuhlp.nursehelper.datasource.room.app.DataCount
-import com.nuhlp.nursehelper.datasource.room.app.Document
+import com.nuhlp.nursehelper.datasource.room.app.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class AppRepository(private val AppDB: AppDatabase) {
-    var pNo = 0
+    var pNo = 1
     var monthList = AppDB.appDao.getCountMFlow("2022%",pNo)
 
     fun getDocWithM(m:String):List<Document>{
@@ -18,14 +16,22 @@ class AppRepository(private val AppDB: AppDatabase) {
         return AppDB.appDao.getCountPerMonth("2022%",pNo)
     }
 
+    suspend fun setBusinessPlace(businessPlace: BusinessPlace)= withContext(Dispatchers.IO) {
+        AppDB.appDao.setBP(businessPlace)
+    }
+
     suspend fun getDocument(docNo: Int) :Document = withContext(Dispatchers.IO) {
-        AppDB.appDao.getDoc(docNo,0)
+        AppDB.appDao.getDoc(docNo,1)
     }
     suspend fun setDocument(doc: Document) = withContext(Dispatchers.IO) {
         AppDB.appDao.setDoc(doc)
     }
     suspend fun deleteAll(){
         AppDB.appDao.deleteAll()
+    }
+
+    suspend fun setPatient(patient: Patient) = withContext(Dispatchers.IO) {
+        AppDB.appDao.setPt(patient)
     }
 
 }

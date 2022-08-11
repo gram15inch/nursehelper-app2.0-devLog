@@ -2,6 +2,7 @@ package com.nuhlp.nursehelper.datasource.room.app
 
 import androidx.annotation.Nullable
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 
@@ -22,7 +23,7 @@ data class Document constructor(
 data class Patient constructor(
     @PrimaryKey(autoGenerate = true)
     val patNo: Int,  // * patient no
-    val adrJs : String, // * address (요양원) (json)
+    val bpNo : Int, // * BusinessPlace No
     val name: String,
     val rrn: String, // * Resident Registration Number (주민등록번호)
     val gender: String
@@ -50,6 +51,16 @@ data class Product constructor(
     val sizeSub: String,  //* 물품 용량2
 ) {
 
+}
+@Entity
+data class BusinessPlace constructor(
+    @PrimaryKey
+    val bpNo: Int,  // * place ID
+    val placeName: String, // * product no
+    val addressName: String,
+    val roadAddressName: String,
+    val phone: String
+) {
 }
 
 @Entity
