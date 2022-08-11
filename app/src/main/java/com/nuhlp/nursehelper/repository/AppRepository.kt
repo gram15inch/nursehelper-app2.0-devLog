@@ -1,7 +1,9 @@
 package com.nuhlp.nursehelper.repository
 
+import androidx.lifecycle.MutableLiveData
 import com.nuhlp.nursehelper.datasource.room.app.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
 class AppRepository(private val AppDB: AppDatabase) {
@@ -32,6 +34,10 @@ class AppRepository(private val AppDB: AppDatabase) {
 
     suspend fun setPatient(patient: Patient) = withContext(Dispatchers.IO) {
         AppDB.appDao.setPt(patient)
+    }
+
+   suspend fun getPatientsWithBpNo(bpNo: Int): List<Patient> = withContext(Dispatchers.IO){
+       return@withContext AppDB.appDao.getPatients(bpNo = bpNo.toString())
     }
 
 }

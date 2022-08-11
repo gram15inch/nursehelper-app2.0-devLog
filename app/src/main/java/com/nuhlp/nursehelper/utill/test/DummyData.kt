@@ -7,7 +7,7 @@ object DummyDataUtil {
 
     val placeList : List<BusinessPlace>  =
         listOf(
-            BusinessPlace(
+            BusinessPlace( // 동백 공간샘 제일 가까운 병원
                 7842591,
                 "동백내과의원",
                 "경기 용인시 기흥구 중동 832-1",

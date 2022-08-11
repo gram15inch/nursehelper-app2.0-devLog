@@ -54,11 +54,19 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         testInit() // todo 완성시 삭제
         setRecyclerView()
       //  _homeViewModel.deleteAllDoc()
-        _homeViewModel.places.observe(this){ list ->
-          /*  list.map{it.toBusiness()}
-                .forEach{
-                    _homeViewModel.setBusinessPlace(it)
-                }*/
+
+
+        _homeViewModel.run{
+            places.observe(this@HomeFragment){ list ->
+                place.value = list.minByOrNull { it.distance }
+            }
+            place.observe(this@HomeFragment){
+                getPatientsWithBpNo(it.id.toInt())
+            }
+            patients.observe(this@HomeFragment){
+                //todo 환자 리스트 넣을 리클라이어뷰 생성
+                //todo 리클라이어뷰 인덱스 사용할지 말지 결정 
+            }
         }
 
     }
@@ -209,7 +217,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
 
     }
-    fun createPatientDummy(){
+    fun createPatientDummy() {
         val list = mutableListOf<Patient>()
         repeat(10){
             val no =  if (it <= 5) 0 else 1

@@ -1,6 +1,7 @@
 package com.nuhlp.nursehelper.utill.base.recyclerview
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -13,6 +14,8 @@ import kotlinx.coroutines.launch
 
 abstract class BaseRecyclerViewModel(application:Application):BaseMapViewModel(application) {
 
+    private val _patients = MutableLiveData<List<Patient>>()
+    val patients: LiveData<List<Patient>> =  _patients
     private val appRepository = AppRepository(getAppDatabase(application))
 
     var STATE_FIRST = true
@@ -23,6 +26,16 @@ abstract class BaseRecyclerViewModel(application:Application):BaseMapViewModel(a
     // todo 옵저버 주체 바꾸기위해 임시생성
     var patientNoLive = MutableLiveData<Int>()
 
+    /* patients */
+
+    fun getPatientsWithBpNo(bpNo:Int) = viewModelScope.launch{
+        _patients.value = appRepository.getPatientsWithBpNo(bpNo)
+    }
+
+
+
+
+    /* Documents */
 
     fun getCountPerMonth(pNo:Int):List<Int>{
         return appRepository.getDocCountPM(pNo).toInt() // dataCount[0,3,0,7,9] -> month[2,4,5]

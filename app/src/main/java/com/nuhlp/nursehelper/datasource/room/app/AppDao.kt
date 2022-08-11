@@ -17,6 +17,8 @@ interface AppDao {
     @Query("SELECT strftime('%m',crtDate) data , count(*) as count from document where patNo =:patientNo and crtDate like :year group by data")
     fun getCountPerMonth(year: String, patientNo: Int): List<DataCount>
 
+    @Query("SELECT *  from Patient where patNo like:patNo and bpNo =:bpNo and name like:name and rrn like:rrn ")
+    fun getPatients(patNo: String = "%", bpNo: String ="%",name: String ="%",rrn: String="%" ): List<Patient>
 
 
 
