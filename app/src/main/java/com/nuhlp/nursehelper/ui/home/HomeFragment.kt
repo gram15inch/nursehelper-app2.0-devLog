@@ -15,6 +15,7 @@ import com.nuhlp.nursehelper.utill.test.DummyDataUtil
 import com.nuhlp.nursehelper.utill.useapp.AppTime
 import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
 import com.nuhlp.nursehelper.utill.useapp.MarginItemDecoration
+import com.nuhlp.nursehelper.utill.useapp.adapter.PatientsListAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,7 +36,8 @@ import java.util.*
 class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
     override var layoutResourceId = R.layout.fragment_home
-    private lateinit var _liveAdapter: DocListAdapter
+    private lateinit var _liveDocAdapter: DocListAdapter
+    private lateinit var _livePatAdapter: PatientsListAdapter
     val ll = "HomeFragment"
 
     private val _homeViewModel: HomeViewModel by lazy {
@@ -52,21 +54,18 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         binding.viewModel = _homeViewModel
         binding.lifecycleOwner = viewLifecycleOwner
         testInit() // todo 완성시 삭제
-        setRecyclerView()
-      //  _homeViewModel.deleteAllDoc()
-
-
+        setPatientRecyclerView()
+        setDocRecyclerView()
+        //  _homeViewModel.deleteAllDoc()
+    createDocumentDummy()
         _homeViewModel.run{
             places.observe(this@HomeFragment){ list ->
-                place.value = list.minByOrNull { it.distance }
+                businessPlace.value = list.minByOrNull { it .distance }?.toBusiness()
             }
-            place.observe(this@HomeFragment){
-                getPatientsWithBpNo(it.id.toInt())
+            businessPlace.observe(this@HomeFragment){
+                updatePatients(it.bpNo)
             }
-            patients.observe(this@HomeFragment){
-                //todo 환자 리스트 넣을 리클라이어뷰 생성
-                //todo 리클라이어뷰 인덱스 사용할지 말지 결정 
-            }
+
         }
 
     }
@@ -81,7 +80,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    private fun setRecyclerView() = binding.indexRecyclerView.apply {
+    private fun setDocRecyclerView() = binding.indexRecyclerView.apply {
         // ** layoutManager **
         layoutManager = LinearLayoutManager(
             this@HomeFragment.context,
@@ -89,49 +88,31 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         )
 
         // ** Adapter **
-        _liveAdapter = DocListAdapter {}
-        adapter = _liveAdapter
+        _liveDocAdapter = DocListAdapter {}
+        adapter = _liveDocAdapter
 
         // ** deco **
         val mid =  MarginItemDecoration(7)
         addItemDecoration(mid)
         itemAnimator = null
 
-        //todo 장소 라이브 생성후 환자 옵저버달기
-        //todo 월개수 라이브로 가져오기
-        //todo 라이브월개수로 어답터로 돌릴지 메인에서 추가할지 결정
+        // 장소 라이브 생성후 환자 옵저버달기
+        // 라이브월개수로 어답터로 돌릴지 메인에서 추가할지 결정 todo(보류)
+        // todo 맵뷰로 장소 가져오기
         // ** data **
         _homeViewModel.patientNoLive.observe(this@HomeFragment){ pNo->
             CoroutineScope(Dispatchers.IO).launch {
                 _homeViewModel.getCountPerMonth(pNo).let { list ->
-                    Log.d(ll, "$list \n first: ${_homeViewModel.patientNoLive.value}")
+                    Log.d(ll, "$list \n firstPatient: ${_homeViewModel.patientNoLive.value}")
                     if (list.isNotEmpty()){
                         index_recyclerView.updateIndex(list, false)
-                        if(_homeViewModel.STATE_FIRST) {
-                            recyclerViewPick(list.last(), false)
-                            _homeViewModel.STATE_FIRST = false
-                        }
-                    }
-                }
-            }
-        }
-        _homeViewModel.selectPatientNo(1)
-
-
-        /*
-        _homeViewModel.dayOfMonthCountLive.observe(this@HomeFragment) { dc ->
-            countToIndex(dc).let { list ->
-                binding.indexRecyclerView.updateIndex(list, false)
-                if(_homeViewModel.STATE_FIRST) {
-                    if(list.isNotEmpty()) {
                         recyclerViewPick(list.last(), false)
-                        _homeViewModel.STATE_FIRST = false
-                    }
+                    }else
+                        _liveDocAdapter.submitList(emptyList())
                 }
             }
-            Log.d(ll,"call count:$dc")
         }
-*/
+
 
         // todo 인덱스 클래스 생성시 인덱스 변경 콜백함수를 넣어서 초기화로 변경
         binding.indexRecyclerView.let{
@@ -142,6 +123,35 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
                 recyclerViewPick(pickV,false)
             }
         }
+
+    }
+    private fun setPatientRecyclerView() = binding.patientsRecyclerView.apply {
+        // ** layoutManager **
+        layoutManager = LinearLayoutManager(
+            this@HomeFragment.context,
+            LinearLayoutManager.HORIZONTAL, false
+        )
+
+        // ** Adapter **
+        _livePatAdapter = PatientsListAdapter { patient ->
+            _homeViewModel.patientNoLive.value = patient.patNo
+        }
+        adapter = _livePatAdapter
+
+        // ** deco **
+        val mid =  MarginItemDecoration(7)
+        addItemDecoration(mid)
+        itemAnimator = null
+
+        _homeViewModel.patients.observe(this@HomeFragment){
+            //todo 환자 리스트 넣을 리클라이어뷰 생성
+            //todo 리클라이어뷰 인덱스 사용할지 말지 결정
+            _livePatAdapter.submitList(it)
+            val pl = _homeViewModel.patients.value?.first()?.patNo
+            if(pl!=null)
+                _homeViewModel.selectPatientNo(pl)
+        }
+
 
     }
 
@@ -159,7 +169,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
     private fun List<Document>.updateAdapter() {
         binding.indexRecyclerView.updateIndex(docToIndex(this), true)
-        _liveAdapter.submitList(this@updateAdapter)
+        _liveDocAdapter.submitList(this@updateAdapter)
     }
 
     private fun docToIndex(docList: List<Document>): List<Int> {
@@ -205,17 +215,15 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         time.set(android.icu.util.Calendar.MONTH,0)
         time.set(android.icu.util.Calendar.DAY_OF_MONTH,1)
 
-        val pNo = 2
-        val dNo = 366
-            for(day in dNo..dNo+365) {
+        val pNo = 6
+        val dNo = 1 + 364
+            for(day in dNo..dNo+364) {
                 val t = AppTime.SDF.format(time.time)
                 val doc = Document(day, pNo, 0, t, "$pNo's document$day")
                 list.add(doc)
                 time.add(android.icu.util.Calendar.DAY_OF_MONTH, 1)
                 _homeViewModel.setDoc(doc)
             }
-
-
     }
     fun createPatientDummy() {
         val list = mutableListOf<Patient>()

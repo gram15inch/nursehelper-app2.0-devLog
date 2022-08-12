@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.nuhlp.nursehelper.datasource.room.app.*
 import com.nuhlp.nursehelper.repository.AppRepository
 import com.nuhlp.nursehelper.utill.base.map.BaseMapViewModel
+import com.nuhlp.nursehelper.utill.test.DummyDataUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,7 +29,7 @@ abstract class BaseRecyclerViewModel(application:Application):BaseMapViewModel(a
 
     /* patients */
 
-    fun getPatientsWithBpNo(bpNo:Int) = viewModelScope.launch{
+    fun updatePatients(bpNo:Int) = viewModelScope.launch{
         _patients.value = appRepository.getPatientsWithBpNo(bpNo)
     }
 
@@ -49,6 +50,7 @@ abstract class BaseRecyclerViewModel(application:Application):BaseMapViewModel(a
         patientNoLive.value = no
         appRepository.pNo = no
     }
+
     fun setBusinessPlace(businessPlace: BusinessPlace){
         viewModelScope.launch{
             appRepository.setBusinessPlace(businessPlace)
@@ -62,8 +64,9 @@ abstract class BaseRecyclerViewModel(application:Application):BaseMapViewModel(a
 
     // test
     fun test(){
-        STATE_FIRST = true
-        selectPatientNo((patientNoLive.value!! + 1)%2)
+        /*STATE_FIRST = true
+        selectPatientNo((patientNoLive.value!! + 1)%2)*/
+        businessPlace.value = DummyDataUtil.placeList[1]
     }
     fun deleteAllDoc()=CoroutineScope(Dispatchers.IO).launch{
         appRepository.deleteAll()

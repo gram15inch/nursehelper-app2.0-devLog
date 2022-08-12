@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="165dp"
-    android:layout_height="240dp"
+    android:layout_width="125dp"
+    android:layout_height="125dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/bg_rect_round_3_2"
@@ -12,16 +11,6 @@
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
     >
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="title"
-        android:textSize="20dp"
-        android:layout_margin="10dp"
-        android:background="#C5C4C4"/>
-
     <TextView
         android:id="@+id/content"
         android:layout_width="match_parent"

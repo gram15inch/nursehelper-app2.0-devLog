@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import com.nuhlp.nursehelper.datasource.network.getAppKakaoApi
 import com.nuhlp.nursehelper.datasource.network.model.place.Place
+import com.nuhlp.nursehelper.datasource.room.app.BusinessPlace
 import com.nuhlp.nursehelper.repository.MapRepository
 import kotlinx.coroutines.launch
 
@@ -17,7 +18,7 @@ abstract class BaseMapViewModel(application: Application) : AndroidViewModel(app
 
     private val _places = MutableLiveData<List<Place>>()
     val places : LiveData<List<Place>> = _places
-    val place  = MutableLiveData<Place>()
+    val businessPlace  = MutableLiveData<BusinessPlace>()
     private val _myLocation = MutableLiveData<LatLng>()
     val myLocation = _myLocation
 
