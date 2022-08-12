@@ -4,10 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.nuhlp.nursehelper.ui.home.HomeViewModel" />
 
+        <variable
+            name="lifecycleOwner"
+            type="androidx.lifecycle.LifecycleOwner" />
+
+        <variable
+            name="mapUtil"
+            type="com.nuhlp.googlemapapi.util.map.MapUtil" />
     </data>
 
 
@@ -15,22 +23,43 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/primaryColorBack"
+        android:padding="10dp"
         tools:context=".ui.home.HomeFragment">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/mapFragment"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="0dp"
+            android:layout_height="500dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_rect_round_3_2"
+            android:elevation="3dp"
+            android:padding="10dp"
+            app:bindMap="@{mapUtil}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:context=".ui.test.TestMapsFragment">
+
+        </androidx.fragment.app.FragmentContainerView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/patientsRecyclerView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/bg_rect_round_3_2"
+            android:elevation="3dp"
             android:overScrollMode="never"
             android:padding="10dp"
-            android:elevation="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/mapFragment" />
 
 
         <com.nuhlp.nursehelper.utill.component.IndexRecyclerView
@@ -38,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:elevation="3dp"
             android:overScrollMode="never"
             android:paddingStart="60dp"
@@ -63,29 +92,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.474" />
-
-        <EditText
-            android:id="@+id/editTextTextPersonName"
-            android:layout_width="314dp"
-            android:layout_height="124dp"
-            android:layout_marginEnd="252dp"
-            android:layout_marginBottom="452dp"
-
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textSize="34sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="305dp"
-            android:layout_height="76dp"
-            android:layout_marginTop="32dp"
-            android:onClick="@{()-> viewModel.btnClick()}"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-            app:layout_constraintTop_toBottomOf="@id/editTextTextPersonName" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

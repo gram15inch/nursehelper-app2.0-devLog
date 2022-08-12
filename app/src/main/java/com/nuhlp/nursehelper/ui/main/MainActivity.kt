@@ -98,8 +98,8 @@ class MainActivity : AppCompatActivity() {
             false->{startLoginActivity()}
             true->{
                 val text: String = getString(R.string.isLogin,isLogin)
-                val myToast = Toast.makeText(this.applicationContext, text, Toast.LENGTH_SHORT)
-                myToast.show()
+                /*val myToast = Toast.makeText(this.applicationContext, text, Toast.LENGTH_SHORT)
+                myToast.show()*/
             }
         }
     }

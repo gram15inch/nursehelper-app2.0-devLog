@@ -23,11 +23,10 @@ class HomeViewModel (application: Application) : BaseRecyclerViewModel(applicati
         }
     }
 
-
    /* **** test **** */
     private var countT = 0
     fun testCall(){
-       updatePlaces(Constants.LATLNG_DONGBAEK)
+     //  updatePlaces(Constants.LATLNG_DONGBAEK)
     }
     fun btnClick(){
         test()

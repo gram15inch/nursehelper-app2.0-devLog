@@ -1,6 +1,7 @@
 package com.nuhlp.nursehelper.utill.base.map
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -24,7 +25,8 @@ abstract class BaseMapViewModel(application: Application) : AndroidViewModel(app
 
     fun updatePlaces(latLng: LatLng){
         viewModelScope.launch{
-         _places.value = mapRepository.getPlaces("HP8",latLng)
+           // _places.value = mapRepository.getPlaces("HP8",latLng)
+            _places.value = emptyList()
         }
     }
     fun updateMyLocation(latLng: LatLng){

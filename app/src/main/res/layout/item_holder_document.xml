@@ -20,7 +20,7 @@
         android:text="title"
         android:textSize="20dp"
         android:layout_margin="10dp"
-        android:background="#C5C4C4"/>
+        />
 
     <TextView
         android:id="@+id/content"
@@ -29,5 +29,5 @@
         android:text="content"
         android:textSize="15dp"
         android:layout_margin="10dp"
-        android:background="#C5C4C4"/>
+        />
 </LinearLayout>

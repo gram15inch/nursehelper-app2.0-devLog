@@ -15,7 +15,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.databinding.BaseObservable
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -28,15 +30,17 @@ import com.nuhlp.nursehelper.utill.base.binding.BaseDataBindingFragment
 import com.nuhlp.nursehelper.utill.useapp.Constants
 import java.util.*
 
-abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(),MapUtil {
+private lateinit var mMap: GoogleMap
 
-    private lateinit var mMap: GoogleMap
+
+abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(),MapUtil {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private var locationCallback: LocationCallback
     private var locationRequest: LocationRequest
     private var isOnGPS :Boolean
     private var isGpsToggle : Boolean
+    private var isOnMapReady : Boolean
     private val isGpsButton : Boolean get() { return !isGpsToggle }
     init {
         locationRequest = LocationRequest.create().apply {
@@ -54,7 +58,7 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
             }
         }
         isOnGPS = false
-
+        isOnMapReady = false
         /* 버튼 용도 변경 버튼/토글 */
         isGpsToggle = false
 
@@ -86,7 +90,10 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
 
         mMap.setOnMyLocationButtonClickListener(this)
         mMap.setOnMyLocationClickListener(this)
+        updateMyLocationInit()
+        isOnMapReady = true
     }
+    protected fun isMapReady() = isOnMapReady
     override fun onActivityResult(result: Map<String, Boolean>) = result.forEach{
         when{
             it.key == Manifest.permission.ACCESS_COARSE_LOCATION && it.value ->{
@@ -129,6 +136,10 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
         fusedLocationClient.removeLocationUpdates(locationCallback)
         if(isGpsToggle)
             mMap.clear()
+    }
+    protected fun updateMyLocationInit(){
+        if(isGpsButton)
+            updateLocation()
     }
     private fun setLastLocation(lastLocation: Location) {
         mMap.clear()

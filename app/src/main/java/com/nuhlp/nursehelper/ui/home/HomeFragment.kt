@@ -1,16 +1,13 @@
 package com.nuhlp.nursehelper.ui.home
 
-import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.maps.model.LatLng
+import com.nuhlp.googlemapapi.util.map.BaseMapFragment
 import com.nuhlp.nursehelper.R
 import com.nuhlp.nursehelper.databinding.FragmentHomeBinding
 import com.nuhlp.nursehelper.datasource.room.app.*
-import com.nuhlp.nursehelper.utill.base.binding.BaseDataBindingFragment
 import com.nuhlp.nursehelper.utill.test.DummyDataUtil
 import com.nuhlp.nursehelper.utill.useapp.AppTime
 import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
@@ -33,9 +30,11 @@ import java.util.*
 //todo 가장 가까운 병원으로 환자검색후 환자목록 리클라이어뷰 어답터에 주입
 //todo 가장 첫번째 환자 검색후 기존 뷰모델 환자 라이브에 주입
 
-class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseMapFragment<FragmentHomeBinding>() {
 
     override var layoutResourceId = R.layout.fragment_home
+    override val markerResourceId= R.drawable.ic_hospital_marker
+
     private lateinit var _liveDocAdapter: DocListAdapter
     private lateinit var _livePatAdapter: PatientsListAdapter
     val ll = "HomeFragment"
@@ -49,36 +48,36 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         ).get(HomeViewModel::class.java)
     }
 
-    @Override
-    override fun onCreateViewAfterBinding() {
+    override fun onUpdateMyLatLng(latLng: LatLng) {
+       _homeViewModel.updatePlaces(latLng)
+        //Log.d("HomeFragment", "latlng: ${latLng}")
+
+    }
+
+
+    override fun onCreateViewAfterMap() {
         binding.viewModel = _homeViewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.mapUtil = this
         testInit() // todo 완성시 삭제
         setPatientRecyclerView()
         setDocRecyclerView()
-        //  _homeViewModel.deleteAllDoc()
-    createDocumentDummy()
+
         _homeViewModel.run{
             places.observe(this@HomeFragment){ list ->
-                businessPlace.value = list.minByOrNull { it .distance }?.toBusiness()
+                Log.d("HomeFragment", "pNo: ${list.size}") //todo 3번씩 불리는 이유 찾기 
+                list.minByOrNull { it .distance }?.toBusiness().let {
+                    if(it!= null)
+                        businessPlace.value = it
+                }
+
             }
             businessPlace.observe(this@HomeFragment){
                 updatePatients(it.bpNo)
             }
-
         }
-
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        Log.d("test","homefragment")
-        _homeViewModel.testCall()
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
 
     private fun setDocRecyclerView() = binding.indexRecyclerView.apply {
         // ** layoutManager **
@@ -144,6 +143,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         itemAnimator = null
 
         _homeViewModel.patients.observe(this@HomeFragment){
+
             //todo 환자 리스트 넣을 리클라이어뷰 생성
             //todo 리클라이어뷰 인덱스 사용할지 말지 결정
             _livePatAdapter.submitList(it)
@@ -154,7 +154,6 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
 
     }
-
 
     private fun recyclerViewPick(pick: Int, isHorizontal:Boolean) {
         if(isHorizontal)
@@ -175,22 +174,20 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
     private fun docToIndex(docList: List<Document>): List<Int> {
         val list = mutableListOf<Int>()
         val cal = Calendar.getInstance()
-        docList.forEach { dl->
-            dl.crtDate.apply {
+        docList.forEach { doc->
+            doc.crtDate.apply {
                 cal.time = AppTime.SDF.parse(this)
                 list.add(cal.get(Calendar.DAY_OF_MONTH))
             }
         }
         return list
     }
-
     private fun countToIndex(dataList: List<DataCount>):List<Int> {
         val list = mutableListOf<Int>()
         dataList.forEach { dc ->
             dc.data.toInt().apply { if(this!=0) list.add(this) } }
         return list
     }
-
 
      /* **** Test **** */
 
