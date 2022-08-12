@@ -90,7 +90,7 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
 
         mMap.setOnMyLocationButtonClickListener(this)
         mMap.setOnMyLocationClickListener(this)
-        updateMyLocationInit()
+        //updateMyLocationInit()
         isOnMapReady = true
     }
     protected fun isMapReady() = isOnMapReady
@@ -136,6 +136,8 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
         fusedLocationClient.removeLocationUpdates(locationCallback)
         if(isGpsToggle)
             mMap.clear()
+
+        Log.d("HomeFragment","stopLocation()")
     }
     protected fun updateMyLocationInit(){
         if(isGpsButton)

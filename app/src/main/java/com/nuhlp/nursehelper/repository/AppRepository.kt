@@ -8,14 +8,13 @@ import kotlinx.coroutines.withContext
 
 class AppRepository(private val AppDB: AppDatabase) {
     var pNo = 1
-    var monthList = AppDB.appDao.getCountMFlow("2022%",pNo)
 
-    fun getDocWithM(m:String):List<Document>{
-      return AppDB.appDao.getDoc("2022-$m%",pNo)
+    suspend fun getDocWithM(m:String):List<Document> = withContext(Dispatchers.IO) {
+        return@withContext  AppDB.appDao.getDoc("2022-$m%",pNo)
     }
 
-   fun getDocCountPM(pNo:Int):List<DataCount>{
-        return AppDB.appDao.getCountPerMonth("2022%",pNo)
+   suspend fun getDocCountPM(pNo:Int):List<DataCount> = withContext(Dispatchers.IO) {
+        return@withContext AppDB.appDao.getCountPerMonth("2022%",pNo)
     }
 
     suspend fun setBusinessPlace(businessPlace: BusinessPlace)= withContext(Dispatchers.IO) {

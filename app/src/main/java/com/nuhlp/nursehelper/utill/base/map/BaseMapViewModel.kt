@@ -25,8 +25,7 @@ abstract class BaseMapViewModel(application: Application) : AndroidViewModel(app
 
     fun updatePlaces(latLng: LatLng){
         viewModelScope.launch{
-           // _places.value = mapRepository.getPlaces("HP8",latLng)
-            _places.value = emptyList()
+           _places.value = mapRepository.getPlaces("HP8",latLng)
         }
     }
     fun updateMyLocation(latLng: LatLng){

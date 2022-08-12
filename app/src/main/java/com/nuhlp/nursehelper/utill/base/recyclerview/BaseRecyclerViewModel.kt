@@ -18,11 +18,13 @@ abstract class BaseRecyclerViewModel(application:Application):BaseMapViewModel(a
 
     private val _patients = MutableLiveData<List<Patient>>()
     val patients: LiveData<List<Patient>> =  _patients
+    private val _docCountPM = MutableLiveData<List<Int>>()
+    val docCountPM = _docCountPM
+    private val _docPM = MutableLiveData<List<Document>>()
+    val docPM = _docPM
     private val appRepository = AppRepository(getAppDatabase(application))
 
     var STATE_FIRST = true
-
-    val dayOfMonthCountLive by lazy { appRepository.monthList.asLiveData() }
 
 
     // todo 옵저버 주체 바꾸기위해 임시생성
@@ -31,6 +33,7 @@ abstract class BaseRecyclerViewModel(application:Application):BaseMapViewModel(a
     /* patients */
 
     fun updatePatients(bpNo:Int) = viewModelScope.launch{
+        Log.d("HomeFragment","patients update!!")
         _patients.value = appRepository.getPatientsWithBpNo(bpNo)
     }
 
@@ -39,13 +42,16 @@ abstract class BaseRecyclerViewModel(application:Application):BaseMapViewModel(a
 
     /* Documents */
 
-    fun getCountPerMonth(pNo:Int):List<Int>{
-        return appRepository.getDocCountPM(pNo).toInt() // dataCount[0,3,0,7,9] -> month[2,4,5]
-    }
+    fun getCountPerMonth(pNo:Int)= viewModelScope.launch {
+            _docCountPM.value= appRepository.getDocCountPM(pNo).toInt() // dataCount[0,3,0,7,9] -> month[2,4,5]
+        }
+
     fun setDoc(doc: Document) = CoroutineScope(Dispatchers.IO).launch{
         appRepository.setDocument(doc)
     }
-    fun getDocInMonth(m:Int):List<Document>{ return appRepository.getDocWithM(String.format("%02d",m) ) }
+    fun getDocInMonth(m:Int) = viewModelScope.launch {
+         docPM.value= appRepository.getDocWithM(String.format("%02d",m) )
+    }
 
     fun selectPatientNo(no:Int){
         patientNoLive.value = no
