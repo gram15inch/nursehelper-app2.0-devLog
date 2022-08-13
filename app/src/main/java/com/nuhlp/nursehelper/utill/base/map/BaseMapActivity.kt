@@ -234,7 +234,8 @@ abstract class BaseMapActivity :AppCompatActivity(), MapUtil {
             .snippet("37.566418,126.977943")*/
         mMap.addMarker(markerOptions)
     }
-    fun setPlaceMarker(place: Place, callback: GoogleMap.OnMarkerClickListener) {
+
+    override fun setPlaceMarker(place: Place, callback: GoogleMap.OnMarkerClickListener) {
         val bitmapDrawable = bitmapDescriptorFromVector(this, markerResourceId)
         val discriptor = bitmapDrawable
         val markerOptions = MarkerOptions()

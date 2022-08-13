@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 
 abstract class BaseDataBindingFragment<T : ViewDataBinding> : Fragment() {
 
-    abstract var layoutResourceId: Int
+    abstract val layoutResourceId: Int
     private var _binding : T? = null
     protected val binding get() = _binding!!
 
@@ -30,6 +30,6 @@ abstract class BaseDataBindingFragment<T : ViewDataBinding> : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        Log.d("HomeFragment","destroyView")
+        //Log.d("HomeFragment","destroyView")
     }
 }

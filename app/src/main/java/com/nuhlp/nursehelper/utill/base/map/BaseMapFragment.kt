@@ -30,10 +30,10 @@ import com.nuhlp.nursehelper.utill.base.binding.BaseDataBindingFragment
 import com.nuhlp.nursehelper.utill.useapp.Constants
 import java.util.*
 
-private lateinit var mMap: GoogleMap
 
 
 abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(),MapUtil {
+    private lateinit var mMap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private var locationCallback: LocationCallback
@@ -187,7 +187,8 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
             .snippet("37.566418,126.977943")
         mMap.addMarker(markerOptions)
     }*/
-    fun setPlaceMarker(place: Place, callback: GoogleMap.OnMarkerClickListener) {
+
+    override fun setPlaceMarker(place: Place, callback: GoogleMap.OnMarkerClickListener) {
         val bitmapDrawable = bitmapDescriptorFromVector(requireActivity(), markerResourceId)
         val discriptor = bitmapDrawable
         val markerOptions = MarkerOptions()
