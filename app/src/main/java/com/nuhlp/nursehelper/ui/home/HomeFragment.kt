@@ -113,10 +113,9 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>() {
                 _liveDocAdapter.submitList(emptyList())
             }else {
                 _livePatAdapter.submitList(it)
-                //todo 여기서부터 도돌이표 문제발생!!
-                val pl = _homeViewModel.patients.value?.first()?.patNo
+            /*  val pl = _homeViewModel.patients.value?.first()?.patNo
                 if (pl != null)
-                    _homeViewModel.selectPatientNo(pl)
+                    _homeViewModel.selectPatientNo(pl) */
             }
         }
 
@@ -155,8 +154,10 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>() {
         }
         _homeViewModel.docPM.observe(viewLifecycleOwner) { //4번호출
             Log.d(ll, "docPM Update!!")
-            if(it.isEmpty())
+            if(it.isEmpty()) {
+                binding.indexRecyclerView.updateIndex(emptyList(), true)
                 _liveDocAdapter.submitList(emptyList())
+            }
             else {
                 binding.indexRecyclerView.updateIndex(docToIndex(it), true)
                 _liveDocAdapter.submitList(it)

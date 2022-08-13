@@ -233,59 +233,63 @@ class LiveIndex {
             textSize = 24f // 실제크기 : 13f
         }
 
-        var xPosElement = parentPaddingLeft
-        var yPosIconIndex = 43f
+            var xPosElement = parentPaddingLeft
+            var yPosIconIndex = 43f
 
-        var xPosPickerIcon = 0f
-        var xPosPickerIndex = 0f
-        var lastElementForWidth = 0
+            var xPosPickerIcon = 0f
+            var xPosPickerIndex = 0f
+            var lastElementForWidth = 0
 
-        /* 1~99 까지 커버 */
-        itemList.forEachIndexed(){i,c->
-            if(lastElementForWidth <= 9 && c>10){
-                xPosElement += elementWidth + elementGapH
-                xPosPickerIcon = xPosElement - pickerIconWidth / 2 + elementWidth2 / 2
-                xPosPickerIndex = xPosPickerIcon + (pickerIconWidth - pickerIndexWidth2) / 2
-            } else if (c <= 10) {
-                xPosElement += elementWidth + elementGapH
-                xPosPickerIcon = xPosElement - pickerIconWidth / 2 + elementWidth / 2
-                xPosPickerIndex = xPosPickerIcon + (pickerIconWidth - pickerIndexWidth) / 2
-            } else {
-                xPosElement += elementWidth2 + elementGapH
-                xPosPickerIcon = xPosElement - pickerIconWidth / 2 + elementWidth2 / 2
-                xPosPickerIndex = xPosPickerIcon + (pickerIconWidth - pickerIndexWidth2) / 2
+            /* 1~99 까지 커버 */
+            itemList.forEachIndexed() { i, c ->
+                if (lastElementForWidth <= 9 && c > 10) {
+                    xPosElement += elementWidth + elementGapH
+                    xPosPickerIcon = xPosElement - pickerIconWidth / 2 + elementWidth2 / 2
+                    xPosPickerIndex = xPosPickerIcon + (pickerIconWidth - pickerIndexWidth2) / 2
+                } else if (c <= 10) {
+                    xPosElement += elementWidth + elementGapH
+                    xPosPickerIcon = xPosElement - pickerIconWidth / 2 + elementWidth / 2
+                    xPosPickerIndex = xPosPickerIcon + (pickerIconWidth - pickerIndexWidth) / 2
+                } else {
+                    xPosElement += elementWidth2 + elementGapH
+                    xPosPickerIcon = xPosElement - pickerIconWidth / 2 + elementWidth2 / 2
+                    xPosPickerIndex = xPosPickerIcon + (pickerIconWidth - pickerIndexWidth2) / 2
+                }
+                //printLog("$i: $xPosElement")
+                pos_x_element[i] = xPosElement
+                pos_x_picker_icon[i] = xPosPickerIcon
+                pos_x_picker_index[i] = xPosPickerIndex
+                lastElementForWidth = c
             }
-            //printLog("$i: $xPosElement")
-            pos_x_element[i] = xPosElement
-            pos_x_picker_icon[i] = xPosPickerIcon
-            pos_x_picker_index[i] = xPosPickerIndex
-            lastElementForWidth = c
-        }
 
-        // *** 마커 ***
-        itemList.forEachIndexed() {i,c->
+            // *** 마커 ***
+            itemList.forEachIndexed() { i, c ->
 
 
-            if(colors[i])
-            {   // ** icon **
-                indexPaint.color = context.resources.getColor(R.color.purple_200)
-                pickIcH.setBounds(pos_x_picker_icon[i].toInt() ,0,pos_x_picker_icon[i].toInt()+pickerIconWidth, pickerIconHeight) // 위치
-                pickIcH.draw(canvas)
+                if (colors[i]) {   // ** icon **
+                    indexPaint.color = context.resources.getColor(R.color.purple_200)
+                    pickIcH.setBounds(
+                        pos_x_picker_icon[i].toInt(),
+                        0,
+                        pos_x_picker_icon[i].toInt() + pickerIconWidth,
+                        pickerIconHeight
+                    ) // 위치
+                    pickIcH.draw(canvas)
 
-                // ** icon index **
-                val tp = Paint()
-                tp.color = context.resources.getColor(R.color.white)
-                tp.textSize = 45f
+                    // ** icon index **
+                    val tp = Paint()
+                    tp.color = context.resources.getColor(R.color.white)
+                    tp.textSize = 45f
 
-                drawText("$c", pos_x_picker_index[i], yPosIconIndex ,tp)
+                    drawText("$c", pos_x_picker_index[i], yPosIconIndex, tp)
+                } else indexPaint.color = context.resources.getColor(R.color.black)
+
+                // ** element **
+                val x = pos_x_element[i] // index별 x위치
+                val y = 80f
+                drawText("$c", x, y, indexPaint)
             }
-            else indexPaint.color = context.resources.getColor(R.color.black)
 
-            // ** element **
-            val x = pos_x_element[i] // index별 x위치
-            val y = 80f
-            drawText("$c", x, y ,indexPaint)
-        }
     }
 
 
