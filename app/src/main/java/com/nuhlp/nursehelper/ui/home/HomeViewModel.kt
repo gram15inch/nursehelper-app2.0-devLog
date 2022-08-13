@@ -3,21 +3,21 @@ package com.nuhlp.nursehelper.ui.home
 import android.app.Application
 import android.icu.util.Calendar
 import androidx.lifecycle.*
+import com.nuhlp.nursehelper.NurseHelperApplication
 import com.nuhlp.nursehelper.datasource.room.app.Document
 import com.nuhlp.nursehelper.utill.base.recyclerview.BaseRecyclerViewModel
 import com.nuhlp.nursehelper.utill.useapp.AppTime
 import com.nuhlp.nursehelper.utill.useapp.Constants
 
-class HomeViewModel (application: Application) : BaseRecyclerViewModel(application) {
+class HomeViewModel : BaseRecyclerViewModel() {
 
 
 
-    class Factory(val app: Application) : ViewModelProvider.Factory {
+    class Factory : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-
-                return HomeViewModel(app) as T
+                return HomeViewModel() as T
             }
             throw IllegalArgumentException("Unable to construct viewModel")
         }

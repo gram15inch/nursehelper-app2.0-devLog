@@ -16,9 +16,6 @@ import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
 import com.nuhlp.nursehelper.utill.useapp.MarginItemDecoration
 import com.nuhlp.nursehelper.utill.useapp.adapter.PatientsListAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.util.*
 
 // ** 인덱스 어답터 베이스 프래그먼트로 빼기 **
@@ -46,9 +43,7 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>() {
     private val _homeViewModel: HomeViewModel by lazy {
         ViewModelProvider(
             this,
-            HomeViewModel.Factory(
-                activity?.application ?: throw IllegalAccessException("no exist activity")
-            )
+            HomeViewModel.Factory()
         ).get(HomeViewModel::class.java)
     }
 
@@ -73,19 +68,53 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>() {
                 }
             }
             businessPlace.observe(viewLifecycleOwner){
-                Log.d("HomeFragment","BusinessPlace Update!!")
+                Log.d("HomeFragment","BusinessPlace Update!! ")
                 updatePatients(it.bpNo)
             }
+            patients.observe(viewLifecycleOwner){
+                //todo 리클라이어뷰 인덱스 사용할지 말지 결정
+                Log.d("HomeFragment","patients update!! ")
+                if(it.isEmpty())
+                {
+                    _livePatAdapter.submitList(emptyList())
+                    _liveDocAdapter.submitList(emptyList())
+                }else {
+                    _livePatAdapter.submitList(it)
+                    val pat = _homeViewModel.patients.value?.first()
+                    if (pat != null)
+                        _homeViewModel.updatePatient(pat)
+                }
+            }
+           patient.observe(viewLifecycleOwner){ pat-> //2번호출
+                Log.d(ll, "patientItem Update!!")
+                _homeViewModel.updateDocCountPerMonth(pat.patNo)
+            }
+            docCountPM.observe(viewLifecycleOwner){ list -> //3번호출
+                Log.d(ll, "docCountPM Update!! ")
+                if (list.isNotEmpty()){
+                    index_recyclerView.updateIndex(list, false)
+                    recyclerViewUpdate(list.last(), false)
+                }else
+                    _liveDocAdapter.submitList(emptyList())
+            }
+            docPM.observe(viewLifecycleOwner) { //4번호출
+                Log.d(ll, "docPM Update!!")
+                if(it.isEmpty()) {
+                    binding.indexRecyclerView.updateIndex(emptyList(), true)
+                    _liveDocAdapter.submitList(emptyList())
+                }
+                else {
+                    binding.indexRecyclerView.updateIndex(docToIndex(it), true)
+                    _liveDocAdapter.submitList(it)
+                }
+            }
         }
+
 
         setPatientRecyclerView()
         setDocRecyclerView()
     }
-    override fun onMarkerClick(marker: Marker): Boolean {
-        val tagPlace = marker.tag as Place
-        _homeViewModel.businessPlace.value = tagPlace.toBusiness()
-        return false
-    }
+
 
     private fun setPatientRecyclerView() = binding.patientsRecyclerView.apply {
         // ** layoutManager **
@@ -96,7 +125,7 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>() {
 
         // ** Adapter **
         _livePatAdapter = PatientsListAdapter { patient ->
-            _homeViewModel.patientNoLive.value = patient.patNo
+            _homeViewModel.patient.value = patient
         }
         adapter = _livePatAdapter
 
@@ -104,20 +133,6 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>() {
         val mid =  MarginItemDecoration(7)
         addItemDecoration(mid)
         itemAnimator = null
-
-        _homeViewModel.patients.observe(viewLifecycleOwner){
-            //todo 리클라이어뷰 인덱스 사용할지 말지 결정
-            if(it.isEmpty())
-            {
-                _livePatAdapter.submitList(emptyList())
-                _liveDocAdapter.submitList(emptyList())
-            }else {
-                _livePatAdapter.submitList(it)
-            /*  val pl = _homeViewModel.patients.value?.first()?.patNo
-                if (pl != null)
-                    _homeViewModel.selectPatientNo(pl) */
-            }
-        }
 
     }
     private fun setDocRecyclerView() = binding.indexRecyclerView.apply {
@@ -140,47 +155,30 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>() {
         // 라이브월개수로 어답터로 돌릴지 메인에서 추가할지 결정 todo(보류)
         // todo 맵뷰로 장소 가져오기
         // ** data **
-        _homeViewModel.patientNoLive.observe(viewLifecycleOwner){ pNo-> //2번호출
-            Log.d(ll, "pNo Update!!")
-            _homeViewModel.getCountPerMonth(pNo)
-        }
-        _homeViewModel.docCountPM.observe(viewLifecycleOwner){ list -> //3번호출
-            Log.d(ll, "docCountPM Update!! : ${_homeViewModel.patientNoLive.value}")
-            if (list.isNotEmpty()){
-                index_recyclerView.updateIndex(list, false)
-                recyclerViewPick(list.last(), false)
-            }else
-                _liveDocAdapter.submitList(emptyList())
-        }
-        _homeViewModel.docPM.observe(viewLifecycleOwner) { //4번호출
-            Log.d(ll, "docPM Update!!")
-            if(it.isEmpty()) {
-                binding.indexRecyclerView.updateIndex(emptyList(), true)
-                _liveDocAdapter.submitList(emptyList())
-            }
-            else {
-                binding.indexRecyclerView.updateIndex(docToIndex(it), true)
-                _liveDocAdapter.submitList(it)
-            }
-        }
+
         // todo 인덱스 클래스 생성시 인덱스 변경 콜백함수를 넣어서 초기화로 변경
         binding.indexRecyclerView.let{
             getPickIndexLive(true).observe(viewLifecycleOwner) { pickH ->
-                recyclerViewPick(pickH,true)
+                recyclerViewUpdate(pickH,true)
             }
             getPickIndexLive(false).observe(viewLifecycleOwner){ pickV->
-                recyclerViewPick(pickV,false)
+                recyclerViewUpdate(pickV,false)
             }
         }
 
     }
 
+    override fun onMarkerClick(marker: Marker): Boolean {
+        val tagPlace = marker.tag as Place
+        _homeViewModel.businessPlace.value = tagPlace.toBusiness()
+        return false
+    }
 
-    private fun recyclerViewPick(pick: Int, isHorizontal:Boolean) {
+    private fun recyclerViewUpdate(pick: Int, isHorizontal:Boolean) {
         if(isHorizontal)
             (index_recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(pick,0)
         else
-            _homeViewModel.getDocInMonth(pick)
+            _homeViewModel.updateDocInMonth(pick)
     }
 
     private fun docToIndex(docList: List<Document>): List<Int> {
