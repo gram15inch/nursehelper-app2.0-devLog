@@ -137,7 +137,6 @@ abstract class BaseMapActivity :AppCompatActivity(), MapUtil {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        setCamera(LATLNG_DONGBAEK)
 
         locationSettingRequest()
 
@@ -223,17 +222,6 @@ abstract class BaseMapActivity :AppCompatActivity(), MapUtil {
         Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show()
     }
 
-    fun setMarker(latLng: LatLng) {
-        val bitmapDrawable = bitmapDescriptorFromVector(this, markerResourceId)
-        val discriptor = bitmapDrawable
-        val markerOptions = MarkerOptions()
-            .position(latLng)
-            .icon(discriptor)
-        markerOptions.setAddress()
-        /*.title("marker in Seoul City Hall")
-            .snippet("37.566418,126.977943")*/
-        mMap.addMarker(markerOptions)
-    }
 
     override fun setPlaceMarker(place: Place, callback: GoogleMap.OnMarkerClickListener) {
         val bitmapDrawable = bitmapDescriptorFromVector(this, markerResourceId)
@@ -378,6 +366,17 @@ abstract class BaseMapActivity :AppCompatActivity(), MapUtil {
             .build()
         val cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition)
         map.moveCamera(cameraUpdate)
+    }
+    fun setMarker(latLng: LatLng) {
+        val bitmapDrawable = bitmapDescriptorFromVector(this, markerResourceId)
+        val discriptor = bitmapDrawable
+        val markerOptions = MarkerOptions()
+            .position(latLng)
+            .icon(discriptor)
+        markerOptions.setAddress()
+        /*.title("marker in Seoul City Hall")
+            .snippet("37.566418,126.977943")*/
+        mMap.addMarker(markerOptions)
     }
 
 

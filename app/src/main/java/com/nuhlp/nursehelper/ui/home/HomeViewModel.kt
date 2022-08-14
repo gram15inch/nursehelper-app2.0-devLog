@@ -39,7 +39,6 @@ class HomeViewModel :BaseMapViewModel() {
     }
     fun updatePatient(p: Patient) = viewModelScope.launch{
         _patient.emit(p)
-        // appRepository.pNo = no
     }
 
 
@@ -74,76 +73,6 @@ class HomeViewModel :BaseMapViewModel() {
         }
     }
 
-    // test
-    fun test(){
-
-    }
-    fun deleteAllDoc()= CoroutineScope(Dispatchers.IO).launch{
-        appRepository.deleteAll()
-    }
-
-    fun setObserver()  {
-    //todo 기타 널 오류 수정(예상)
-    //todo resume에 업데이트 추가 
-      /*  viewModelScope.launch {
-            patients.collect(){
-                //todo 리클라이어뷰 인덱스 사용할지 말지 결정
-                Log.d("HomeFragment","patients update!! size:${it.size}")
-                if(it.isNotEmpty()){
-                    val pat = it.first()
-                    updatePatient(pat)
-                }
-
-                if(it.isEmpty())
-                {
-                    _livePatAdapter.submitList(emptyList())
-                    _liveDocAdapter.submitList(emptyList())
-                }else {
-                    _livePatAdapter.submitList(it)
-                    val pat = _homeViewModel.patients.value?.first()
-                    if (pat != null)
-                        _homeViewModel.updatePatient(pat)
-                }
-            }
-        }
-
-        viewModelScope.launch {
-            patient.collect(){ pat-> //2번호출
-                Log.d("HomeFragment", "patientItem Update!! ${pat.name}")
-                updateDocCountPerMonth(pat.patNo)
-            }
-        }
-        viewModelScope.launch {
-            docCountPM.collect(){ list -> //3번호출
-                Log.d("HomeFragment", "docCountPM Update!! size: ${list.size}")
-                if (list.isNotEmpty()){
-                    updateDocInMonth(list.last())
-                }
-                if (list.isNotEmpty()){
-                    index_recyclerView.updateIndex(list, false)
-                    recyclerViewUpdate(list.last(), false)
-                }else
-                    _liveDocAdapter.submitList(emptyList())
-
-            }
-        }
-        viewModelScope.launch {
-            docPM.collect() { //4번호출
-                Log.d("HomeFragment", "docPM Update!! size: ${it.size}")
-                if(it.isNotEmpty()){
-                    // 이후 초기화
-                }
-                if(it.isEmpty()) {
-                    binding.indexRecyclerView.updateIndex(emptyList(), true)
-                    _liveDocAdapter.submitList(emptyList())
-                }
-                else {
-                    binding.indexRecyclerView.updateIndex(docToIndex(it), true)
-                    _liveDocAdapter.submitList(it)
-                }
-            }
-        }*/
-    }
 
     class Factory : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -167,28 +96,72 @@ class HomeViewModel :BaseMapViewModel() {
         return list
     }
 
-   /* **** test **** */
-    private var countT = 0
-    fun testCall(){
-     //  updatePlaces(Constants.LATLNG_DONGBAEK)
-    }
-    fun btnClick(){
-        test()
+   /* **** 사용하지않음 **** */
+
+    // 중복호출 문제발생
+    fun setObserver()  {
+        /*  viewModelScope.launch {
+              patients.collect(){
+
+                  Log.d("HomeFragment","patients update!! size:${it.size}")
+                  if(it.isNotEmpty()){
+                      val pat = it.first()
+                      updatePatient(pat)
+                  }
+
+                  if(it.isEmpty())
+                  {
+                      _livePatAdapter.submitList(emptyList())
+                      _liveDocAdapter.submitList(emptyList())
+                  }else {
+                      _livePatAdapter.submitList(it)
+                      val pat = _homeViewModel.patients.value?.first()
+                      if (pat != null)
+                          _homeViewModel.updatePatient(pat)
+                  }
+              }
+          }
+
+          viewModelScope.launch {
+              patient.collect(){ pat-> //2번호출
+                  Log.d("HomeFragment", "patientItem Update!! ${pat.name}")
+                  updateDocCountPerMonth(pat.patNo)
+              }
+          }
+          viewModelScope.launch {
+              docCountPM.collect(){ list -> //3번호출
+                  Log.d("HomeFragment", "docCountPM Update!! size: ${list.size}")
+                  if (list.isNotEmpty()){
+                      updateDocInMonth(list.last())
+                  }
+                  if (list.isNotEmpty()){
+                      index_recyclerView.updateIndex(list, false)
+                      recyclerViewUpdate(list.last(), false)
+                  }else
+                      _liveDocAdapter.submitList(emptyList())
+
+              }
+          }
+          viewModelScope.launch {
+              docPM.collect() { //4번호출
+                  Log.d("HomeFragment", "docPM Update!! size: ${it.size}")
+                  if(it.isNotEmpty()){
+                      // 이후 초기화
+                  }
+                  if(it.isEmpty()) {
+                      binding.indexRecyclerView.updateIndex(emptyList(), true)
+                      _liveDocAdapter.submitList(emptyList())
+                  }
+                  else {
+                      binding.indexRecyclerView.updateIndex(docToIndex(it), true)
+                      _liveDocAdapter.submitList(it)
+                  }
+              }
+          }*/
     }
 
-    private val roomDummy :List<Document> by lazy{
-        val list = mutableListOf<Document>()
-        val time = Calendar.getInstance()
-        time.set(Calendar.YEAR,2022)
-        time.set(Calendar.MONTH,0)
-        time.set(Calendar.DAY_OF_MONTH,1)
-
-        repeat(365){
-            val t= AppTime.SDF.format(time.time)
-            list.add(Document(it,0,0,t,t))
-            time.add(Calendar.DAY_OF_MONTH,1)
-        }
-       list.toList()
+    fun deleteAllDoc()= CoroutineScope(Dispatchers.IO).launch{
+        appRepository.deleteAll()
     }
 }
 

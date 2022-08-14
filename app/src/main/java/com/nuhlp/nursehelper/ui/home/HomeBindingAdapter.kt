@@ -16,12 +16,6 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-/*
-@BindingAdapter("bindMap")
-fun bindMap(view: FragmentContainerView, mapUtil: MapUtil) {
-
-}
-*/
 
 @BindingAdapter("bindViewModel","bindLifecycle","bindMap")
 fun bindMap(view: FragmentContainerView, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner, mapUtil: MapUtil ) {
@@ -48,30 +42,19 @@ fun bindMap(view: FragmentContainerView, viewModel: HomeViewModel , lifecycleOwn
 fun bindPatientView(view: RecyclerView, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner, mapUtil: MapUtil, homeUtil: HomeUtil ) {
     homeUtil.setPatientRecyclerView(view)
     val patAdapter = view.adapter as PatientsListAdapter
-    viewModel.patients.asLiveData().observe(lifecycleOwner){
-        //todo 리클라이어뷰 인덱스 사용할지 말지 결정
-        Log.d("HomeFragment","patients update!! size:${it.size}")
-        if(it.isNotEmpty()){
-            val pat = it.first()
-            viewModel.updatePatient(pat)
-        }
+    val docAdapter = view.adapter as PatientsListAdapter
 
-          if(it.isEmpty())
-          {
-            /* HomeUtil._livePatAdapter.submitList(emptyList())
-              _liveDocAdapter.submitList(emptyList())*/
+    viewModel.patients.asLiveData().observe(lifecycleOwner){
+        Log.d("HomeFragment","patients update!! size:${it.size}")
+
+          if(it.isEmpty()) {
               patAdapter.submitList(emptyList())
-          }else {
-              /*_livePatAdapter.submitList(it)
-              val pat = _homeViewModel.patients.value?.first()
-              if (pat != null)
-                  _homeViewModel.updatePatient(pat) */
+              docAdapter.submitList(emptyList())
+          }
+          else {
               patAdapter.submitList(it)
-              lifecycleOwner.lifecycleScope.launch {
-                  val pat = viewModel.patients.first().first()
-                  if(pat!=null)
-                      viewModel.updatePatient(pat)
-              }
+              val pat = it.first()
+              viewModel.updatePatient(pat)
           }
     }
 
@@ -80,7 +63,6 @@ fun bindPatientView(view: RecyclerView, viewModel: HomeViewModel , lifecycleOwne
         viewModel.updateDocCountPerMonth(pat.patNo)
     }
 }
-
 
 @BindingAdapter("bindViewModel","bindLifecycle","bindHome")
 fun bindDocumentView(view: IndexRecyclerView, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner, homeUtil: HomeUtil ) {
@@ -97,7 +79,6 @@ fun bindDocumentView(view: IndexRecyclerView, viewModel: HomeViewModel , lifecyc
         }
     }
 
-
     viewModel.docPM.asLiveData().observe(lifecycleOwner){ list ->
         Log.d("HomeFragment", "docPM Update!! size: ${list.size}")
 
@@ -110,4 +91,13 @@ fun bindDocumentView(view: IndexRecyclerView, viewModel: HomeViewModel , lifecyc
             docAdapter.submitList(emptyList())
     }
 
+    view.let{
+        it.getPickIndexLive(true).observe(lifecycleOwner) { pickH ->
+            (view.index_recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(pickH,0)
+
+        }
+        it.getPickIndexLive(false).observe(lifecycleOwner){ pickV->
+            viewModel.updateDocInMonth(pickV)
+        }
+    }
 }

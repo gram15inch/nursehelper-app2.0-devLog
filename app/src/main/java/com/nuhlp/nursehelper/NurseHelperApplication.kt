@@ -29,9 +29,5 @@ class  NurseHelperApplication : Application() {
         super.onCreate()
         instance = this
     }
-    fun appTest(){
-        Log.d("test","hi")
-    }
-
 
 }

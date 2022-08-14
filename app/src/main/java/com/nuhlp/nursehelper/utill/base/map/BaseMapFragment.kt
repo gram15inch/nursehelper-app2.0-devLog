@@ -1,4 +1,4 @@
-package com.nuhlp.googlemapapi.util.map
+package com.nuhlp.nursehelper.utill.base.map
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -15,16 +15,16 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.databinding.BaseObservable
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.nuhlp.googlemapapi.util.PermissionPolicy
+import com.nuhlp.googlemapapi.util.map.MapUtil
 import com.nuhlp.nursehelper.datasource.network.model.place.Place
 import com.nuhlp.nursehelper.utill.base.binding.BaseDataBindingFragment
 import com.nuhlp.nursehelper.utill.useapp.Constants
@@ -32,13 +32,13 @@ import java.util.*
 
 
 
-abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(),MapUtil {
+abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(), MapUtil {
     private lateinit var mMap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private var locationCallback: LocationCallback
     private var locationRequest: LocationRequest
-    private var isOnGPS :Boolean
+    private var isOnGPS :Boolean // toggle
     private var isGpsToggle : Boolean
     private var isOnMapReady : Boolean
     private val isGpsButton : Boolean get() { return !isGpsToggle }
@@ -69,20 +69,19 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
     abstract fun onUpdateMyLatLng(latLng: LatLng)
     abstract fun onCreateViewAfterMap()
 
+
+
     override fun onCreateViewAfterBinding() {
         multipleLocationPermissionRequest()
         this.onCreateViewAfterMap()
     }
-
-
-
 
     /* Map Util CallBack */
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        setCamera(Constants.LATLNG_DONGBAEK)
+
 
         locationSettingRequest()
 
@@ -90,7 +89,7 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
 
         mMap.setOnMyLocationButtonClickListener(this)
         mMap.setOnMyLocationClickListener(this)
-        //updateMyLocationInit()
+
         isOnMapReady = true
     }
     protected fun isMapReady() = isOnMapReady
@@ -127,7 +126,7 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
 
     /* Activity Util */
     @SuppressLint("MissingPermission")
-    private fun updateLocation() {
+    protected fun updateLocation() {
         if(isGpsButton)
             mMap.clear()
         fusedLocationClient.requestLocationUpdates(locationRequest,locationCallback, Looper.getMainLooper())
@@ -145,7 +144,9 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
     }
     private fun setLastLocation(lastLocation: Location) {
         mMap.clear()
-        LatLng(lastLocation.latitude,lastLocation.longitude).let{
+        //LatLng(lastLocation.latitude,lastLocation.longitude)
+        //todo 위치 임시로 맞춤 삭제필수 !
+        Constants.LATLNG_DONGBAEK.let{
             setCamera(it)
             onUpdateMyLatLng(it)
             if(!isGpsToggle)
@@ -176,17 +177,6 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
         Toast.makeText(requireActivity(), "MyLocation button clicked", Toast.LENGTH_SHORT).show()
     }
 
-  /*  fun setMarker(latLng: LatLng) {
-        val bitmapDrawable = bitmapDescriptorFromVector(requireActivity(), markerResourceId)
-        val discriptor = bitmapDrawable
-        val markerOptions = MarkerOptions()
-            .position(latLng)
-            .icon(discriptor)
-        markerOptions.setAddress()
-        .title("marker in Seoul City Hall")
-            .snippet("37.566418,126.977943")
-        mMap.addMarker(markerOptions)
-    }*/
 
     override fun setPlaceMarker(place: Place, callback: GoogleMap.OnMarkerClickListener) {
         val bitmapDrawable = bitmapDescriptorFromVector(requireActivity(), markerResourceId)
@@ -269,15 +259,18 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
             }
         }
     }
+
+
     private fun locationSettingRequest(){
 
         val REQUEST_CHECK_SETTINGS = 0x1
         val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
         val client: SettingsClient = LocationServices.getSettingsClient(requireActivity())
         val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
-        task.addOnSuccessListener { locationSettingsResponse ->
-            // All location settings are satisfied. The client can initialize
-            // location requests here.
+
+        task.addOnSuccessListener(){
+            // todo 화면 처음 생성시에만 위치 업데이트
+                updateLocation() 
         }
         task.addOnFailureListener { exception ->
             if (exception is ResolvableApiException){
@@ -298,6 +291,20 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
 
     }
 
+
+
+    /* 사용하지 않음 */
+    fun setMarker(latLng: LatLng) {
+        val bitmapDrawable = bitmapDescriptorFromVector(requireActivity(), markerResourceId)
+        val discriptor = bitmapDrawable
+        val markerOptions = MarkerOptions()
+            .position(latLng)
+            .icon(discriptor)
+        markerOptions.setAddress()
+        /*  .title("marker in Seoul City Hall")
+              .snippet("37.566418,126.977943")*/
+        mMap.addMarker(markerOptions)
+    }
 
 }
 

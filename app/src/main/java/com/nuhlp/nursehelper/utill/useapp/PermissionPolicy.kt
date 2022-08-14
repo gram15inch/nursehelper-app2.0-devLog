@@ -24,7 +24,7 @@ object PermissionPolicy  {
     }
     fun ration(permission: String) {
      Log.d(tag,"call ration! : $permission")
-    //todo showInContextUI(...)
+    // showInContextUI(...)
     }
 
 }

@@ -12,12 +12,6 @@ import com.nuhlp.nursehelper.R
 // db no 자동증가로 변경
 // 데이터 없을시 나는 오류 수정
 // doc 엔티티에 환자번호 조건 추가
-// todo flow test
-// todo app DB flow 실시간변경 확인
-// todo 0. 인덱스가 글자종류에 의존하면 안됨
-//todo 1. 인덱스 글자 파라미터로 받기
-//todo 2. 인덱스 글자 크기 비례 픽커 생성
-//todo 3. 익덱스 글자 크기 별 위치 조정
 
 class LiveIndex {
     // * constructor *
@@ -45,8 +39,6 @@ class LiveIndex {
         parentPaddingLeft = recyclerView.paddingLeft.toFloat()
         parentPaddingTop = recyclerView.paddingTop.toFloat()
     }
-    //todo 실제 문서를 리스트로 리클라이어뷰 업데이트 (인덱스,어답터 동기화)
-    //todo 한글 인덱스 리클라이어뷰 생성
 
 
     // * state *
