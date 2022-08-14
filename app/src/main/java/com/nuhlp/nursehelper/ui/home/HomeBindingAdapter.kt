@@ -2,6 +2,9 @@ package com.nuhlp.nursehelper.ui.home
 
 import android.print.PrintDocumentAdapter
 import android.util.Log
+import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.core.view.get
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.*
@@ -9,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.SupportMapFragment
 import com.nuhlp.googlemapapi.util.map.MapUtil
+import com.nuhlp.nursehelper.R
 import com.nuhlp.nursehelper.utill.component.IndexRecyclerView
 import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
 import com.nuhlp.nursehelper.utill.useapp.adapter.PatientsListAdapter
@@ -38,7 +42,21 @@ fun bindMap(view: FragmentContainerView, viewModel: HomeViewModel , lifecycleOwn
     }
 }
 
-@BindingAdapter("bindViewModel","bindLifecycle","bindMap","bindHome")
+@BindingAdapter("bindViewModel","bindLifecycle")
+fun bindCardView(view: CardView, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner) {
+    val placeName = view.placeNameCardView
+    val address = view.addressCardView
+    val imgIcon = view.placeImgCardView
+
+    viewModel.businessPlace.asLiveData().observe(lifecycleOwner){
+        placeName.text = " ${it.placeName}"
+        address.text = " ${it.addressName}"
+    }
+    imgIcon.setImageResource(R.drawable.ic_hospital_marker)
+
+}
+
+    @BindingAdapter("bindViewModel","bindLifecycle","bindMap","bindHome")
 fun bindPatientView(view: RecyclerView, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner, mapUtil: MapUtil, homeUtil: HomeUtil ) {
     homeUtil.setPatientRecyclerView(view)
     val patAdapter = view.adapter as PatientsListAdapter

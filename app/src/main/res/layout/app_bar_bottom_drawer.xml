@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
-    <include android:id="@+id/content_drawer"
+    <include
+        android:id="@+id/content_drawer"
         layout="@layout/content_drawer" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
@@ -21,7 +22,8 @@
         app:fabCradleRoundedCornerRadius="0dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:fabAlignmentMode="center" />
+        app:fabAlignmentMode="center"
+        />
     <!--app:menu="@menu/nav_drawer"
 -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton

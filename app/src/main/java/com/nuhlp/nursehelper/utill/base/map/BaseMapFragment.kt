@@ -34,25 +34,11 @@ import java.util.*
 
 
 abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(), MapUtil {
-    private lateinit var _mMap: GoogleMap
-    private lateinit var _fusedLocationClient: FusedLocationProviderClient
-
 
     private var _locationCallback   : LocationCallback
     private var _locationRequest    : LocationRequest
-    private var _isOnGPS        : Boolean // toggle
-    private var _isGpsToggle    : Boolean
-    private var _isOnMapReady   : Boolean
-    private val _isGpsButton    : Boolean get() { return !_isGpsToggle }
-
 
     abstract val mapViewModel : BaseMapViewModel
- /*   private val _mapViewModel: BaseMapViewModel by lazy {
-        ViewModelProvider(
-            this,
-            HomeViewModel.Factory()
-        ).get(HomeViewModel::class.java)
-    }*/
 
     init {
         _locationRequest = LocationRequest.create().apply {
@@ -69,9 +55,6 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
                 }
             }
         }
-        _isOnGPS = false      // 토글시 on/off 상태
-        _isOnMapReady = false // 맵뷰 할당
-        _isGpsToggle = false  // 토글/버튼 활성화 상태
     }
 
     /* abstract */
@@ -89,25 +72,25 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
 
     /* Map Util CallBack */
     override fun onMapReady(p0: GoogleMap) {
-        _mMap = p0
-        _fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        mapViewModel.mMap = p0
+        mapViewModel.fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
 
         locationSettingRequest()
 
-        showGps(_mMap)
+        showGps(mapViewModel.mMap)
 
-        _mMap.setOnMyLocationButtonClickListener(this)
-        _mMap.setOnMyLocationClickListener(this)
+        mapViewModel.mMap.setOnMyLocationButtonClickListener(this)
+        mapViewModel.mMap.setOnMyLocationClickListener(this)
 
-        _isOnMapReady = true
+        mapViewModel.isOnMapReady = true
     }
-    protected fun isMapReady() = _isOnMapReady
+    protected fun isMapReady() = mapViewModel.isOnMapReady
     override fun onActivityResult(result: Map<String, Boolean>) = result.forEach{
         when{
             it.key == Manifest.permission.ACCESS_COARSE_LOCATION && it.value ->{
                 PermissionPolicy.defaultGrant("ACCESS_COARSE_LOCATION")
-                showGps(_mMap)
+                showGps(mapViewModel.mMap)
             }
             it.key == Manifest.permission.ACCESS_FINE_LOCATION && it.value->{
                 PermissionPolicy.defaultGrant("ACCESS_FINE_LOCATION")
@@ -127,8 +110,8 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
         // (the camera animates to the user's current position).
 
         when{
-            _isGpsToggle-> gpsTogglePolicy()
-            _isGpsButton-> gpsButtonPolicy()
+            mapViewModel.isGpsToggle-> gpsTogglePolicy()
+            mapViewModel.isGpsButton-> gpsButtonPolicy()
         }
         return false
     }
@@ -137,29 +120,29 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
     /* Fragment Util */
     @SuppressLint("MissingPermission")
     protected fun updateLocation() {
-        if(_isGpsButton)
-            _mMap.clear()
-        _fusedLocationClient.requestLocationUpdates(_locationRequest,_locationCallback, Looper.getMainLooper())
+        if(mapViewModel.isGpsButton)
+            mapViewModel.mMap.clear()
+        mapViewModel.fusedLocationClient.requestLocationUpdates(_locationRequest,_locationCallback, Looper.getMainLooper())
     }
     private fun stopLocation() {
-        _fusedLocationClient.removeLocationUpdates(_locationCallback)
-        if(_isGpsToggle)
-            _mMap.clear()
+        mapViewModel.fusedLocationClient.removeLocationUpdates(_locationCallback)
+        if(mapViewModel.isGpsToggle)
+            mapViewModel.mMap.clear()
 
         Log.d("HomeFragment","stopLocation()")
     }
     protected fun updateMyLocationInit(){
-        if(_isGpsButton)
+        if(mapViewModel.isGpsButton)
             updateLocation()
     }
     private fun setLastLocation(lastLocation: Location) {
-        _mMap.clear()
+        mapViewModel.mMap.clear()
         //LatLng(lastLocation.latitude,lastLocation.longitude)
         //todo 위치 임시로 맞춤 삭제필수 !
         Constants.LATLNG_DONGBAEK.let{
             setCamera(it)
             onUpdateMyLatLng(it)
-            if(!_isGpsToggle)
+            if(!mapViewModel.isGpsToggle)
                 stopLocation()
         }
     }
@@ -170,15 +153,15 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
         }
     }
     private fun gpsTogglePolicy(){
-        if(!_isOnGPS) {
-            _isOnGPS = true
-            Toast.makeText(requireActivity(), "MyLocation toggle clicked : $_isOnGPS", Toast.LENGTH_SHORT).show()
+        if(!mapViewModel.isOnGPS) {
+            mapViewModel.isOnGPS = true
+            Toast.makeText(requireActivity(), "MyLocation toggle clicked : ${mapViewModel.isOnGPS}", Toast.LENGTH_SHORT).show()
             updateLocation()
         }
         else
         {
-            _isOnGPS= false
-            Toast.makeText(requireActivity(), "MyLocation button clicked : $_isOnGPS", Toast.LENGTH_SHORT).show()
+            mapViewModel.isOnGPS= false
+            Toast.makeText(requireActivity(), "MyLocation button clicked : ${mapViewModel.isOnGPS}", Toast.LENGTH_SHORT).show()
             stopLocation()
         }
     }
@@ -196,8 +179,8 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
             .icon(discriptor)
             .title(place.placeName)
             .snippet(place.categoryName)
-        _mMap.setOnMarkerClickListener(callback)
-        _mMap.addMarker(markerOptions)?.also {marker->
+        mapViewModel.mMap.setOnMarkerClickListener(callback)
+        mapViewModel.mMap.addMarker(markerOptions)?.also {marker->
             marker.tag = place
            // markers.add(marker)
             //todo viewModel 불러오기
@@ -210,7 +193,7 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
             .zoom(17.5f)
             .build()
         val cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition)
-        _mMap.moveCamera(cameraUpdate)
+        mapViewModel.mMap.moveCamera(cameraUpdate)
     }
 
 
@@ -321,7 +304,7 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
         markerOptions.setAddress()
         /*  .title("marker in Seoul City Hall")
               .snippet("37.566418,126.977943")*/
-        _mMap.addMarker(markerOptions)
+        mapViewModel.mMap.addMarker(markerOptions)
     }
 
 }
