@@ -57,10 +57,6 @@ class HomeViewModel :BaseMapViewModel() {
     }
 
 
-
-
-
-
     /* 초기셋팅 */
     fun setBusinessPlace(businessPlace: BusinessPlace){
         viewModelScope.launch{

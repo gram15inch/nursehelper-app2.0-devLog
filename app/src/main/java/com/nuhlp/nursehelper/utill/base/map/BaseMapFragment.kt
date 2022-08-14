@@ -16,16 +16,17 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.nuhlp.googlemapapi.util.PermissionPolicy
 import com.nuhlp.googlemapapi.util.map.MapUtil
 import com.nuhlp.nursehelper.datasource.network.model.place.Place
+import com.nuhlp.nursehelper.ui.home.HomeViewModel
 import com.nuhlp.nursehelper.utill.base.binding.BaseDataBindingFragment
 import com.nuhlp.nursehelper.utill.useapp.Constants
 import java.util.*
@@ -33,22 +34,33 @@ import java.util.*
 
 
 abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(), MapUtil {
-    private lateinit var mMap: GoogleMap
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var _mMap: GoogleMap
+    private lateinit var _fusedLocationClient: FusedLocationProviderClient
 
-    private var locationCallback: LocationCallback
-    private var locationRequest: LocationRequest
-    private var isOnGPS :Boolean // toggle
-    private var isGpsToggle : Boolean
-    private var isOnMapReady : Boolean
-    private val isGpsButton : Boolean get() { return !isGpsToggle }
+
+    private var _locationCallback   : LocationCallback
+    private var _locationRequest    : LocationRequest
+    private var _isOnGPS        : Boolean // toggle
+    private var _isGpsToggle    : Boolean
+    private var _isOnMapReady   : Boolean
+    private val _isGpsButton    : Boolean get() { return !_isGpsToggle }
+
+
+    abstract val mapViewModel : BaseMapViewModel
+ /*   private val _mapViewModel: BaseMapViewModel by lazy {
+        ViewModelProvider(
+            this,
+            HomeViewModel.Factory()
+        ).get(HomeViewModel::class.java)
+    }*/
+
     init {
-        locationRequest = LocationRequest.create().apply {
+        _locationRequest = LocationRequest.create().apply {
             interval = 10000
             fastestInterval = 5000
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
-        locationCallback = object: LocationCallback(){
+        _locationCallback = object: LocationCallback(){
             override fun onLocationResult(locationResult: LocationResult) {
                 locationResult.let{ result ->
                     result.locations.forEach {location->
@@ -57,11 +69,9 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
                 }
             }
         }
-        isOnGPS = false
-        isOnMapReady = false
-        /* 버튼 용도 변경 버튼/토글 */
-        isGpsToggle = false
-
+        _isOnGPS = false      // 토글시 on/off 상태
+        _isOnMapReady = false // 맵뷰 할당
+        _isGpsToggle = false  // 토글/버튼 활성화 상태
     }
 
     /* abstract */
@@ -69,35 +79,35 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
     abstract fun onUpdateMyLatLng(latLng: LatLng)
     abstract fun onCreateViewAfterMap()
 
-
-
+    /* Fragment */
     override fun onCreateViewAfterBinding() {
         multipleLocationPermissionRequest()
         this.onCreateViewAfterMap()
+        mapViewModel.markers.isEmpty()
     }
 
-    /* Map Util CallBack */
 
+    /* Map Util CallBack */
     override fun onMapReady(p0: GoogleMap) {
-        mMap = p0
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        _mMap = p0
+        _fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
 
         locationSettingRequest()
 
-        showGps(mMap)
+        showGps(_mMap)
 
-        mMap.setOnMyLocationButtonClickListener(this)
-        mMap.setOnMyLocationClickListener(this)
+        _mMap.setOnMyLocationButtonClickListener(this)
+        _mMap.setOnMyLocationClickListener(this)
 
-        isOnMapReady = true
+        _isOnMapReady = true
     }
-    protected fun isMapReady() = isOnMapReady
+    protected fun isMapReady() = _isOnMapReady
     override fun onActivityResult(result: Map<String, Boolean>) = result.forEach{
         when{
             it.key == Manifest.permission.ACCESS_COARSE_LOCATION && it.value ->{
                 PermissionPolicy.defaultGrant("ACCESS_COARSE_LOCATION")
-                showGps(mMap)
+                showGps(_mMap)
             }
             it.key == Manifest.permission.ACCESS_FINE_LOCATION && it.value->{
                 PermissionPolicy.defaultGrant("ACCESS_FINE_LOCATION")
@@ -117,39 +127,39 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
         // (the camera animates to the user's current position).
 
         when{
-            isGpsToggle-> gpsTogglePolicy()
-            isGpsButton-> gpsButtonPolicy()
+            _isGpsToggle-> gpsTogglePolicy()
+            _isGpsButton-> gpsButtonPolicy()
         }
         return false
     }
 
 
-    /* Activity Util */
+    /* Fragment Util */
     @SuppressLint("MissingPermission")
     protected fun updateLocation() {
-        if(isGpsButton)
-            mMap.clear()
-        fusedLocationClient.requestLocationUpdates(locationRequest,locationCallback, Looper.getMainLooper())
+        if(_isGpsButton)
+            _mMap.clear()
+        _fusedLocationClient.requestLocationUpdates(_locationRequest,_locationCallback, Looper.getMainLooper())
     }
     private fun stopLocation() {
-        fusedLocationClient.removeLocationUpdates(locationCallback)
-        if(isGpsToggle)
-            mMap.clear()
+        _fusedLocationClient.removeLocationUpdates(_locationCallback)
+        if(_isGpsToggle)
+            _mMap.clear()
 
         Log.d("HomeFragment","stopLocation()")
     }
     protected fun updateMyLocationInit(){
-        if(isGpsButton)
+        if(_isGpsButton)
             updateLocation()
     }
     private fun setLastLocation(lastLocation: Location) {
-        mMap.clear()
+        _mMap.clear()
         //LatLng(lastLocation.latitude,lastLocation.longitude)
         //todo 위치 임시로 맞춤 삭제필수 !
         Constants.LATLNG_DONGBAEK.let{
             setCamera(it)
             onUpdateMyLatLng(it)
-            if(!isGpsToggle)
+            if(!_isGpsToggle)
                 stopLocation()
         }
     }
@@ -160,15 +170,15 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
         }
     }
     private fun gpsTogglePolicy(){
-        if(!isOnGPS) {
-            isOnGPS = true
-            Toast.makeText(requireActivity(), "MyLocation toggle clicked : $isOnGPS", Toast.LENGTH_SHORT).show()
+        if(!_isOnGPS) {
+            _isOnGPS = true
+            Toast.makeText(requireActivity(), "MyLocation toggle clicked : $_isOnGPS", Toast.LENGTH_SHORT).show()
             updateLocation()
         }
         else
         {
-            isOnGPS= false
-            Toast.makeText(requireActivity(), "MyLocation button clicked : $isOnGPS", Toast.LENGTH_SHORT).show()
+            _isOnGPS= false
+            Toast.makeText(requireActivity(), "MyLocation button clicked : $_isOnGPS", Toast.LENGTH_SHORT).show()
             stopLocation()
         }
     }
@@ -186,8 +196,12 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
             .icon(discriptor)
             .title(place.placeName)
             .snippet(place.categoryName)
-        mMap.setOnMarkerClickListener(callback)
-        mMap.addMarker(markerOptions)?.tag = place
+        _mMap.setOnMarkerClickListener(callback)
+        _mMap.addMarker(markerOptions)?.also {marker->
+            marker.tag = place
+           // markers.add(marker)
+            //todo viewModel 불러오기
+        }
     }
 
     private fun setCamera(latLng: LatLng) {
@@ -196,7 +210,7 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
             .zoom(17.5f)
             .build()
         val cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition)
-        mMap.moveCamera(cameraUpdate)
+        _mMap.moveCamera(cameraUpdate)
     }
 
 
@@ -264,13 +278,17 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
     private fun locationSettingRequest(){
 
         val REQUEST_CHECK_SETTINGS = 0x1
-        val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
+        val builder = LocationSettingsRequest.Builder().addLocationRequest(_locationRequest)
         val client: SettingsClient = LocationServices.getSettingsClient(requireActivity())
         val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
 
         task.addOnSuccessListener(){
             // todo 화면 처음 생성시에만 위치 업데이트
-                updateLocation() 
+              if(mapViewModel.isCreateFirst) {
+                  updateLocation()
+                  mapViewModel.isCreateFirst = false
+              }
+
         }
         task.addOnFailureListener { exception ->
             if (exception is ResolvableApiException){
@@ -303,7 +321,7 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
         markerOptions.setAddress()
         /*  .title("marker in Seoul City Hall")
               .snippet("37.566418,126.977943")*/
-        mMap.addMarker(markerOptions)
+        _mMap.addMarker(markerOptions)
     }
 
 }

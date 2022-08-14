@@ -11,6 +11,7 @@ import com.nuhlp.nursehelper.R
 import com.nuhlp.nursehelper.databinding.FragmentHomeBinding
 import com.nuhlp.nursehelper.datasource.network.model.place.Place
 import com.nuhlp.nursehelper.datasource.room.app.*
+import com.nuhlp.nursehelper.utill.base.map.BaseMapViewModel
 import com.nuhlp.nursehelper.utill.test.DummyDataUtil
 import com.nuhlp.nursehelper.utill.useapp.AppTime
 import com.nuhlp.nursehelper.utill.useapp.Constants
@@ -38,7 +39,10 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>(),HomeUtil {
     private lateinit var _liveDocAdapter: DocListAdapter
     private lateinit var _livePatAdapter: PatientsListAdapter
     val ll = "HomeFragment"
+    /* test 구간 */
 
+    override val mapViewModel by lazy { _homeViewModel }
+    /*  */
     private val _homeViewModel: HomeViewModel by lazy {
         ViewModelProvider(
             this,
@@ -102,7 +106,7 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>(),HomeUtil {
     override fun onMarkerClick(marker: Marker): Boolean {
         val tagPlace = marker.tag as Place
         _homeViewModel.updateBusinessPlace(tagPlace.toBusiness())
-        return true
+        return false
     }
 
     override fun onResume() {
