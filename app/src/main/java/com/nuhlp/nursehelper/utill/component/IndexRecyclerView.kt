@@ -35,6 +35,7 @@ class IndexRecyclerView  @JvmOverloads constructor(
         super.draw(c)
         liveIndexH.onDraw(c)
         liveIndexV.onDraw(c)
+
     }
 
     fun updateIndex(list:List<Int>, isHorizontal: Boolean){
@@ -50,13 +51,10 @@ class IndexRecyclerView  @JvmOverloads constructor(
             liveIndexH.unit
         else
             liveIndexV.unit
-    }
+    } // todo 인덱스 비었을때 없애기
 
 
-    private fun updateAdapterPosition(pos :Int){
-
-    }
-
+    /* 안쓰는 함수 */
     private fun printLog(str: Any) {
         Log.d(TAG, "$str")
     }

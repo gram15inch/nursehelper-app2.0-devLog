@@ -1,10 +1,7 @@
 package com.nuhlp.nursehelper.ui.home
 
-import android.print.PrintDocumentAdapter
 import android.util.Log
-import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.view.get
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.*
@@ -17,9 +14,10 @@ import com.nuhlp.nursehelper.utill.component.IndexRecyclerView
 import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
 import com.nuhlp.nursehelper.utill.useapp.adapter.PatientsListAdapter
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 
+val channelPatient_Document = Channel<Int>()
 
 @BindingAdapter("bindViewModel","bindLifecycle","bindMap")
 fun bindMap(view: FragmentContainerView, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner, mapUtil: MapUtil ) {
@@ -27,7 +25,7 @@ fun bindMap(view: FragmentContainerView, viewModel: HomeViewModel , lifecycleOwn
     view.getFragment<SupportMapFragment>().getMapAsync(mapUtil)
 
     viewModel.places.asLiveData().observe(lifecycleOwner) {list ->
-        Log.d("HomeFragment", "Places Update!! size: ${list.size}")
+        Log.d("HomeBindingAdapter", "Places Update!! size: ${list.size}")
             list.minByOrNull { it.distance }?.toBusiness().let {
                 if (it != null)
                     viewModel.updateBusinessPlace(it)
@@ -37,48 +35,49 @@ fun bindMap(view: FragmentContainerView, viewModel: HomeViewModel , lifecycleOwn
             }
     }
     viewModel.businessPlace.asLiveData().observe(lifecycleOwner) {
-            Log.d("HomeFragment", "BusinessPlace Update!! ${it.placeName}")
+            Log.d("HomeBindingAdapter", "BusinessPlace Update!! ${it.placeName}")
            viewModel.updatePatients(it.bpNo)
     }
 }
 
 @BindingAdapter("bindViewModel","bindLifecycle")
-fun bindCardView(view: CardView, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner) {
+fun bindPlaceCardView(view: CardView, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner) {
     val placeName = view.placeNameCardView
     val address = view.addressCardView
     val imgIcon = view.placeImgCardView
 
     viewModel.businessPlace.asLiveData().observe(lifecycleOwner){
-        placeName.text = " ${it.placeName}"
-        address.text = " ${it.addressName}"
+        placeName.text = "${it.placeName}"
+        address.text = "${it.addressName}"
     }
     imgIcon.setImageResource(R.drawable.ic_hospital_marker)
 
 }
-
     @BindingAdapter("bindViewModel","bindLifecycle","bindMap","bindHome")
 fun bindPatientView(view: RecyclerView, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner, mapUtil: MapUtil, homeUtil: HomeUtil ) {
     homeUtil.setPatientRecyclerView(view)
     val patAdapter = view.adapter as PatientsListAdapter
-    val docAdapter = view.adapter as PatientsListAdapter
 
     viewModel.patients.asLiveData().observe(lifecycleOwner){
-        Log.d("HomeFragment","patients update!! size:${it.size}")
+        Log.d("HomeBindingAdapter","patients update!! size:${it.size}")
 
-          if(it.isEmpty()) {
-              patAdapter.submitList(emptyList())
-              docAdapter.submitList(emptyList())
-          }
-          else {
+          if(it.isNotEmpty()) {
               patAdapter.submitList(it)
               val pat = it.first()
               viewModel.updatePatient(pat)
           }
+          else {
+              patAdapter.submitList(emptyList())
+          }
     }
 
     viewModel.patient.asLiveData().observe(lifecycleOwner){ pat->
-        Log.d("HomeFragment", "patientItem Update!! ${pat.name}")
-        viewModel.updateDocCountPerMonth(pat.patNo)
+        Log.d("HomeBindingAdapter", "patientItem Update!! ${pat.name}")
+
+        lifecycleOwner.lifecycle.coroutineScope.launch {
+            viewModel.updateDocCountPerMonth(pat.patNo)
+            channelPatient_Document.send(pat.patNo)
+        }
     }
 }
 
@@ -86,25 +85,30 @@ fun bindPatientView(view: RecyclerView, viewModel: HomeViewModel , lifecycleOwne
 fun bindDocumentView(view: IndexRecyclerView, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner, homeUtil: HomeUtil ) {
     homeUtil.setDocumentRecyclerView(view)
     val docAdapter = view.adapter as DocListAdapter
+    var pNo =0
 
     viewModel.docCountPM.asLiveData().observe(lifecycleOwner){ list ->
-        Log.d("HomeFragment", "docCountPM Update!! size: ${list.size}")
-        if (list.isNotEmpty()){
-            view.index_recyclerView.updateIndex(list, false)
-            viewModel.updateDocInMonth(list.last())
-        }else{
-            docAdapter.submitList(emptyList())
+        Log.d("HomeBindingAdapter", "docCountPM Update!! size: ${list.size}")
+        lifecycleOwner.lifecycle.coroutineScope.launch {
+            pNo = channelPatient_Document.receive()
+            Log.d("HomeBindingAdapter", "receive dc pNo: $pNo")
+            if (list.isNotEmpty()) {
+                view.index_recyclerView.updateIndex(list, false)
+                viewModel.updateDocInMonth(list.last(), pNo)
+            } else {
+                view.index_recyclerView.updateIndex(emptyList(), false)
+                docAdapter.submitList(emptyList())
+            }
         }
     }
 
     viewModel.docPM.asLiveData().observe(lifecycleOwner){ list ->
-        Log.d("HomeFragment", "docPM Update!! size: ${list.size}")
+        Log.d("HomeBindingAdapter", "docPM Update!! size: ${list.size}")
 
         if (list.isNotEmpty()){
             view.index_recyclerView.updateIndex(viewModel.docToIndex(list), true)
             (view.index_recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(list.lastIndex+1,0)
             docAdapter.submitList(list)
-            //recyclerViewUpdate(list.last(), false)
         }else
             docAdapter.submitList(emptyList())
     }
@@ -115,7 +119,9 @@ fun bindDocumentView(view: IndexRecyclerView, viewModel: HomeViewModel , lifecyc
 
         }
         it.getPickIndexLive(false).observe(lifecycleOwner){ pickV->
-            viewModel.updateDocInMonth(pickV)
+            Log.d("HomeBindingAdapter", "receive indexLive pNo: $pNo")
+            viewModel.updateDocInMonth(pickV,pNo)
         }
     }
+
 }

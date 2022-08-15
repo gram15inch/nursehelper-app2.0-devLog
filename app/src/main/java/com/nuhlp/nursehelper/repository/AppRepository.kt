@@ -1,5 +1,6 @@
 package com.nuhlp.nursehelper.repository
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.nuhlp.nursehelper.datasource.room.app.*
 import kotlinx.coroutines.Dispatchers
@@ -7,10 +8,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
 class AppRepository(private val AppDB: AppDatabase) {
-    var pNo = 1
 
-    suspend fun getDocWithM(m:String):List<Document> = withContext(Dispatchers.IO) {
-        return@withContext  AppDB.appDao.getDoc("2022-$m%",pNo)
+
+    suspend fun getDocWithM(m: String, pNo: Int):List<Document> = withContext(Dispatchers.IO) {
+        return@withContext  AppDB.appDao.getDoc("2022-$m%", pNo)
     }
 
    suspend fun getDocCountPM(pNo:Int):List<DataCount> = withContext(Dispatchers.IO) {

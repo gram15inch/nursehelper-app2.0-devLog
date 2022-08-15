@@ -8,10 +8,6 @@ import android.view.MotionEvent
 import androidx.lifecycle.MutableLiveData
 import com.nuhlp.nursehelper.R
 
-// db에 환자 2명 각각 문서 300개 주입
-// db no 자동증가로 변경
-// 데이터 없을시 나는 오류 수정
-// doc 엔티티에 환자번호 조건 추가
 
 class LiveIndex {
     // * constructor *
@@ -151,7 +147,6 @@ class LiveIndex {
     fun updateItem(list: List<Int>) {
         itemList = list
         arrayInit()
-        //invalidate()
     }
 
     private fun drawVertical(canvas: Canvas?) =canvas?.apply {
@@ -190,7 +185,6 @@ class LiveIndex {
         }
         // *** 마커 ***
         itemList.forEachIndexed() {i,c->
-
 
             if(colors[i])
             {   // ** icon **
@@ -232,55 +226,65 @@ class LiveIndex {
             var xPosPickerIndex = 0f
             var lastElementForWidth = 0
 
-            /* 1~99 까지 커버 */
-            itemList.forEachIndexed() { i, c ->
-                if (lastElementForWidth <= 9 && c > 10) {
-                    xPosElement += elementWidth + elementGapH
-                    xPosPickerIcon = xPosElement - pickerIconWidth / 2 + elementWidth2 / 2
-                    xPosPickerIndex = xPosPickerIcon + (pickerIconWidth - pickerIndexWidth2) / 2
-                } else if (c <= 10) {
-                    xPosElement += elementWidth + elementGapH
-                    xPosPickerIcon = xPosElement - pickerIconWidth / 2 + elementWidth / 2
-                    xPosPickerIndex = xPosPickerIcon + (pickerIconWidth - pickerIndexWidth) / 2
-                } else {
-                    xPosElement += elementWidth2 + elementGapH
-                    xPosPickerIcon = xPosElement - pickerIconWidth / 2 + elementWidth2 / 2
-                    xPosPickerIndex = xPosPickerIcon + (pickerIconWidth - pickerIndexWidth2) / 2
-                }
-                //printLog("$i: $xPosElement")
-                pos_x_element[i] = xPosElement
-                pos_x_picker_icon[i] = xPosPickerIcon
-                pos_x_picker_index[i] = xPosPickerIndex
-                lastElementForWidth = c
-            }
 
-            // *** 마커 ***
-            itemList.forEachIndexed() { i, c ->
+           if( itemList.isNotEmpty()) {
 
+               /* 1~99 까지 커버 */
+               itemList.forEachIndexed() { i, c ->
+                   if (lastElementForWidth <= 9 && c > 10) {
+                       xPosElement += elementWidth + elementGapH
+                       xPosPickerIcon = xPosElement - pickerIconWidth / 2 + elementWidth2 / 2
+                       xPosPickerIndex = xPosPickerIcon + (pickerIconWidth - pickerIndexWidth2) / 2
+                   } else if (c <= 10) {
+                       xPosElement += elementWidth + elementGapH
+                       xPosPickerIcon = xPosElement - pickerIconWidth / 2 + elementWidth / 2
+                       xPosPickerIndex = xPosPickerIcon + (pickerIconWidth - pickerIndexWidth) / 2
+                   } else {
+                       xPosElement += elementWidth2 + elementGapH
+                       xPosPickerIcon = xPosElement - pickerIconWidth / 2 + elementWidth2 / 2
+                       xPosPickerIndex = xPosPickerIcon + (pickerIconWidth - pickerIndexWidth2) / 2
+                   }
+                   //printLog("$i: $xPosElement")
+                   pos_x_element[i] = xPosElement
+                   pos_x_picker_icon[i] = xPosPickerIcon
+                   pos_x_picker_index[i] = xPosPickerIndex
+                   lastElementForWidth = c
+               }
 
-                if (colors[i]) {   // ** icon **
-                    indexPaint.color = context.resources.getColor(R.color.purple_200)
-                    pickIcH.setBounds(
-                        pos_x_picker_icon[i].toInt(),
-                        0,
-                        pos_x_picker_icon[i].toInt() + pickerIconWidth,
-                        pickerIconHeight
-                    ) // 위치
-                    pickIcH.draw(canvas)
+               // *** 마커 ***
+               itemList.forEachIndexed() { i, c ->
+                   if (colors[i]) {   // ** icon **
+                       indexPaint.color = context.resources.getColor(R.color.purple_200)
+                       pickIcH.setBounds(
+                           pos_x_picker_icon[i].toInt(),
+                           0,
+                           pos_x_picker_icon[i].toInt() + pickerIconWidth,
+                           pickerIconHeight
+                       ) // 위치
+                       pickIcH.draw(canvas)
 
-                    // ** icon index **
-                    val tp = Paint()
-                    tp.color = context.resources.getColor(R.color.white)
-                    tp.textSize = 45f
+                       // ** icon index **
+                       val tp = Paint()
+                       tp.color = context.resources.getColor(R.color.white)
+                       tp.textSize = 45f
 
-                    drawText("$c", pos_x_picker_index[i], yPosIconIndex, tp)
-                } else indexPaint.color = context.resources.getColor(R.color.black)
+                       drawText("$c", pos_x_picker_index[i], yPosIconIndex, tp)
+                   } else indexPaint.color = context.resources.getColor(R.color.black)
 
-                // ** element **
-                val x = pos_x_element[i] // index별 x위치
-                val y = 80f
-                drawText("$c", x, y, indexPaint)
-            }
+                   // ** element **
+                   val x = pos_x_element[i] // index별 x위치
+                   val y = 80f
+                   drawText("$c", x, y, indexPaint)
+               }
+               Log.d("test","indexRecycler: size: ${itemList.size}!!!")
+           }else{
+               val x = xPosElement
+               val y = 80f
+               drawText(" ", x, y, indexPaint)
+               arrayInit()
+               Log.d("test","indexRecycler: empty H!!!")
+           }
+
 
     }
 

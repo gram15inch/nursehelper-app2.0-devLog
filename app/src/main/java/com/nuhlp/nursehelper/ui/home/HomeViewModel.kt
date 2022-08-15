@@ -1,22 +1,18 @@
 package com.nuhlp.nursehelper.ui.home
 
-import android.app.Application
-import android.icu.util.Calendar
 import android.util.Log
 import androidx.lifecycle.*
 import com.nuhlp.nursehelper.NurseHelperApplication
-import com.nuhlp.nursehelper.datasource.network.model.place.Place
 import com.nuhlp.nursehelper.datasource.room.app.*
 import com.nuhlp.nursehelper.repository.AppRepository
 import com.nuhlp.nursehelper.utill.base.map.BaseMapViewModel
 import com.nuhlp.nursehelper.utill.useapp.AppTime
-import com.nuhlp.nursehelper.utill.useapp.Constants
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class HomeViewModel :BaseMapViewModel() {
@@ -48,8 +44,9 @@ class HomeViewModel :BaseMapViewModel() {
         _docCountPM.emit(appRepository.getDocCountPM(pNo).toInt()) // dataCount[0,3,0,7,9] -> month[2,4,5]
     }
 
-    fun updateDocInMonth(m:Int) = viewModelScope.launch {
-        _docPM.emit(appRepository.getDocWithM(String.format("%02d",m)))
+    fun updateDocInMonth(m: Int, pNo: Int) = viewModelScope.launch {
+       Log.d("HomeFragment","updateDocInMonth!! : ${pNo}")
+        _docPM.emit(appRepository.getDocWithM(String.format("%02d",m),pNo))
     }
 
     fun setDoc(doc: Document) = CoroutineScope(Dispatchers.IO).launch{
