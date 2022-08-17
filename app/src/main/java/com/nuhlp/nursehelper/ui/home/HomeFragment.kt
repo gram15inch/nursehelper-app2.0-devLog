@@ -38,11 +38,9 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>(),HomeUtil {
 
     private lateinit var _liveDocAdapter: DocListAdapter
     private lateinit var _livePatAdapter: PatientsListAdapter
-    val ll = "HomeFragment"
-    /* test 구간 */
 
     override val mapViewModel by lazy { _homeViewModel }
-    /*  */
+
     private val _homeViewModel: HomeViewModel by lazy {
         ViewModelProvider(
             this,
@@ -60,6 +58,7 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>(),HomeUtil {
 
     override fun onUpdateMyLatLng(latLng: LatLng) {
         _homeViewModel.updatePlaces(latLng)
+        Log.d("HomeFragment","onUpdateMyLatLng()")
     }
 
     override fun setPatientRecyclerView(view:RecyclerView) {

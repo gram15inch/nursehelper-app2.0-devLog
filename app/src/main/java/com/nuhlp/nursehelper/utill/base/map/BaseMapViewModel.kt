@@ -22,6 +22,7 @@ abstract class BaseMapViewModel : ViewModel() {
     lateinit var mMap: GoogleMap
     lateinit var fusedLocationClient: FusedLocationProviderClient
 
+
     private val mapRepository = MapRepository(getAppKakaoApi())
     var isOnGPS        : Boolean // toggle
     var isGpsToggle    : Boolean
@@ -36,7 +37,7 @@ abstract class BaseMapViewModel : ViewModel() {
         isCreateFirst = true
     }
 
-    val markers = mutableListOf<Marker>()
+    var markers = emptyList<Marker>()
     private val _places = MutableSharedFlow<List<Place>>()
     val places : Flow<List<Place>> = _places
     private val _businessPlace  = MutableSharedFlow<BusinessPlace>()

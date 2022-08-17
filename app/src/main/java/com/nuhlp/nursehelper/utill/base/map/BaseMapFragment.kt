@@ -16,7 +16,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -26,7 +25,6 @@ import com.google.android.gms.tasks.Task
 import com.nuhlp.googlemapapi.util.PermissionPolicy
 import com.nuhlp.googlemapapi.util.map.MapUtil
 import com.nuhlp.nursehelper.datasource.network.model.place.Place
-import com.nuhlp.nursehelper.ui.home.HomeViewModel
 import com.nuhlp.nursehelper.utill.base.binding.BaseDataBindingFragment
 import com.nuhlp.nursehelper.utill.useapp.Constants
 import java.util.*
@@ -66,7 +64,6 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
     override fun onCreateViewAfterBinding() {
         multipleLocationPermissionRequest()
         this.onCreateViewAfterMap()
-        mapViewModel.markers.isEmpty()
     }
 
 
@@ -142,9 +139,9 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
         Constants.LATLNG_DONGBAEK.let{
             setCamera(it)
             onUpdateMyLatLng(it)
-            if(!mapViewModel.isGpsToggle)
-                stopLocation()
         }
+        if(!mapViewModel.isGpsToggle)
+            stopLocation()
     }
     private fun showGps(mMap:GoogleMap){
         val checkP= ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -171,20 +168,23 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
     }
 
 
-    override fun setPlaceMarker(place: Place, callback: GoogleMap.OnMarkerClickListener) {
+    override fun setPlaceMarkers(places: List<Place>, callback: GoogleMap.OnMarkerClickListener) {
         val bitmapDrawable = bitmapDescriptorFromVector(requireActivity(), markerResourceId)
         val discriptor = bitmapDrawable
-        val markerOptions = MarkerOptions()
-            .position(place.toLatLng())
-            .icon(discriptor)
-            .title(place.placeName)
-            .snippet(place.categoryName)
-        mapViewModel.mMap.setOnMarkerClickListener(callback)
-        mapViewModel.mMap.addMarker(markerOptions)?.also {marker->
-            marker.tag = place
-           // markers.add(marker)
-            //todo viewModel 불러오기
+        val markers = mutableListOf<Marker>()
+        places.forEach {place->
+            val markerOptions = MarkerOptions()
+                .position(place.toLatLng())
+                .icon(discriptor)
+                .title(place.placeName)
+                .snippet(place.categoryName)
+            mapViewModel.mMap.addMarker(markerOptions)?.also {marker->
+                marker.tag = place
+                markers.add(marker)
+            }
         }
+        mapViewModel.mMap.setOnMarkerClickListener(callback)
+        mapViewModel.markers=markers
     }
 
     private fun setCamera(latLng: LatLng) {
@@ -284,8 +284,6 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
 
                 } catch (sendEx: IntentSender.SendIntentException) {
                     // Ignore the error.
-                    Log.d("MapsActivity","========= catch")
-
                 }
             }
         }

@@ -136,7 +136,6 @@ class LiveIndex {
     }
 
     fun onDraw(canvas:Canvas?){
-
         if(isHorizontal)
             drawHorizontal(canvas)
         else
@@ -157,7 +156,7 @@ class LiveIndex {
         }
         var yPosElement = parentPaddingTop //+ elementHeight
         var xPosElement = marginLeft
-
+        Log.d("LiveIndex","V size: ${itemList.size}")
         var xPosIconIndex = 48f
 
         var yPosPickerIcon = 0f
@@ -226,6 +225,7 @@ class LiveIndex {
             var xPosPickerIndex = 0f
             var lastElementForWidth = 0
 
+            Log.d("LiveIndex","H size: ${itemList.size}")
 
            if( itemList.isNotEmpty()) {
 

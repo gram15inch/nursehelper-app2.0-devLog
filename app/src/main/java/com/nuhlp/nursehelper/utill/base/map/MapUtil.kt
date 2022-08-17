@@ -22,5 +22,5 @@ interface MapUtil : OnMapReadyCallback,
 
 
 
-    fun setPlaceMarker(place: Place, callback: GoogleMap.OnMarkerClickListener)
+    fun setPlaceMarkers(places: List<Place>, callback: GoogleMap.OnMarkerClickListener)
 }

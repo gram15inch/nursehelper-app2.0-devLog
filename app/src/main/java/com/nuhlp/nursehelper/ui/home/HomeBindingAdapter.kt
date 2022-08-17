@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.SupportMapFragment
 import com.nuhlp.googlemapapi.util.map.MapUtil
 import com.nuhlp.nursehelper.R
+import com.nuhlp.nursehelper.datasource.network.model.place.Place
 import com.nuhlp.nursehelper.utill.component.IndexRecyclerView
 import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
 import com.nuhlp.nursehelper.utill.useapp.adapter.PatientsListAdapter
@@ -30,13 +31,17 @@ fun bindMap(view: FragmentContainerView, viewModel: HomeViewModel , lifecycleOwn
                 if (it != null)
                     viewModel.updateBusinessPlace(it)
             }
-            list.forEach {
-                mapUtil.setPlaceMarker(it,mapUtil)
-            }
+            mapUtil.setPlaceMarkers(list,mapUtil)
+
     }
-    viewModel.businessPlace.asLiveData().observe(lifecycleOwner) {
-            Log.d("HomeBindingAdapter", "BusinessPlace Update!! ${it.placeName}")
-           viewModel.updatePatients(it.bpNo)
+    viewModel.businessPlace.asLiveData().observe(lifecycleOwner) {bp->
+        Log.d("HomeBindingAdapter", "BusinessPlace Update!! ${bp.placeName}")
+        viewModel.updatePatients(bp.bpNo)
+
+        Log.d("HomeBindingAdapter","markers size: ${viewModel.markers.size}")
+        viewModel.markers
+            .filter { marker -> (marker.tag as Place).id.toInt() == bp.bpNo }
+            .map { marker -> marker.showInfoWindow() }
     }
 }
 
@@ -92,11 +97,14 @@ fun bindDocumentView(view: IndexRecyclerView, viewModel: HomeViewModel , lifecyc
         lifecycleOwner.lifecycle.coroutineScope.launch {
             pNo = channelPatient_Document.receive()
             Log.d("HomeBindingAdapter", "receive dc pNo: $pNo")
+
             if (list.isNotEmpty()) {
                 view.index_recyclerView.updateIndex(list, false)
                 viewModel.updateDocInMonth(list.last(), pNo)
             } else {
+                Log.d("HomeBindingAdapter","dc false ${list.size}")
                 view.index_recyclerView.updateIndex(emptyList(), false)
+                view.index_recyclerView.updateIndex(emptyList(), true)
                 docAdapter.submitList(emptyList())
             }
         }
@@ -109,8 +117,8 @@ fun bindDocumentView(view: IndexRecyclerView, viewModel: HomeViewModel , lifecyc
             view.index_recyclerView.updateIndex(viewModel.docToIndex(list), true)
             (view.index_recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(list.lastIndex+1,0)
             docAdapter.submitList(list)
-        }else
-            docAdapter.submitList(emptyList())
+        }
+        // dc list 가 비어있을 경우 업데이트가 되지않음
     }
 
     view.let{
@@ -123,5 +131,4 @@ fun bindDocumentView(view: IndexRecyclerView, viewModel: HomeViewModel , lifecyc
             viewModel.updateDocInMonth(pickV,pNo)
         }
     }
-
 }

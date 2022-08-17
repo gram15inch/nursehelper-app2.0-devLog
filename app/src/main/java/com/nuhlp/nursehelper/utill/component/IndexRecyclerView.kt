@@ -35,7 +35,7 @@ class IndexRecyclerView  @JvmOverloads constructor(
         super.draw(c)
         liveIndexH.onDraw(c)
         liveIndexV.onDraw(c)
-
+        Log.d("IndexRecyclerView","draw()")
     }
 
     fun updateIndex(list:List<Int>, isHorizontal: Boolean){
@@ -43,7 +43,7 @@ class IndexRecyclerView  @JvmOverloads constructor(
             liveIndexH.updateItem(list)
         else
             liveIndexV.updateItem(list)
-        invalidate()
+        Log.d("IndexRecyclerView","$isHorizontal ${list.size}")
     }
 
     fun getPickIndexLive(isHorizontal:Boolean):LiveData<Int>{
