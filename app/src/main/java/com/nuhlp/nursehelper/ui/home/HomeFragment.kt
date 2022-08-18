@@ -2,6 +2,7 @@ package com.nuhlp.nursehelper.ui.home
 
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.model.LatLng
@@ -53,6 +54,10 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>(),HomeUtil {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.mapUtil = this
         binding.homeUtil = this
+        if(isMapReady()){
+            updateLocation()
+            Log.d("HomeFragment","onCreate!")
+        }
     }
 
 
@@ -91,7 +96,10 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>(),HomeUtil {
         )
 
         // ** Adapter **
-        _liveDocAdapter = DocListAdapter {}
+        _liveDocAdapter = DocListAdapter {
+            val action = R.id.action_homeFragment_to_documentFragment
+            this.findNavController().navigate(action)
+        }
         adapter = _liveDocAdapter
 
         // ** deco **
@@ -108,12 +116,12 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>(),HomeUtil {
         return false
     }
 
-    override fun onResume() {
-        super.onResume()
-        if(isMapReady()){
+    override fun onStart() {
+        super.onStart()
+       /* if(isMapReady()){
             updateLocation()
-            Log.d("HomeFragment","onResume!")
-        }
+            Log.d("HomeFragment","onStart!")
+        }*/
     }
 
 

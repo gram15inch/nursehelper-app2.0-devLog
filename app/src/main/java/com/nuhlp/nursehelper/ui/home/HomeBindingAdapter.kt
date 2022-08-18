@@ -90,7 +90,7 @@ fun bindPatientView(view: RecyclerView, viewModel: HomeViewModel , lifecycleOwne
 fun bindDocumentView(view: IndexRecyclerView, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner, homeUtil: HomeUtil ) {
     homeUtil.setDocumentRecyclerView(view)
     val docAdapter = view.adapter as DocListAdapter
-    var pNo =0
+    var pNo = 0
 
     viewModel.docCountPM.asLiveData().observe(lifecycleOwner){ list ->
         Log.d("HomeBindingAdapter", "docCountPM Update!! size: ${list.size}")
