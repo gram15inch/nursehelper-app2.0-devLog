@@ -1,6 +1,7 @@
 package com.nuhlp.nursehelper.ui.home
 
 import android.util.Log
+import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -97,8 +98,9 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>(),HomeUtil {
 
         // ** Adapter **
         _liveDocAdapter = DocListAdapter {
-            val action = R.id.action_homeFragment_to_documentFragment
-            this.findNavController().navigate(action)
+            val docNO = it.docNo
+            val action = HomeFragmentDirections.actionHomeFragmentToDocumentFragment(docNO)
+           this.findNavController().navigate(action)
         }
         adapter = _liveDocAdapter
 

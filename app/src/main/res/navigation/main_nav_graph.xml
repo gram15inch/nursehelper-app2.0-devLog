@@ -12,13 +12,22 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_documentFragment"
-            app:destination="@id/documentFragment" />
+            app:destination="@id/documentFragment" >
+            <argument
+                android:name="documentNo"
+                app:argType="integer"
+                android:defaultValue="-1" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/documentFragment"
         android:name="com.nuhlp.nursehelper.ui.document.DocumentFragment"
         android:label="fragment_document"
-        tools:layout="@layout/fragment_document" />
+        tools:layout="@layout/fragment_document" >
+        <argument
+            android:name="documentNo"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/boardFragment"
         android:name="com.nuhlp.nursehelper.ui.board.BoardFragment"

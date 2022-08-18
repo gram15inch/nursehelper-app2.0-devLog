@@ -20,31 +20,6 @@ import kotlinx.coroutines.launch
 
 val channelPatient_Document = Channel<Int>()
 
-@BindingAdapter("bindViewModel","bindLifecycle","bindMap")
-fun bindMap(view: FragmentContainerView, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner, mapUtil: MapUtil ) {
-
-    view.getFragment<SupportMapFragment>().getMapAsync(mapUtil)
-
-    viewModel.places.asLiveData().observe(lifecycleOwner) {list ->
-        Log.d("HomeBindingAdapter", "Places Update!! size: ${list.size}")
-            list.minByOrNull { it.distance }?.toBusiness().let {
-                if (it != null)
-                    viewModel.updateBusinessPlace(it)
-            }
-            mapUtil.setPlaceMarkers(list,mapUtil)
-
-    }
-    viewModel.businessPlace.asLiveData().observe(lifecycleOwner) {bp->
-        Log.d("HomeBindingAdapter", "BusinessPlace Update!! ${bp.placeName}")
-        viewModel.updatePatients(bp.bpNo)
-
-        Log.d("HomeBindingAdapter","markers size: ${viewModel.markers.size}")
-        viewModel.markers
-            .filter { marker -> (marker.tag as Place).id.toInt() == bp.bpNo }
-            .map { marker -> marker.showInfoWindow() }
-    }
-}
-
 @BindingAdapter("bindViewModel","bindLifecycle")
 fun bindPlaceCardView(view: CardView, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner) {
     val placeName = view.placeNameCardView
