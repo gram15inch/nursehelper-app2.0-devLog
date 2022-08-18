@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.homeFragment, R.id.documentFragment),
+            setOf(R.id.homeFragment, R.id.boardFragment),
             mainLayout
         )
         /*  appBarConfiguration = AppBarConfiguration(

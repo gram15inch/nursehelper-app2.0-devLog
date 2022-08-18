@@ -9,10 +9,19 @@
         android:id="@+id/homeFragment"
         android:name="com.nuhlp.nursehelper.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_documentFragment"
+            app:destination="@id/documentFragment" />
+    </fragment>
     <fragment
         android:id="@+id/documentFragment"
         android:name="com.nuhlp.nursehelper.ui.document.DocumentFragment"
         android:label="fragment_document"
         tools:layout="@layout/fragment_document" />
+    <fragment
+        android:id="@+id/boardFragment"
+        android:name="com.nuhlp.nursehelper.ui.board.BoardFragment"
+        android:label="board_fragment"
+        tools:layout="@layout/board_fragment" />
 </navigation>
