@@ -28,7 +28,7 @@ abstract class BaseMapViewModel : ViewModel() {
     var isGpsToggle    : Boolean
     var isOnMapReady   : Boolean
     val isGpsButton    : Boolean get() { return !isGpsToggle }
-    var isCreateFirst : Boolean
+    var isCreateFirst  : Boolean
 
     init {
         isOnGPS = false      // 토글시 on/off 상태
@@ -44,7 +44,7 @@ abstract class BaseMapViewModel : ViewModel() {
     val businessPlace : Flow<BusinessPlace> = _businessPlace
 
     fun updatePlaces(latLng: LatLng)= viewModelScope.launch{
-           _places.emit(mapRepository.getPlaces("HP8",latLng))
+        _places.emit(mapRepository.getPlaces("HP8",latLng))
     }
 
     fun updateBusinessPlace(bp: BusinessPlace)= viewModelScope.launch{
