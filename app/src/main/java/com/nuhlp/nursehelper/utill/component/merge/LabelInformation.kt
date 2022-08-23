@@ -4,7 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.nuhlp.nursehelper.databinding.InformationLabelBinding
+import com.nuhlp.nursehelper.databinding.ViewInformationLabelBinding
+
 import com.nuhlp.nursehelper.datasource.room.app.Patient
 import com.nuhlp.nursehelper.utill.useapp.AppTime.calculateAge
 
@@ -13,10 +14,10 @@ import java.util.*
 class LabelInformation @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : ConstraintLayout(context, attrs) {
-    var binding : InformationLabelBinding
+    var binding : ViewInformationLabelBinding
 
     init {
-        binding = InformationLabelBinding.inflate(LayoutInflater.from(context),this)
+        binding = ViewInformationLabelBinding.inflate(LayoutInflater.from(context),this)
     }
 
     fun setInfoText(patient:Patient){

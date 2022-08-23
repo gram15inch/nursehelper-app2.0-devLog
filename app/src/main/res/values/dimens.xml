@@ -39,4 +39,5 @@
     <dimen name="info_label_tag_width">100dp</dimen>
     <dimen name="info_label_gap">20dp</dimen>
     <dimen name="info_label_size">26sp</dimen>
+    <dimen name="view_information_label_padding">20dp</dimen>
 </resources>

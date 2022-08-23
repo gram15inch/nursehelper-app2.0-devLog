@@ -78,4 +78,11 @@
     <string name="info_label_tag_age">나이</string>
     <string name="info_label_tag_rrn">생년월일</string>
 
+    <string name="CONSENT_TO_HOME_CARE">가정간호 동의서</string>
+    <string name="CONSENT_TO_COLLECT_AND_USE_PERSONAL_INFORMATION">개인정보 수집 및 이용 동의서</string>
+    <string name="HOME_CARE_REQUEST_FORM">가정간호 의뢰지</string>
+    <string name="HOME_NURSING_PATIENT_SELECTION">가정간호 대상자 선정/분류 기준지</string>
+    <string name="HOME_CARE_TERMINATION_SUMMARY_FORM">가정간호 종결 요약지</string>
+    <string name="HOME_NURSING_PROGRESS_REPORT">가정간호 경과 기록지</string>
+
 </resources>

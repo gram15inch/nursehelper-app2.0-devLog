@@ -4,6 +4,8 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.asLiveData
+import com.nuhlp.nursehelper.domain.DocTemplate
+
 import com.nuhlp.nursehelper.utill.component.merge.LabelInformation
 
 @BindingAdapter("bindViewModel","bindLifecycle")
@@ -15,5 +17,10 @@ fun bindInfoLabel(view: LabelInformation, viewModel: ProgressReportViewModel, li
     viewModel.patient.asLiveData().observe(lifecycleOwner){
         view.setInfoText(it)
     }
-
+}
+@BindingAdapter("bindViewModel","bindLifecycle")
+fun bindDocLabel(view: TextView, viewModel: ProgressReportViewModel, lifecycleOwner: LifecycleOwner){
+    viewModel.document.asLiveData().observe(lifecycleOwner){
+        view.text = DocTemplate.toName(it.tmpNo)
+    }
 }

@@ -13,6 +13,7 @@ import com.nuhlp.googlemapapi.util.map.MapUtil
 import com.nuhlp.nursehelper.R
 import com.nuhlp.nursehelper.datasource.network.model.place.Place
 import com.nuhlp.nursehelper.utill.component.IndexRecyclerView
+import com.nuhlp.nursehelper.utill.component.PlacePanel
 import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
 import com.nuhlp.nursehelper.utill.useapp.adapter.PatientsListAdapter
 
@@ -47,19 +48,17 @@ fun bindMap(view: FragmentContainerView, viewModel: HomeViewModel , lifecycleOwn
 }
 
 @BindingAdapter("bindViewModel","bindLifecycle")
-fun bindPlaceCardView(view: CardView, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner) {
-
-   /* val placeName =
-    val address = view.addressCardView
-    val imgIcon = view.placeImgCardView
-
+fun bindPlacePanel(view: PlacePanel, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner) {
     viewModel.businessPlace.asLiveData().observe(lifecycleOwner){
-        placeName.text = "${it.placeName}"
-        address.text = "${it.addressName}"
+        view.binding.apply {
+            placeImg.setImageResource(R.drawable.ic_hospital_marker)
+            placeName.text = "${it.placeName}"
+            placeAddress.text = "${it.addressName}"
+        }
     }
-    imgIcon.setImageResource(R.drawable.ic_hospital_marker)*/
 }
-    @BindingAdapter("bindViewModel","bindLifecycle","bindMap","bindHome")
+
+@BindingAdapter("bindViewModel","bindLifecycle","bindMap","bindHome")
 fun bindPatientView(view: RecyclerView, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner, mapUtil: MapUtil, homeUtil: HomeUtil ) {
     homeUtil.setPatientRecyclerView(view)
     val patAdapter = view.adapter as PatientsListAdapter

@@ -4,9 +4,9 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:padding="10dp"
+    tools:padding="@dimen/view_information_label_padding"
     tools:layout_width="400dp"
-    tools:layout_height="wrap_content"
+    tools:layout_height="250dp"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <TextView

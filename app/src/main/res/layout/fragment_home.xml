@@ -53,9 +53,9 @@
             </androidx.fragment.app.FragmentContainerView>
 
             <!-- todo 자식 접근방법 구하기 / 커스텀뷰로 바꾸기 -->
-            <androidx.cardview.widget.CardView
+            <com.nuhlp.nursehelper.utill.component.PlacePanel
                 android:id="@+id/placeCardView"
-                style="@style/fragmentItemBaseCardView"
+                style="@style/fragmentItemBase"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 app:layout_constraintTop_toBottomOf="@+id/mapFragment"
@@ -63,47 +63,7 @@
                 app:bindViewModel="@{viewModel}"
                 app:bindLifecycle="@{lifecycleOwner}"
                 >
-                <RelativeLayout
-                    android:id="@+id/cardViewContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/placeImgCardView"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/bg_rect_round_2"
-                        android:foregroundGravity="center_vertical"
-                        android:padding="25dp" />
-
-                    <TextView
-                        android:id="@+id/placeNameCardView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/placeImgCardView"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="15dp"
-                        android:singleLine="true"
-                        android:textColor="#575757"
-                        android:textSize="26sp"
-                        android:textStyle="bold"
-                        tools:text="장소입력구간" />
-
-                    <TextView
-                        android:id="@+id/addressCardView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/placeNameCardView"
-                        android:layout_alignParentBottom="true"
-                        android:layout_toRightOf="@id/placeImgCardView"
-                        android:paddingTop="5dp"
-                        android:paddingEnd="15dp"
-                        android:singleLine="true"
-                        android:textColor="#8F8F8F"
-                        android:textSize="18sp"
-                        tools:text="주소입력구간 " />
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
+            </com.nuhlp.nursehelper.utill.component.PlacePanel>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/patientsRecyclerView"

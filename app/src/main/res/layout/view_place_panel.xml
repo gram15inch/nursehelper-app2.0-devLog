@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/placeImgCardView"
+            android:id="@+id/placeImg"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/bg_rect_round_2"
@@ -26,10 +26,10 @@
             android:padding="25dp" />
 
         <TextView
-            android:id="@+id/placeNameCardView"
+            android:id="@+id/placeName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/placeImgCardView"
+            android:layout_toRightOf="@id/placeImg"
             android:paddingTop="15dp"
             android:paddingEnd="15dp"
             android:singleLine="true"
@@ -39,12 +39,12 @@
             tools:text="장소입력구간" />
 
         <TextView
-            android:id="@+id/addressCardView"
+            android:id="@+id/placeAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/placeNameCardView"
+            android:layout_below="@id/placeName"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@id/placeImgCardView"
+            android:layout_toRightOf="@id/placeImg"
             android:paddingTop="5dp"
             android:paddingEnd="15dp"
             android:singleLine="true"
