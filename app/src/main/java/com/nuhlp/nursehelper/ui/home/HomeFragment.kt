@@ -99,7 +99,7 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>(),HomeUtil {
         // ** Adapter **
         _liveDocAdapter = DocListAdapter {
             val docNO = it.docNo
-            val action = HomeFragmentDirections.actionHomeFragmentToDocumentFragment(docNO)
+            val action = HomeFragmentDirections.actionHomeFragmentToProgressReportFragment(docNO)
            this.findNavController().navigate(action)
         }
         adapter = _liveDocAdapter

@@ -3,7 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'kotlin-android-extensions'
+    id 'kotlin-parcelize'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'androidx.navigation.safeargs.kotlin'
 }
@@ -148,6 +148,7 @@ dependencies {
 
     // Bug Fix
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
+
 
     // ****** test ******
 

@@ -72,5 +72,10 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="info_label_tag_nursing_home">요양원</string>
+    <string name="info_label_tag_name">이름</string>
+    <string name="info_label_tag_gender">성별</string>
+    <string name="info_label_tag_age">나이</string>
+    <string name="info_label_tag_rrn">생년월일</string>
 
 </resources>

@@ -39,5 +39,9 @@ class AppRepository(private val AppDB: AppDatabase) {
    suspend fun getPatientsWithBpNo(bpNo: Int): List<Patient> = withContext(Dispatchers.IO){
        return@withContext AppDB.appDao.getPatients(bpNo = bpNo.toString())
     }
+    suspend fun getPatient(patientNo: Int): Patient = withContext(Dispatchers.IO){
+       return@withContext AppDB.appDao.getPatient(patientNo.toString())
+    }
+
 
 }

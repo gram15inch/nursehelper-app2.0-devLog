@@ -1,4 +1,4 @@
-package com.nuhlp.nursehelper.ui.document
+package com.nuhlp.nursehelper.ui.document.report
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -8,12 +8,10 @@ import com.nuhlp.nursehelper.datasource.room.app.Document
 import com.nuhlp.nursehelper.datasource.room.app.Patient
 import com.nuhlp.nursehelper.datasource.room.app.getAppDatabase
 import com.nuhlp.nursehelper.repository.AppRepository
-import com.nuhlp.nursehelper.ui.home.HomeViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
-class DocumentViewModel :ViewModel() {
+class ProgressReportViewModel : ViewModel() {
     private val appRepository = AppRepository(getAppDatabase(NurseHelperApplication.context()))
 
     private val _patient= MutableSharedFlow<Patient>()
@@ -24,12 +22,15 @@ class DocumentViewModel :ViewModel() {
     fun updateDocument(docNo :Int){
         viewModelScope.launch{ _document.emit(appRepository.getDocument(docNo)) }
     }
+    fun updatePatient(patNo :Int){
+        viewModelScope.launch{ _patient.emit(appRepository.getPatient(patNo)) }
+    }
 
     class Factory : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(DocumentViewModel::class.java)) {
+            if (modelClass.isAssignableFrom(ProgressReportViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return DocumentViewModel() as T
+                return ProgressReportViewModel() as T
             }
             throw IllegalArgumentException("Unable to construct viewModel")
         }

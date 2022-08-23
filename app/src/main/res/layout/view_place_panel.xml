@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:padding="10dp"
+    tools:layout_width="match_parent"
+    tools:layout_height="100dp"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <RelativeLayout
+        android:id="@+id/cardViewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/placeImgCardView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/bg_rect_round_2"
+            android:foregroundGravity="center_vertical"
+            android:padding="25dp" />
+
+        <TextView
+            android:id="@+id/placeNameCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/placeImgCardView"
+            android:paddingTop="15dp"
+            android:paddingEnd="15dp"
+            android:singleLine="true"
+            android:textColor="#575757"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            tools:text="장소입력구간" />
+
+        <TextView
+            android:id="@+id/addressCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/placeNameCardView"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/placeImgCardView"
+            android:paddingTop="5dp"
+            android:paddingEnd="15dp"
+            android:singleLine="true"
+            android:textColor="#8F8F8F"
+            android:textSize="18sp"
+            tools:text="주소입력구간 " />
+    </RelativeLayout>
+
+
+</merge>

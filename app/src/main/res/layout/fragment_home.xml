@@ -52,6 +52,7 @@
 
             </androidx.fragment.app.FragmentContainerView>
 
+            <!-- todo 자식 접근방법 구하기 / 커스텀뷰로 바꾸기 -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/placeCardView"
                 style="@style/fragmentItemBaseCardView"
@@ -63,6 +64,7 @@
                 app:bindLifecycle="@{lifecycleOwner}"
                 >
                 <RelativeLayout
+                    android:id="@+id/cardViewContainer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 

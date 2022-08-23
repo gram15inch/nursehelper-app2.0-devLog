@@ -2,6 +2,7 @@ package com.nuhlp.nursehelper.ui.home
 
 import android.util.Log
 import androidx.cardview.widget.CardView
+import androidx.core.view.get
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.*
@@ -14,7 +15,7 @@ import com.nuhlp.nursehelper.datasource.network.model.place.Place
 import com.nuhlp.nursehelper.utill.component.IndexRecyclerView
 import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
 import com.nuhlp.nursehelper.utill.useapp.adapter.PatientsListAdapter
-import kotlinx.android.synthetic.main.fragment_home.view.*
+
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 
@@ -47,7 +48,8 @@ fun bindMap(view: FragmentContainerView, viewModel: HomeViewModel , lifecycleOwn
 
 @BindingAdapter("bindViewModel","bindLifecycle")
 fun bindPlaceCardView(view: CardView, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner) {
-    val placeName = view.placeNameCardView
+
+   /* val placeName =
     val address = view.addressCardView
     val imgIcon = view.placeImgCardView
 
@@ -55,8 +57,7 @@ fun bindPlaceCardView(view: CardView, viewModel: HomeViewModel , lifecycleOwner:
         placeName.text = "${it.placeName}"
         address.text = "${it.addressName}"
     }
-    imgIcon.setImageResource(R.drawable.ic_hospital_marker)
-
+    imgIcon.setImageResource(R.drawable.ic_hospital_marker)*/
 }
     @BindingAdapter("bindViewModel","bindLifecycle","bindMap","bindHome")
 fun bindPatientView(view: RecyclerView, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner, mapUtil: MapUtil, homeUtil: HomeUtil ) {
@@ -99,12 +100,12 @@ fun bindDocumentView(view: IndexRecyclerView, viewModel: HomeViewModel , lifecyc
             Log.d("HomeBindingAdapter", "receive dc pNo: $pNo")
 
             if (list.isNotEmpty()) {
-                view.index_recyclerView.updateIndex(list, false)
+                view.updateIndex(list, false)
                 viewModel.updateDocInMonth(list.last(), pNo)
             } else {
                 Log.d("HomeBindingAdapter","dc false ${list.size}")
-                view.index_recyclerView.updateIndex(emptyList(), false)
-                view.index_recyclerView.updateIndex(emptyList(), true)
+                view.updateIndex(emptyList(), false)
+                view.updateIndex(emptyList(), true)
                 docAdapter.submitList(emptyList())
             }
         }
@@ -114,8 +115,8 @@ fun bindDocumentView(view: IndexRecyclerView, viewModel: HomeViewModel , lifecyc
         Log.d("HomeBindingAdapter", "docPM Update!! size: ${list.size}")
 
         if (list.isNotEmpty()){
-            view.index_recyclerView.updateIndex(viewModel.docToIndex(list), true)
-            (view.index_recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(list.lastIndex+1,0)
+            view.updateIndex(viewModel.docToIndex(list), true)
+            (view.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(list.lastIndex+1,0)
             docAdapter.submitList(list)
         }
         // dc list 가 비어있을 경우 업데이트가 되지않음
@@ -123,7 +124,7 @@ fun bindDocumentView(view: IndexRecyclerView, viewModel: HomeViewModel , lifecyc
 
     view.let{
         it.getPickIndexLive(true).observe(lifecycleOwner) { pickH ->
-            (view.index_recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(pickH,0)
+            (view.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(pickH,0)
 
         }
         it.getPickIndexLive(false).observe(lifecycleOwner){ pickV->
