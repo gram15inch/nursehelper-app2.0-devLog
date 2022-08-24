@@ -38,6 +38,10 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="info_label_tag_width">100dp</dimen>
     <dimen name="info_label_gap">20dp</dimen>
-    <dimen name="info_label_size">26sp</dimen>
-    <dimen name="view_information_label_padding">20dp</dimen>
+    <dimen name="info_label_size">20sp</dimen>
+    <dimen name="view_information_label_padding">10dp</dimen>
+    <dimen name="view_information_label_Height">200dp</dimen>
+    <dimen name="view_label_Height">200dp</dimen>
+    <dimen name="view_out_margin">20dp</dimen>
+    <dimen name="view_item_gap">15dp</dimen>
 </resources>

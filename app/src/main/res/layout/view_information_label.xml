@@ -6,16 +6,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:padding="@dimen/view_information_label_padding"
     tools:layout_width="400dp"
-    tools:layout_height="250dp"
+    tools:layout_height="@dimen/view_label_Height"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <TextView
         android:id="@+id/place_info_label_tag"
         android:layout_width="@dimen/info_label_tag_width"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        style="@style/placeInfoLabelTagBase"
         android:text="@string/info_label_tag_nursing_home"
-        android:textSize="@dimen/info_label_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,9 +22,8 @@
         android:id="@+id/place_info_label_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        style="@style/placeInfoLabelTextBase"
         tools:text="행복요양병원"
-        android:textSize="@dimen/info_label_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/place_info_label_tag"
         app:layout_constraintTop_toTopOf="@+id/place_info_label_tag" />
@@ -34,10 +32,9 @@
         android:id="@+id/name_info_label_tag"
         android:layout_width="@dimen/info_label_tag_width"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/info_label_gap"
-        android:gravity="center"
+        android:layout_marginTop="10dp"
         android:text="@string/info_label_tag_name"
-        android:textSize="@dimen/info_label_size"
+        style="@style/placeInfoLabelTagBase"
         app:layout_constraintStart_toStartOf="@+id/place_info_label_tag"
         app:layout_constraintTop_toBottomOf="@+id/place_info_label_tag" />
 
@@ -45,9 +42,8 @@
         android:id="@+id/name_info_label_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
         tools:text="홍길동"
-        android:textSize="@dimen/info_label_size"
+        style="@style/placeInfoLabelTextBase"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/name_info_label_tag"
@@ -57,21 +53,18 @@
         android:id="@+id/gender_info_label_tag"
         android:layout_width="@dimen/info_label_tag_width"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/info_label_gap"
-        android:gravity="center"
+        android:layout_marginTop="10dp"
         android:text="@string/info_label_tag_gender"
-        android:textSize="@dimen/info_label_size"
-        app:layout_constraintEnd_toStartOf="@+id/gender_info_label_text"
+        style="@style/placeInfoLabelTagBase"
         app:layout_constraintStart_toStartOf="@+id/name_info_label_tag"
         app:layout_constraintTop_toBottomOf="@+id/name_info_label_tag" />
 
     <TextView
         android:id="@+id/gender_info_label_text"
+        style="@style/placeInfoLabelTextBase"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="@dimen/info_label_size"
-        app:layout_constraintEnd_toStartOf="@+id/age_info_label_tag"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/gender_info_label_tag"
         app:layout_constraintTop_toTopOf="@+id/gender_info_label_tag"
         tools:text="남" />
@@ -80,19 +73,17 @@
         android:id="@+id/age_info_label_tag"
         android:layout_width="@dimen/info_label_tag_width"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_marginTop="10dp"
         android:text="@string/info_label_tag_age"
-        android:textSize="@dimen/info_label_size"
-        app:layout_constraintEnd_toStartOf="@+id/age_label_text"
-        app:layout_constraintStart_toEndOf="@+id/gender_info_label_text"
-        app:layout_constraintTop_toTopOf="@+id/gender_info_label_tag" />
+        style="@style/placeInfoLabelTagBase"
+        app:layout_constraintStart_toStartOf="@+id/gender_info_label_tag"
+        app:layout_constraintTop_toBottomOf="@+id/gender_info_label_tag" />
 
     <TextView
         android:id="@+id/age_label_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="@dimen/info_label_size"
+        style="@style/placeInfoLabelTextBase"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/age_info_label_tag"
@@ -103,25 +94,21 @@
         android:id="@+id/rrn_info_label"
         android:layout_width="@dimen/info_label_tag_width"
         android:layout_height="wrap_content"
-
-        android:layout_marginTop="@dimen/info_label_gap"
-        android:gravity="center"
+        android:layout_marginTop="10dp"
         android:text="@string/info_label_tag_rrn"
-        android:textSize="@dimen/info_label_size"
-        app:layout_constraintStart_toStartOf="@+id/gender_info_label_tag"
-        app:layout_constraintTop_toBottomOf="@+id/age_label_text" />
+        style="@style/placeInfoLabelTagBase"
+        app:layout_constraintStart_toStartOf="@+id/age_info_label_tag"
+        app:layout_constraintTop_toBottomOf="@+id/age_info_label_tag" />
 
     <TextView
         android:id="@+id/rrn_label_text"
+        style="@style/placeInfoLabelTextBase"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        tools:text="1901년 01월 01일"
-        android:textSize="@dimen/info_label_size"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/rrn_info_label"
-        app:layout_constraintTop_toTopOf="@+id/rrn_info_label" />
+        app:layout_constraintTop_toTopOf="@+id/rrn_info_label"
+        tools:text="1901년 01월 01일" />
 
 
 </merge>

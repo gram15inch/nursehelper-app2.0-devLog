@@ -35,7 +35,7 @@ interface Template {
 }
 @JsonClass(generateAdapter = true)
 data class DATA_HOME_NURSING_PROGRESS_REPORT(val progressContents : String) :Template
-// todo 리소스 없는 오류 고치기 
+
 object DocTemplate{
     fun toType(no:Int){
         when(no){

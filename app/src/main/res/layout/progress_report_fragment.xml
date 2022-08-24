@@ -16,46 +16,49 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F1F0F0"
+        android:background="#E8E6E6"
         tools:context=".ui.document.report.ProgressReportFragment">
 
 
         <com.nuhlp.nursehelper.utill.component.merge.LabelInformation
             android:id="@+id/labelInformation"
-            style="@style/fragmentItemBase"
+            style="@style/fragmentItemBase2"
             bindLifecycle="@{lifecycleOwner}"
             bindViewModel="@{viewModel}"
-            android:layout_width="400dp"
-            android:layout_height="250dp"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/view_label_Height"
             android:padding="@dimen/view_information_label_padding"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/docLabel"/>
 
         <TextView
             android:id="@+id/docLabel"
-            style="@style/fragmentItemBase"
-            android:layout_width="0dp"
-            android:layout_height="250dp"
-            android:gravity="center"
-            android:padding="10dp"
-            tools:text="가정간호 경과 기록지"
-            android:textSize="34sp"
+            style="@style/fragmentItemBase2"
             bindLifecycle="@{lifecycleOwner}"
             bindViewModel="@{viewModel}"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/view_label_Height"
+            android:layout_marginEnd="@dimen/view_out_margin"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/HOME_NURSING_PROGRESS_REPORT"
+            android:textSize="34sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/labelInformation"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textCenter"
-            style="@style/fragmentItemBase"
+            style="@style/fragmentItemBase2"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/view_out_margin"
             android:layout_marginBottom="20dp"
             android:gravity="center"
             android:padding="10dp"
-            android:text="문서내용"
 
+            android:text="문서내용"
             android:textSize="34sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
