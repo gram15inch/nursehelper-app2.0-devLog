@@ -19,7 +19,6 @@
         android:background="#E8E6E6"
         tools:context=".ui.document.report.ProgressReportFragment">
 
-
         <com.nuhlp.nursehelper.utill.component.merge.LabelInformation
             android:id="@+id/labelInformation"
             style="@style/fragmentItemBase2"
@@ -27,7 +26,7 @@
             bindViewModel="@{viewModel}"
             android:layout_width="0dp"
             android:layout_height="@dimen/view_label_Height"
-            android:padding="@dimen/view_information_label_padding"
+            android:padding="@dimen/view_label_padding"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/docLabel"/>
@@ -35,8 +34,6 @@
         <TextView
             android:id="@+id/docLabel"
             style="@style/fragmentItemBase2"
-            bindLifecycle="@{lifecycleOwner}"
-            bindViewModel="@{viewModel}"
             android:layout_width="0dp"
             android:layout_height="@dimen/view_label_Height"
             android:layout_marginEnd="@dimen/view_out_margin"
@@ -48,23 +45,40 @@
             app:layout_constraintStart_toEndOf="@+id/labelInformation"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <com.nuhlp.nursehelper.utill.component.merge.ReportContents
             android:id="@+id/textCenter"
-            style="@style/fragmentItemBase2"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            style="@style/fragmentItemBase2"
             android:layout_marginEnd="@dimen/view_out_margin"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:padding="10dp"
-
-            android:text="문서내용"
-            android:textSize="34sp"
+            android:layout_marginBottom="@dimen/view_out_margin"
+            android:padding="@dimen/view_label_padding"
+            bindLifecycle="@{lifecycleOwner}"
+            bindViewModel="@{viewModel}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/labelInformation"
             app:layout_constraintVertical_bias="1.0" />
+<!--
+        <EditText
+            android:id="@+id/textCenter"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            style="@style/fragmentItemBase2"
+            android:layout_marginEnd="@dimen/view_out_margin"
+            android:layout_marginBottom="@dimen/view_out_margin"
+            android:gravity="left"
+            android:padding="@dimen/view_label_padding"
+            tools:text="문서내용"
+            android:textSize="28sp"
+            bindLifecycle="@{lifecycleOwner}"
+            bindViewModel="@{viewModel}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/labelInformation"
+            app:layout_constraintVertical_bias="1.0" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

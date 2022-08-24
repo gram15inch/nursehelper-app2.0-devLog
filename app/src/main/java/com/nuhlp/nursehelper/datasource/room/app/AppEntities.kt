@@ -31,6 +31,7 @@ data class Patient constructor(
     fun isValid():Boolean = ( name !="" && rrn !=""&& gender !="")
 }
 
+
 @Entity
 data class Stock constructor(
     @PrimaryKey(autoGenerate = true)

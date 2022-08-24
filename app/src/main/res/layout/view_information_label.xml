@@ -4,7 +4,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:padding="@dimen/view_information_label_padding"
+    tools:padding="@dimen/view_label_padding"
     tools:layout_width="400dp"
     tools:layout_height="@dimen/view_label_Height"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
@@ -88,7 +88,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/age_info_label_tag"
         app:layout_constraintTop_toTopOf="@+id/age_info_label_tag"
-        tools:text="77" />
+        tools:text="99" />
 
     <TextView
         android:id="@+id/rrn_info_label"

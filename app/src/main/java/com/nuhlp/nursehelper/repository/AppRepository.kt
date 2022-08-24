@@ -22,9 +22,7 @@ class AppRepository(private val AppDB: AppDatabase) {
         AppDB.appDao.setBP(businessPlace)
     }
 
-    suspend fun getDocument(docNo: Int) :Document = withContext(Dispatchers.IO) {
-        AppDB.appDao.getDoc(docNo,1)
-    }
+
     suspend fun setDocument(doc: Document) = withContext(Dispatchers.IO) {
         AppDB.appDao.setDoc(doc)
     }
@@ -39,8 +37,15 @@ class AppRepository(private val AppDB: AppDatabase) {
    suspend fun getPatientsWithBpNo(bpNo: Int): List<Patient> = withContext(Dispatchers.IO){
        return@withContext AppDB.appDao.getPatients(bpNo = bpNo.toString())
     }
+    /* get */
+    suspend fun getDocument(docNo: Int) :Document = withContext(Dispatchers.IO) {
+        AppDB.appDao.getDoc(docNo,1)
+    }
     suspend fun getPatient(patientNo: Int): Patient = withContext(Dispatchers.IO){
        return@withContext AppDB.appDao.getPatient(patientNo.toString())
+    }
+    suspend fun getBusinessPlace(bpNo: Int): BusinessPlace = withContext(Dispatchers.IO){
+        return@withContext AppDB.appDao.getBusinessPlace(bpNo.toString())
     }
 
 

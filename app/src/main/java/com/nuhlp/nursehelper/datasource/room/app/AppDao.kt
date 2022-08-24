@@ -20,6 +20,8 @@ interface AppDao {
     fun getPatients(patNo: String = "%", bpNo: String ="%",name: String ="%",rrn: String="%" ): List<Patient>
     @Query("SELECT *  from Patient where patNo =:patNo")
     fun getPatient(patNo: String): Patient
+    @Query("SELECT *  from BusinessPlace where bpNo =:bpNo")
+    fun getBusinessPlace(bpNo: String): BusinessPlace
 
 
 
