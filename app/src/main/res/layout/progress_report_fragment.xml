@@ -11,6 +11,10 @@
     <variable
         name="lifecycleOwner"
         type="androidx.lifecycle.LifecycleOwner" />
+    <variable
+        name="reportUtil"
+        type="com.nuhlp.nursehelper.ui.document.report.ReportUtil" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +50,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.nuhlp.nursehelper.utill.component.merge.ReportContents
-            android:id="@+id/textCenter"
+            android:id="@+id/docReportContents"
             android:layout_width="0dp"
             android:layout_height="0dp"
             style="@style/fragmentItemBase2"
@@ -55,6 +59,7 @@
             android:padding="@dimen/view_label_padding"
             bindLifecycle="@{lifecycleOwner}"
             bindViewModel="@{viewModel}"
+            bindReportUtil="@{reportUtil}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

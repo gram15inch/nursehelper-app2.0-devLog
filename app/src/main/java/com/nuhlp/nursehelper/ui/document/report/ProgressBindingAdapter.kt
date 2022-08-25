@@ -26,9 +26,12 @@ fun bindInfoLabel(view: LabelInformation, viewModel: ProgressReportViewModel, li
         view.setInfoTextPlace(it.placeName)
     }
 }
-@BindingAdapter("bindViewModel","bindLifecycle")
-fun bindDocContents(view: ReportContents, viewModel: ProgressReportViewModel, lifecycleOwner: LifecycleOwner) {
+@BindingAdapter("bindViewModel","bindLifecycle","bindReportUtil")
+fun bindDocContents(view: ReportContents, viewModel: ProgressReportViewModel, lifecycleOwner: LifecycleOwner, reportUtil: ReportUtil) {
     viewModel.document.asLiveData().observe(lifecycleOwner){
         view.binding.reportContents.setText(it.contentsJs)
+        view.binding.reportTitle.setText(it.docNo.toString())
     }
+    view.binding.sfb.setOnClickListener(reportUtil)
+    view.binding.reportContents.addTextChangedListener(reportUtil)
 }

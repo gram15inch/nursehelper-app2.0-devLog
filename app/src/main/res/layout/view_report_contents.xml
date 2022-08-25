@@ -12,21 +12,36 @@
     3. sfb 저장/불러오기 구현
     4. wfb 호출시 프래그먼트/view 중 선택
     5. wfb 구현
+    6. contentsJs 해결
     -->
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+
+    <EditText
+        android:id="@+id/report_title"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:gravity="left"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toStartOf="@+id/sfb"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="문서제목" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/sfb"
         android:layout_width="70dp"
-        android:layout_height="35dp"
+        android:layout_height="40dp"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_baseline_bolt_24"
-        android:text="저장"
-        android:textSize="15sp"
-        android:paddingTop="8dp"
-        android:paddingBottom="5dp"
-        android:paddingEnd="13dp"
         android:gravity="center"
+        android:src="@drawable/ic_baseline_bolt_24"
+
+        android:text="@string/save"
         android:textColor="@color/black"
+        android:textSize="15sp"
+        app:cornerRadius="15dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/report_title"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/report_title"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -42,13 +57,16 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
 
-
     <EditText
         android:id="@+id/report_contents"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:gravity="left"
         android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/report_title"
         tools:text="문서내용" />
 
 </merge>
