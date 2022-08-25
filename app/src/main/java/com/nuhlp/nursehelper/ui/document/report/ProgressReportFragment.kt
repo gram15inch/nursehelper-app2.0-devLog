@@ -1,13 +1,8 @@
 package com.nuhlp.nursehelper.ui.document.report
 
 import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.navArgs
 import com.nuhlp.nursehelper.R
@@ -17,7 +12,9 @@ import com.nuhlp.nursehelper.databinding.ProgressReportFragmentBinding
 import com.nuhlp.nursehelper.utill.base.binding.BaseDataBindingFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 
 
@@ -37,25 +34,28 @@ class ProgressReportFragment  : BaseDataBindingFragment<ProgressReportFragmentBi
         binding.viewModel = _progressReportViewModel
         binding.lifecycleOwner = viewLifecycleOwner
         binding.reportUtil = this
-        _progressReportViewModel.updateDocument(args.documentNo)
+        _progressReportViewModel.refreshDocument(args.documentNo)
     }
 
-    override fun setSaveReportButton(v: View?) {
-        binding.docReportContents.binding.sfb.visibility = View.INVISIBLE
+    override fun setOnClickSaveReportButton(v: View?) {
+        CoroutineScope(Dispatchers.IO).launch {
+            _progressReportViewModel.isChanged.emit(false)
+        }
     }
     override fun setOnTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        if(s!=""){
-            CoroutineScope(Dispatchers.IO).launch{
-                Log.d("ProgressReportFragment","call text1")
-                _progressReportViewModel.document.asLiveData().value?.toString().apply {
-                    Log.d("ProgressReportFragment","call document: $this")
-                    _progressReportViewModel.isChanged.emit(true)
-                    // todo 뷰에 상태 플로우 붙이기
-                  }
+        CoroutineScope(Dispatchers.IO).launch {
+            _progressReportViewModel.documentLiveData.value?.let { remote ->
+                binding.docReportContents.binding.reportContents.text.toString().let { local ->
+                    Log.d("ProgressReportFragment", "remote: ${remote.contentsJs}")
+                    Log.d("ProgressReportFragment", "local: ${local}")
+                    if (local != "")
+                        if (remote.contentsJs != local)
+                            CoroutineScope(Dispatchers.IO).launch {
+                                _progressReportViewModel.isChanged.emit(true)
+                            }
                 }
-
             }
         }
-
     }
+
 }

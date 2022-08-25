@@ -6,14 +6,6 @@
     tools:layout_height="1000dp"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
-<!--todo 8/25
-    1. title 추가
-    2. sfb 일반버튼으로변경
-    3. sfb 저장/불러오기 구현
-    4. wfb 호출시 프래그먼트/view 중 선택
-    5. wfb 구현
-    6. contentsJs 해결
-    -->
 
     <EditText
         android:id="@+id/report_title"
