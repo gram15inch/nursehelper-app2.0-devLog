@@ -35,6 +35,7 @@ class ProgressReportFragment  : BaseDataBindingFragment<ProgressReportFragmentBi
         binding.lifecycleOwner = viewLifecycleOwner
         binding.reportUtil = this
         _progressReportViewModel.refreshDocument(args.documentNo)
+        _progressReportViewModel.refreshDocument2(args.documentNo)
     }
 
     override fun setOnClickSaveReportButton(v: View?) {
@@ -44,15 +45,16 @@ class ProgressReportFragment  : BaseDataBindingFragment<ProgressReportFragmentBi
     }
     override fun setOnTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            _progressReportViewModel.documentLiveData.value?.let { remote ->
+            _progressReportViewModel.document2.value.let { remote ->
+                Log.d("ProgressReportFragment", "textChange: ${remote.docNo}")
+                if(remote.isValid())
                 binding.docReportContents.binding.reportContents.text.toString().let { local ->
                     Log.d("ProgressReportFragment", "remote: ${remote.contentsJs}")
                     Log.d("ProgressReportFragment", "local: ${local}")
                     if (local != "")
-                        if (remote.contentsJs != local)
-                            CoroutineScope(Dispatchers.IO).launch {
-                                _progressReportViewModel.isChanged.emit(true)
-                            }
+                        ((remote.contentsJs == local) != _progressReportViewModel.isChanged.value)
+                    //todo 버튼 출력 로직작성
+
                 }
             }
         }

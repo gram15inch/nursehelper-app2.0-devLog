@@ -11,9 +11,7 @@ import com.nuhlp.nursehelper.datasource.room.app.Document
 import com.nuhlp.nursehelper.datasource.room.app.Patient
 import com.nuhlp.nursehelper.datasource.room.app.getAppDatabase
 import com.nuhlp.nursehelper.repository.AppRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 /*
 todo 8/25
@@ -31,8 +29,11 @@ class ProgressReportViewModel : ViewModel() {
     private val _patient= MutableSharedFlow<Patient>()
     val patient get() :Flow<Patient> = _patient
     private val _document= MutableSharedFlow<Document>()
+    private val _document2= MutableStateFlow(Document.empty())
     val document get() :Flow<Document> = _document
-    val documentLiveData  = _document.asLiveData()
+    val document2 get() :StateFlow<Document> = _document2
+
+
     private val _businessPlace= MutableSharedFlow<BusinessPlace>()
     val businessPlace get() :Flow<BusinessPlace> = _businessPlace
     val isChanged = MutableStateFlow(false)
@@ -40,6 +41,9 @@ class ProgressReportViewModel : ViewModel() {
 
     fun refreshDocument(docNo :Int){
         viewModelScope.launch{ _document.emit(appRepository.getDocument(docNo)) }
+    }
+    fun refreshDocument2(docNo :Int){
+        viewModelScope.launch{ _document2.emit(appRepository.getDocument(docNo)) }
     }
     fun refreshPatient(patNo :Int){
         viewModelScope.launch{ _patient.emit(appRepository.getPatient(patNo)) }

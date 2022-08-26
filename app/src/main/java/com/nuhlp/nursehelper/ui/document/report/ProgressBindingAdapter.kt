@@ -14,6 +14,7 @@ import com.nuhlp.nursehelper.utill.component.merge.ReportContents
 fun bindInfoLabel(view: LabelInformation, viewModel: ProgressReportViewModel, lifecycleOwner: LifecycleOwner) {
 
     viewModel.document.asLiveData().observe(lifecycleOwner){
+        if(it.patNo!=0)
         viewModel.refreshPatient(it.patNo)
     }
     viewModel.patient.asLiveData().observe(lifecycleOwner){
