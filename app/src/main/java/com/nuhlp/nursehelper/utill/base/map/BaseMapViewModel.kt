@@ -18,7 +18,8 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-abstract class BaseMapViewModel : ViewModel() {
+abstract class
+BaseMapViewModel : ViewModel() {
     lateinit var mMap: GoogleMap
     lateinit var fusedLocationClient: FusedLocationProviderClient
 

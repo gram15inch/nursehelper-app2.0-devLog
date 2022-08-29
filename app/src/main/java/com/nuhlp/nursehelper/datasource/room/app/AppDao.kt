@@ -41,8 +41,8 @@ interface AppDao {
 
 
     // CRUD
-    @Query("select * from Document where patNo =:patientNo and docNo =:documentNo")
-    fun getDoc(documentNo: Int, patientNo: Int):Document
+    @Query("select * from Document where docNo =:documentNo")
+    fun getDoc(documentNo: Int):Document
 
     @Query ("select * from Product where prdNo =:productNo")
     fun getPd(productNo: Int):Product

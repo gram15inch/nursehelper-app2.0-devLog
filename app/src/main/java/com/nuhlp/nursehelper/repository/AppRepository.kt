@@ -9,7 +9,6 @@ import kotlinx.coroutines.withContext
 
 class AppRepository(private val AppDB: AppDatabase) {
 
-
     suspend fun getDocWithM(m: String, pNo: Int):List<Document> = withContext(Dispatchers.IO) {
         return@withContext  AppDB.appDao.getDoc("2022-$m%", pNo)
     }
@@ -39,7 +38,7 @@ class AppRepository(private val AppDB: AppDatabase) {
     }
     /* get */
     suspend fun getDocument(docNo: Int) :Document = withContext(Dispatchers.IO) {
-        AppDB.appDao.getDoc(docNo,1)
+        AppDB.appDao.getDoc(docNo)
     }
     suspend fun getPatient(patientNo: Int): Patient = withContext(Dispatchers.IO){
        return@withContext AppDB.appDao.getPatient(patientNo.toString())

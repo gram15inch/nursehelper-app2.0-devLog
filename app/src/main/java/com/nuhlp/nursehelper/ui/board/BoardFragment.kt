@@ -14,7 +14,7 @@ class BoardFragment : Fragment() {
         fun newInstance() = BoardFragment()
     }
 
-    private lateinit var viewModel: BloardViewModel
+    private lateinit var viewModel: BoardViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +25,7 @@ class BoardFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(BloardViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(BoardViewModel::class.java)
 
     }
 

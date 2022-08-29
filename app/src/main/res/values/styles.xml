@@ -33,6 +33,14 @@
         <item name="cardCornerRadius">15dp</item>
         <item name="cardElevation">3dp</item>
     </style>
+    <style name="QuickBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/QuickModalStyle</item>
+    </style>
+    <style name="QuickModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bt_rect_round_bottom_large</item>
+    </style>
     <style name="placeInfoLabelTextBase" >
         <item name="android:textSize">@dimen/info_label_size</item>
         <item name="android:gravity">right</item>
@@ -45,6 +53,27 @@
         <item name="android:textSize">60sp</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <!--Bottom Sheet-->
+    <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
+    </style>
+
+    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+        <item name="android:padding">20dp</item>
+    </style>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+
+    </style>
+
+    <!-- AppBar -->
     <declare-styleable name="BottomAppBar">
         <!-- Background for the BottomAppBar. -->
         <attr name="backgroundTint"/>

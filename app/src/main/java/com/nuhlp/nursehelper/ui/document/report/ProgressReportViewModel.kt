@@ -20,8 +20,10 @@ todo 8/25
  sfb 일반버튼으로변경
  documentLive null값 해결
  sfb 저장/불러오기 구현
-2. wfb 호출시 프래그먼트/view 중 선택
+wfb 호출시 프래그먼트/view 중 선택
 3. wfb 구현
+    - 컨테인뷰안에서 여러 프래그먼트로 입력받음
+    -
 4. contentsJs 해결
 5. place cache 구현*/
 
