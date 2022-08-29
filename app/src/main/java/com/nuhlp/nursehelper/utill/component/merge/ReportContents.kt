@@ -14,4 +14,5 @@ class ReportContents @JvmOverloads constructor(
     init {
         binding = ViewReportContentsBinding.inflate(LayoutInflater.from(context),this)
     }
+
 }

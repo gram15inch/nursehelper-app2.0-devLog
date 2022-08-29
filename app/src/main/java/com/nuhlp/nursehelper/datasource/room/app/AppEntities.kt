@@ -17,6 +17,7 @@ data class Document constructor(
     val crtDate: String, // * create Date : AppTime.SDF
     val contentsJs: String // json
 ) {
+    /** null check(no != 0)*/
     fun isValid() = docNo != 0
     companion object {
         fun empty()=Document(0,0,0,"","")

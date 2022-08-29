@@ -1,5 +1,6 @@
 package com.nuhlp.nursehelper.ui.document.report
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
@@ -17,39 +18,52 @@ import kotlinx.coroutines.launch
 todo 8/25
  title 추가
  sfb 일반버튼으로변경
-0. documentLive null값 해결
-1. sfb 저장/불러오기 구현
+ documentLive null값 해결
+ sfb 저장/불러오기 구현
 2. wfb 호출시 프래그먼트/view 중 선택
 3. wfb 구현
-4. contentsJs 해결*/
+4. contentsJs 해결
+5. place cache 구현*/
+
 
 class ProgressReportViewModel : ViewModel() {
     private val appRepository = AppRepository(getAppDatabase(NurseHelperApplication.context()))
 
     private val _patient= MutableSharedFlow<Patient>()
     val patient get() :Flow<Patient> = _patient
-    private val _document= MutableSharedFlow<Document>()
-    private val _document2= MutableStateFlow(Document.empty())
-    val document get() :Flow<Document> = _document
-    val document2 get() :StateFlow<Document> = _document2
+    private val _document= MutableStateFlow(Document.empty())
+    val document get() :StateFlow<Document> = _document
 
 
     private val _businessPlace= MutableSharedFlow<BusinessPlace>()
     val businessPlace get() :Flow<BusinessPlace> = _businessPlace
+    /** Document Text Change */
     val isChanged = MutableStateFlow(false)
 
-
+    var contentText :String = ""
+    var contentTextPos : Int = 0
     fun refreshDocument(docNo :Int){
-        viewModelScope.launch{ _document.emit(appRepository.getDocument(docNo)) }
-    }
-    fun refreshDocument2(docNo :Int){
-        viewModelScope.launch{ _document2.emit(appRepository.getDocument(docNo)) }
+        viewModelScope.launch{
+            if (!isChanged.value)
+                _document.emit(appRepository.getDocument(docNo))
+                Log.d("ProgressReportFragment","refreshDocument!!")
+            }
     }
     fun refreshPatient(patNo :Int){
         viewModelScope.launch{ _patient.emit(appRepository.getPatient(patNo)) }
     }
     fun refreshPlace(bpNo :Int){
         viewModelScope.launch{ _businessPlace.emit(appRepository.getBusinessPlace(bpNo)) }
+    }
+    fun updateDocument(contents:String){
+        viewModelScope.launch {
+            if(document.value.isValid()) {
+                document.value.let {
+                    val doc = Document(it.docNo,it.patNo,it.tmpNo,it.crtDate,contents)
+                    appRepository.setDocument(doc)
+                }
+            }
+        }
     }
 
     class Factory : ViewModelProvider.Factory {

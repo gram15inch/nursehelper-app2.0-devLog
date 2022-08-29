@@ -1,9 +1,7 @@
 package com.nuhlp.nursehelper.ui.document.report
 
 import androidx.lifecycle.ViewModelProvider
-import android.util.Log
 import android.view.View
-import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.navArgs
 import com.nuhlp.nursehelper.R
 
@@ -12,9 +10,6 @@ import com.nuhlp.nursehelper.databinding.ProgressReportFragmentBinding
 import com.nuhlp.nursehelper.utill.base.binding.BaseDataBindingFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 
 
@@ -34,27 +29,27 @@ class ProgressReportFragment  : BaseDataBindingFragment<ProgressReportFragmentBi
         binding.viewModel = _progressReportViewModel
         binding.lifecycleOwner = viewLifecycleOwner
         binding.reportUtil = this
+
+
         _progressReportViewModel.refreshDocument(args.documentNo)
-        _progressReportViewModel.refreshDocument2(args.documentNo)
+
     }
 
     override fun setOnClickSaveReportButton(v: View?) {
         CoroutineScope(Dispatchers.IO).launch {
+            _progressReportViewModel.updateDocument(_progressReportViewModel.contentText)
             _progressReportViewModel.isChanged.emit(false)
         }
+        hideKeyboard()
     }
     override fun setOnTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        _progressReportViewModel.contentText = s.toString()
+        _progressReportViewModel.contentTextPos = start
         CoroutineScope(Dispatchers.IO).launch {
-            _progressReportViewModel.document2.value.let { remote ->
-                Log.d("ProgressReportFragment", "textChange: ${remote.docNo}")
-                if(remote.isValid())
-                binding.docReportContents.binding.reportContents.text.toString().let { local ->
-                    Log.d("ProgressReportFragment", "remote: ${remote.contentsJs}")
-                    Log.d("ProgressReportFragment", "local: ${local}")
-                    if (local != "")
-                        ((remote.contentsJs == local) != _progressReportViewModel.isChanged.value)
-                    //todo 버튼 출력 로직작성
-
+            _progressReportViewModel.document.value.let { local ->
+                if(local.isValid())
+                binding.docReportContents.binding.reportContent.text.toString().let { view ->
+                    _progressReportViewModel.isChanged.emit(local.contentsJs != view)
                 }
             }
         }
