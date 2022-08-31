@@ -1,17 +1,14 @@
 package com.nuhlp.nursehelper.ui.document.report
 
-import android.app.ProgressDialog.show
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import android.view.View
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.nuhlp.nursehelper.NurseHelperApplication
 import com.nuhlp.nursehelper.R
 
 import com.nuhlp.nursehelper.databinding.ProgressReportFragmentBinding
-import com.nuhlp.nursehelper.ui.home.HomeFragmentDirections
-import com.nuhlp.nursehelper.ui.popup.quick.QuickCreationFragment
+import com.nuhlp.nursehelper.utill.arrayToLines
 
 import com.nuhlp.nursehelper.utill.base.binding.BaseDataBindingFragment
 import kotlinx.coroutines.CoroutineScope
@@ -36,13 +33,28 @@ class ProgressReportFragment  : BaseDataBindingFragment<ProgressReportFragmentBi
         binding.lifecycleOwner = viewLifecycleOwner
         binding.reportUtil = this
 
-        _progressReportViewModel.refreshDocument(args.documentNo)
+
+        _progressReportViewModel.let {vm->
+            vm.refreshDocument(args.documentNo)
+            vm.refreshSentence(args.sentence)
+        }
         binding.docReportContents.binding.wfb.setOnClickListener {
             val action = ProgressReportFragmentDirections.actionProgressReportFragmentToQuickCreationFragment()
             this.findNavController().navigate(action)
         }
+        Log.d("ProgressReportFragment","onCreate()")
+
     }
 
+    override fun onStart() {
+        super.onStart()
+        Log.d("ProgressReportFragment","onStart()")
+    }
+
+    override fun onResume() {
+        super.onResume()
+    Log.d("ProgressReportFragment","onResume()")
+    }
     override fun setOnClickSaveReportButton(v: View?) {
         CoroutineScope(Dispatchers.IO).launch {
             _progressReportViewModel.updateDocument(_progressReportViewModel.contentText)

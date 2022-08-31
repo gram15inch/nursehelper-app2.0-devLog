@@ -12,6 +12,7 @@ import com.nuhlp.nursehelper.datasource.room.app.Document
 import com.nuhlp.nursehelper.datasource.room.app.Patient
 import com.nuhlp.nursehelper.datasource.room.app.getAppDatabase
 import com.nuhlp.nursehelper.repository.AppRepository
+import com.nuhlp.nursehelper.utill.arrayToLines
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 /*
@@ -65,6 +66,12 @@ class ProgressReportViewModel : ViewModel() {
                     appRepository.setDocument(doc)
                 }
             }
+        }
+    }
+
+    fun refreshSentence(sentence: Array<String>) {
+        contentText = arrayToLines(sentence).let { lines->
+            if (contentText == "") lines else "\n$lines"
         }
     }
 

@@ -18,7 +18,7 @@ import kotlin.collections.List
 
 @JsonClass(generateAdapter = true)
 class Person  (
-    val name :String ,
+    val name :String,
     val age:Int )
 {
     val type = 1
@@ -106,7 +106,7 @@ object JsonFactory{
         }
     }
 
-    fun<T> fromJson(json:String,ct:Class<T>):T{
+    fun<T> fromJson(json:String, ct:Class<T>):T{
        return getAdapter(ct).fromJson(json) as T
     }
     fun<T> toJson(dataClass:T):String{
@@ -132,7 +132,7 @@ abstract class typeable {
 
 }
 
-class TypeTest1(val name: String , val age :Int){
+class TypeTest1(val name: String, val age :Int){
 
 }
-class TypeTest2(val name: String , val age :Int){}
+class TypeTest2(val name: String, val age :Int){}

@@ -21,6 +21,7 @@
         android:name="com.nuhlp.nursehelper.ui.board.BoardFragment"
         android:label="board_fragment"
         tools:layout="@layout/board_fragment" />
+
     <fragment
         android:id="@+id/progressReportFragment"
         android:name="com.nuhlp.nursehelper.ui.document.report.ProgressReportFragment"
@@ -28,15 +29,22 @@
         <argument
             android:name="documentNo"
             app:argType="integer" />
+        <argument android:name="sentence"
+            app:argType="string[]" />
         <action
             android:id="@+id/action_progressReportFragment_to_quickCreationFragment"
             app:destination="@id/quickCreationFragment"
             app:popUpTo="@id/quickCreationFragment"
             app:popUpToInclusive="true" />
     </fragment>
+
     <dialog
         android:id="@+id/quickCreationFragment"
         android:name="com.nuhlp.nursehelper.ui.popup.quick.QuickCreationFragment"
         android:label="quick_creation_fragment"
-        tools:layout="@layout/quick_creation_fragment" />
+        tools:layout="@layout/quick_creation_fragment" >
+        <action
+            android:id="@+id/action_quickCreationFragment_to_progressReportFragment"
+            app:destination="@id/progressReportFragment" />
+    </dialog>
 </navigation>
