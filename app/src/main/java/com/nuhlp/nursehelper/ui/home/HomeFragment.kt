@@ -20,7 +20,13 @@ import com.nuhlp.nursehelper.utill.useapp.Constants
 import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
 import com.nuhlp.nursehelper.utill.useapp.MarginItemDecoration
 import com.nuhlp.nursehelper.utill.useapp.adapter.PatientsListAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.lang.Math.rint
+import java.lang.Math.round
 import java.util.*
+import kotlin.math.roundToInt
 
 // ** 인덱스 어답터 베이스 프래그먼트로 빼기 **
 // 최대한 xml에 livedata를 이용하게 바꾸기
@@ -132,36 +138,32 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>(),HomeUtil {
 
      /* **** Test **** */
 
-    private val roomDummy :List<Document> by lazy{
-        val list = mutableListOf<Document>()
-        val time = android.icu.util.Calendar.getInstance()
-        time.set(android.icu.util.Calendar.YEAR,2022)
-        time.set(android.icu.util.Calendar.MONTH,0)
-        time.set(android.icu.util.Calendar.DAY_OF_MONTH,1)
 
-        repeat(365){
-            val t= AppTime.SDF.format(time.time)
-            list.add(Document(it,0,0,t,t))
-            time.add(android.icu.util.Calendar.DAY_OF_MONTH,1)
+    private fun dummyInit(){
+        CoroutineScope(Dispatchers.IO).launch {
+            //_homeViewModel.deleteAllDoc()
+            createDocumentDummy()
         }
-        list.toList()
     }
-    fun createDocumentDummy(){
-        val list = mutableListOf<Document>()
-        val time = android.icu.util.Calendar.getInstance()
-        time.set(android.icu.util.Calendar.YEAR,2022)
-        time.set(android.icu.util.Calendar.MONTH,0)
-        time.set(android.icu.util.Calendar.DAY_OF_MONTH,1)
 
-        val pNo = 6
-        val dNo = 1 + 364
-            for(day in dNo..dNo+364) {
-                val t = AppTime.SDF.format(time.time)
-                val doc = Document(day, pNo, 0, t, "$pNo's document$day")
+    fun createDocumentDummy(){
+        var dNo = 1
+        for(pNo in 1..10) {
+            val list = mutableListOf<Document>()
+            val time = android.icu.util.Calendar.getInstance()
+            time.set(android.icu.util.Calendar.YEAR,2022)
+            time.set(android.icu.util.Calendar.MONTH,0)
+            time.set(android.icu.util.Calendar.DAY_OF_MONTH,1)
+            repeat(365/pNo) {
+                val date = AppTime.SDF.format(time.time)
+                val doc = Document(dNo, pNo, 0, date, "$pNo's document$dNo")
                 list.add(doc)
                 time.add(android.icu.util.Calendar.DAY_OF_MONTH, 1)
                 _homeViewModel.setDoc(doc)
+                dNo++
             }
+        }
+
     }
     fun createPatientDummy() {
         val list = mutableListOf<Patient>()
