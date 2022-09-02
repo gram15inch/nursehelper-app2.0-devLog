@@ -6,6 +6,13 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
+        android:id="@+id/boardFragment"
+        android:name="com.nuhlp.nursehelper.ui.board.BoardFragment"
+        android:label="board_fragment"
+        tools:layout="@layout/board_fragment" />
+
+    <!-- home -->
+    <fragment
         android:id="@+id/homeFragment"
         android:name="com.nuhlp.nursehelper.ui.home.HomeFragment"
         android:label="fragment_home"
@@ -13,19 +20,14 @@
         <action
             android:id="@+id/action_homeFragment_to_progressReportFragment"
             app:destination="@id/progressReportFragment"
-            app:popUpTo="@id/progressReportFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
     </fragment>
-    <fragment
-        android:id="@+id/boardFragment"
-        android:name="com.nuhlp.nursehelper.ui.board.BoardFragment"
-        android:label="board_fragment"
-        tools:layout="@layout/board_fragment" />
 
     <fragment
         android:id="@+id/progressReportFragment"
         android:name="com.nuhlp.nursehelper.ui.document.report.ProgressReportFragment"
-        android:label="ProgressReportFragment" >
+        android:label="ProgressReportFragment"
+        tools:layout="@layout/progress_report_fragment">
         <argument
             android:name="documentNo"
             app:argType="integer" />
@@ -33,9 +35,7 @@
             app:argType="string[]" />
         <action
             android:id="@+id/action_progressReportFragment_to_quickCreationFragment"
-            app:destination="@id/quickCreationFragment"
-            app:popUpTo="@id/quickCreationFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/quickCreationFragment" />
     </fragment>
 
     <dialog
@@ -45,6 +45,8 @@
         tools:layout="@layout/quick_creation_fragment" >
         <action
             android:id="@+id/action_quickCreationFragment_to_progressReportFragment"
-            app:destination="@id/progressReportFragment" />
+            app:destination="@id/progressReportFragment"
+            app:popUpTo="@id/progressReportFragment"
+            app:popUpToInclusive="true" />
     </dialog>
 </navigation>

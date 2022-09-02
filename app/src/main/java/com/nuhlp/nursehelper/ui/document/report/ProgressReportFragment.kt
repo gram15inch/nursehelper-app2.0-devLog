@@ -35,12 +35,17 @@ class ProgressReportFragment  : BaseDataBindingFragment<ProgressReportFragmentBi
 
 
         _progressReportViewModel.let {vm->
+            if(args.documentNo!=1)
             vm.refreshDocument(args.documentNo)
             vm.refreshSentence(args.sentence)
         }
         binding.docReportContents.binding.wfb.setOnClickListener {
             val action = ProgressReportFragmentDirections.actionProgressReportFragmentToQuickCreationFragment()
             this.findNavController().navigate(action)
+        }
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("test1")?.observe(viewLifecycleOwner){
+            _progressReportViewModel
         }
         Log.d("ProgressReportFragment","onCreate()")
 

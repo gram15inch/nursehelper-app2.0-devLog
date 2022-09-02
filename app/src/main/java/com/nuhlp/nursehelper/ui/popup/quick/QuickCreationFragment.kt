@@ -22,9 +22,13 @@ class QuickCreationFragment()  : BaseBottomDialogDataFragment<QuickCreationFragm
 
     override fun onCreateViewAfterBinding() {
             binding.returnBtn.setOnClickListener {
-                val action =  QuickCreationFragmentDirections
-                    .actionQuickCreationFragmentToProgressReportFragment(0, arrayOf("line1","line2"))
-                this.findNavController().navigate(action)
+                /*val action =  QuickCreationFragmentDirections
+                    .actionQuickCreationFragmentToProgressReportFragment(1, arrayOf("line1","line2"))
+                this.findNavController().navigate(action)*/
+                findNavController().previousBackStackEntry
+                ?.savedStateHandle
+                ?.set("test1", "fromQuick")
+            //dismiss()
             }
     }
     //todo 프래그먼트 -> 다이얼로그 시 퍼즈 왜 안되는지
