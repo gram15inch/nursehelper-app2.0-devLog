@@ -1,4 +1,4 @@
-package com.nuhlp.nursehelper.ui.popup.quick
+package com.nuhlp.nursehelper.ui.quick
 
 import androidx.lifecycle.ViewModel
 

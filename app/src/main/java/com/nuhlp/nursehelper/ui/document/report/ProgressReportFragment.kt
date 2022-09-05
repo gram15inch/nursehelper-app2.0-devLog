@@ -39,7 +39,7 @@ class ProgressReportFragment  : BaseDataBindingFragment<ProgressReportFragmentBi
             //vm.refreshSentence(args.sentence)
         }
         binding.docReportContents.binding.wfb.setOnClickListener {
-            val action = ProgressReportFragmentDirections.actionProgressReportFragmentToQuickCreationFragment()
+            val action = ProgressReportFragmentDirections.actionProgressReportFragmentToQuickBottomSheetFragment()
             this.findNavController().navigate(action)
         }
 

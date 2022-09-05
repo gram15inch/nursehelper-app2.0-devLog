@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/quick_nav_graph"
+    app:startDestination="@id/quickCreationFragment">
+
+    <fragment
+        android:id="@+id/quickCreationFragment"
+        android:name="com.nuhlp.nursehelper.ui.quick.QuickCreationFragment"
+        android:label="fragment_quick_creation"
+        tools:layout="@layout/fragment_quick_creation" />
+</navigation>

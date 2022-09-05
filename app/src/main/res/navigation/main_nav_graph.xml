@@ -34,19 +34,13 @@
         <argument android:name="sentence"
             app:argType="string[]" />
         <action
-            android:id="@+id/action_progressReportFragment_to_quickCreationFragment"
-            app:destination="@id/quickCreationFragment" />
+            android:id="@+id/action_progressReportFragment_to_quickBottomSheetFragment"
+            app:destination="@id/quickBottomSheetFragment" />
     </fragment>
-
     <dialog
-        android:id="@+id/quickCreationFragment"
-        android:name="com.nuhlp.nursehelper.ui.popup.quick.QuickCreationFragment"
-        android:label="quick_creation_fragment"
-        tools:layout="@layout/quick_creation_fragment" >
-        <action
-            android:id="@+id/action_quickCreationFragment_to_progressReportFragment"
-            app:destination="@id/progressReportFragment"
-            app:popUpTo="@id/progressReportFragment"
-            app:popUpToInclusive="true" />
-    </dialog>
+        android:id="@+id/quickBottomSheetFragment"
+        android:name="com.nuhlp.nursehelper.ui.popup.bottomsheet.QuickBottomSheetFragment"
+        android:label="QuickBottomSheetFragment" />
+
+
 </navigation>
