@@ -7,7 +7,7 @@ fun arrayToLines(array: Array<String>): String {
         Sentence += "$it\n"
     }
     if (Sentence != "") {
-        Sentence.substring(0, Sentence.lastIndex)
+       Sentence = Sentence.substring(0, Sentence.lastIndex)
     }
     return Sentence
 }

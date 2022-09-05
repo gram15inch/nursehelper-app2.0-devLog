@@ -28,21 +28,29 @@ fun bindInfoLabel(view: LabelInformation, viewModel: ProgressReportViewModel, li
 fun bindDocContents(view: ReportContents, viewModel: ProgressReportViewModel, lifecycleOwner: LifecycleOwner, reportUtil: ReportUtil) {
     viewModel.document.asLiveData().observe(lifecycleOwner){ it ->
         view.binding.reportTitle.setText(it.docNo.toString())
-        if(viewModel.isChanged.value)
-            view.binding.reportContent.let{ view->
-                view.setText(viewModel.contentText)
-                view.setSelection(viewModel.contentTextPos)
+        if(viewModel.isReportChanged.value)
+            view.binding.reportContent.let{ reportContent->
+                reportContent.setText(viewModel.contentText)
+                reportContent.setSelection(viewModel.contentTextPos)
             }
         else
-            view.binding.reportContent.let{view->
-                view.setText(it.contentsJs)
-                view.setSelection(it.contentsJs.length)
+            view.binding.reportContent.let{reportContent->
+                reportContent.setText(it.contentsJs)
+                reportContent.setSelection(it.contentsJs.length)
             }
 
     }
-    viewModel.isChanged.asLiveData().observe(lifecycleOwner){
+    viewModel.isReportChanged.asLiveData().observe(lifecycleOwner){
         view.binding.sfb.visibility = if(it) View.VISIBLE else View.INVISIBLE
         Log.d("ProgressReportFragment",it.toString())
+    }
+    viewModel.quickSentence.asLiveData().observe(lifecycleOwner){quickSentence->
+        view.binding.reportContent.let{reportContents->
+           val oldText= reportContents.text.toString()
+            reportContents.setText(oldText+quickSentence)
+            reportContents.setSelection(reportContents.length())
+            Log.d("ProgressReportFragment","quickSentence liveData!! : $quickSentence")
+        }
     }
     view.binding.sfb.setOnClickListener(reportUtil)
     view.binding.reportContent.addTextChangedListener(reportUtil)

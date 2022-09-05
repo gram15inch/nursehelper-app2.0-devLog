@@ -3,10 +3,8 @@ package com.nuhlp.nursehelper.ui.document.report
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.nuhlp.nursehelper.NurseHelperApplication
-import com.nuhlp.nursehelper.datasource.network.model.place.Place
 import com.nuhlp.nursehelper.datasource.room.app.BusinessPlace
 import com.nuhlp.nursehelper.datasource.room.app.Document
 import com.nuhlp.nursehelper.datasource.room.app.Patient
@@ -41,13 +39,17 @@ class ProgressReportViewModel : ViewModel() {
     private val _businessPlace= MutableSharedFlow<BusinessPlace>()
     val businessPlace get() :Flow<BusinessPlace> = _businessPlace
     /** Document Text Change */
-    val isChanged = MutableStateFlow(false)
+    val isReportChanged = MutableStateFlow(false)
+   private val _quickSentence = MutableStateFlow("")
+    val quickSentence get(): StateFlow<String> = _quickSentence
 
     var contentText :String = ""
     var contentTextPos : Int = 0
+
+
     fun refreshDocument(docNo :Int){
         viewModelScope.launch{
-            if (!isChanged.value)
+            if (!isReportChanged.value)
                 _document.emit(appRepository.getDocument(docNo))
                 Log.d("ProgressReportFragment","refreshDocument!!")
             }
@@ -70,8 +72,10 @@ class ProgressReportViewModel : ViewModel() {
     }
 
     fun refreshSentence(sentence: Array<String>) {
-        contentText = arrayToLines(sentence).let { lines->
-            if (contentText == "") lines else "\n$lines"
+        viewModelScope.launch{
+            _quickSentence.value = arrayToLines(sentence).let { lines->
+                if (contentText == "") lines else "\n$lines"
+            }
         }
     }
 

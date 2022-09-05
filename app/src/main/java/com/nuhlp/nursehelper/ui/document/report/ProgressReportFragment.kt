@@ -8,7 +8,6 @@ import androidx.navigation.fragment.navArgs
 import com.nuhlp.nursehelper.R
 
 import com.nuhlp.nursehelper.databinding.ProgressReportFragmentBinding
-import com.nuhlp.nursehelper.utill.arrayToLines
 
 import com.nuhlp.nursehelper.utill.base.binding.BaseDataBindingFragment
 import kotlinx.coroutines.CoroutineScope
@@ -37,15 +36,15 @@ class ProgressReportFragment  : BaseDataBindingFragment<ProgressReportFragmentBi
         _progressReportViewModel.let {vm->
             if(args.documentNo!=1)
             vm.refreshDocument(args.documentNo)
-            vm.refreshSentence(args.sentence)
+            //vm.refreshSentence(args.sentence)
         }
         binding.docReportContents.binding.wfb.setOnClickListener {
             val action = ProgressReportFragmentDirections.actionProgressReportFragmentToQuickCreationFragment()
             this.findNavController().navigate(action)
         }
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("test1")?.observe(viewLifecycleOwner){
-            _progressReportViewModel
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Array<String>>("quickSentence")?.observe(viewLifecycleOwner){
+            _progressReportViewModel.refreshSentence(it)
         }
         Log.d("ProgressReportFragment","onCreate()")
 
@@ -63,7 +62,7 @@ class ProgressReportFragment  : BaseDataBindingFragment<ProgressReportFragmentBi
     override fun setOnClickSaveReportButton(v: View?) {
         CoroutineScope(Dispatchers.IO).launch {
             _progressReportViewModel.updateDocument(_progressReportViewModel.contentText)
-            _progressReportViewModel.isChanged.emit(false)
+            _progressReportViewModel.isReportChanged.emit(false)
         }
         hideKeyboard()
     }
@@ -74,7 +73,7 @@ class ProgressReportFragment  : BaseDataBindingFragment<ProgressReportFragmentBi
             _progressReportViewModel.document.value.let { local ->
                 if(local.isValid())
                 binding.docReportContents.binding.reportContent.text.toString().let { view ->
-                    _progressReportViewModel.isChanged.emit(local.contentsJs != view)
+                    _progressReportViewModel.isReportChanged.emit(local.contentsJs != view)
                 }
             }
         }

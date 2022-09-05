@@ -3,6 +3,7 @@ package com.nuhlp.nursehelper.ui.popup.quick
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.nuhlp.nursehelper.R
 import com.nuhlp.nursehelper.databinding.QuickCreationFragmentBinding
 import com.nuhlp.nursehelper.ui.home.HomeFragmentDirections
 import com.nuhlp.nursehelper.utill.base.binding.dialog.BaseBottomDialogDataFragment
+import java.util.*
 
 class QuickCreationFragment()  : BaseBottomDialogDataFragment<QuickCreationFragmentBinding>() {
 
@@ -23,12 +25,15 @@ class QuickCreationFragment()  : BaseBottomDialogDataFragment<QuickCreationFragm
     override fun onCreateViewAfterBinding() {
             binding.returnBtn.setOnClickListener {
                 /*val action =  QuickCreationFragmentDirections
-                    .actionQuickCreationFragmentToProgressReportFragment(1, arrayOf("line1","line2"))
+2                    .actionQuickCreationFragmentToProgressReportFragment(1, arrayOf("line1","line2"))
                 this.findNavController().navigate(action)*/
+                val random = Random()
+                val num = random.nextInt(99)
+                val list = arrayOf("formQuick","arrayOf1","arrayOf2","random : $num")
                 findNavController().previousBackStackEntry
                 ?.savedStateHandle
-                ?.set("test1", "fromQuick")
-            //dismiss()
+                ?.set("quickSentence", list)
+                dismiss()
             }
     }
     //todo 프래그먼트 -> 다이얼로그 시 퍼즈 왜 안되는지

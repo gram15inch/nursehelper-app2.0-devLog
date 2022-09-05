@@ -103,7 +103,7 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>(),HomeUtil {
         )
 
         // ** Adapter **
-        _liveDocAdapter = DocListAdapter {
+         _liveDocAdapter = DocListAdapter {
             val docNO = it.docNo
             val action = HomeFragmentDirections.actionHomeFragmentToProgressReportFragment(docNO, emptyList<String>().toTypedArray()
             )
