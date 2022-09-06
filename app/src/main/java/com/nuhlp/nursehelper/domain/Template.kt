@@ -29,7 +29,6 @@ interface Template {
         HOME_NURSING_PATIENT_SELECTION(3),
         HOME_CARE_TERMINATION_SUMMARY_FORM(4),
         HOME_NURSING_PROGRESS_REPORT(5);
-
         fun no() = tpNo
     }
 }

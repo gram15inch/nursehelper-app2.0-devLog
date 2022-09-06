@@ -1,8 +1,6 @@
 package com.nuhlp.nursehelper.ui.home
 
 import android.util.Log
-import androidx.cardview.widget.CardView
-import androidx.core.view.get
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.*
@@ -15,7 +13,7 @@ import com.nuhlp.nursehelper.datasource.network.model.place.Place
 import com.nuhlp.nursehelper.utill.component.IndexRecyclerView
 import com.nuhlp.nursehelper.utill.component.PlacePanel
 import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
-import com.nuhlp.nursehelper.utill.useapp.adapter.PatientsListAdapter
+import com.nuhlp.nursehelper.utill.adapter.PatientsListAdapter
 
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch

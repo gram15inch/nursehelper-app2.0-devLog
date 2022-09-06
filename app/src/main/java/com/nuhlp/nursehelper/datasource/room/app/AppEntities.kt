@@ -4,7 +4,7 @@ import androidx.annotation.Nullable
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-
+import org.jetbrains.annotations.NotNull
 
 
 @Entity
@@ -65,6 +65,14 @@ data class BusinessPlace constructor(
     val addressName: String,
     val roadAddressName: String,
     val phone: String
+) {
+}
+
+@Entity
+data class CareService constructor(
+    @PrimaryKey
+    val csNo: Int,  // 101 0001 부터 시작
+    val name: String,
 ) {
 }
 

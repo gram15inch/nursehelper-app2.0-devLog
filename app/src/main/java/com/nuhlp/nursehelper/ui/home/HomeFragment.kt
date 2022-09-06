@@ -1,7 +1,6 @@
 package com.nuhlp.nursehelper.ui.home
 
 import android.util.Log
-import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,20 +12,15 @@ import com.nuhlp.nursehelper.R
 import com.nuhlp.nursehelper.databinding.FragmentHomeBinding
 import com.nuhlp.nursehelper.datasource.network.model.place.Place
 import com.nuhlp.nursehelper.datasource.room.app.*
-import com.nuhlp.nursehelper.utill.base.map.BaseMapViewModel
 import com.nuhlp.nursehelper.utill.test.DummyDataUtil
 import com.nuhlp.nursehelper.utill.useapp.AppTime
-import com.nuhlp.nursehelper.utill.useapp.Constants
 import com.nuhlp.nursehelper.utill.useapp.DocListAdapter
 import com.nuhlp.nursehelper.utill.useapp.MarginItemDecoration
-import com.nuhlp.nursehelper.utill.useapp.adapter.PatientsListAdapter
+import com.nuhlp.nursehelper.utill.adapter.PatientsListAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.lang.Math.rint
-import java.lang.Math.round
 import java.util.*
-import kotlin.math.roundToInt
 
 // ** 인덱스 어답터 베이스 프래그먼트로 빼기 **
 // 최대한 xml에 livedata를 이용하게 바꾸기

@@ -31,5 +31,5 @@ class QuickBottomSheetFragment : BaseBottomDialogDataFragment<FragmentQuickBotto
             ?.set("quickSentence", list)
         dismiss()
     }
-//TODO 피그마 UI 만들기
+
 }

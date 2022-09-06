@@ -1,4 +1,4 @@
-package com.nuhlp.nursehelper.utill.useapp.adapter
+package com.nuhlp.nursehelper.utill.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
