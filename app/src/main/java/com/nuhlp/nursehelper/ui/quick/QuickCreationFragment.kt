@@ -2,10 +2,13 @@ package com.nuhlp.nursehelper.ui.quick
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.forEach
+import com.google.android.material.chip.Chip
 import com.nuhlp.nursehelper.R
 import com.nuhlp.nursehelper.databinding.FragmentQuickCreationBinding
 import com.nuhlp.nursehelper.ui.home.HomeViewModel
@@ -22,10 +25,29 @@ class QuickCreationFragment : BaseDataBindingFragment<FragmentQuickCreationBindi
             QuickCreationViewModel.Factory()
         ).get(QuickCreationViewModel::class.java)
     }
+
     override fun onCreateViewAfterBinding() {
         binding.viewModel =_quickCreationViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+
+
+        binding.chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+            registerFilterChanged(checkedIds)
+        }
     }
 
+    private fun registerFilterChanged(checkedIds:List<Int>){
+        checkedIds.forEach {checkedId->
+            getCardView(checkedId)
+        }
+    }
+    private fun getCardView(chipId:Int):Int{
+        return when(chipId){
+            R.id.chip1->{ R.id.card_view_default_care }
+            R.id.chip4->{ R.id.card_view_injection}
+            else -> { R.id.card_view_default_care }
+            //todo 칩 id로 뷰 보이기 
+        }
+    }
 }
