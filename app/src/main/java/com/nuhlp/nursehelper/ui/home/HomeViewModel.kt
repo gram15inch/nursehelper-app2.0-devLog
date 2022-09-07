@@ -65,6 +65,11 @@ class HomeViewModel :BaseMapViewModel() {
             appRepository.setPatient(patient)
         }
     }
+    fun setCareService(careService: CareService){
+        viewModelScope.launch {
+            appRepository.setCareService(careService)
+        }
+    }
 
 
     class Factory : ViewModelProvider.Factory {

@@ -59,6 +59,8 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>(),HomeUtil {
             updateLocation()
             Log.d("HomeFragment","onCreate!")
         }
+
+        dummyInit()
     }
 
 
@@ -136,7 +138,7 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>(),HomeUtil {
     private fun dummyInit(){
         CoroutineScope(Dispatchers.IO).launch {
             //_homeViewModel.deleteAllDoc()
-            createDocumentDummy()
+            createCareServiceDummy()
         }
     }
 
@@ -179,7 +181,13 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>(),HomeUtil {
             _homeViewModel.setBusinessPlace(it)
         }
     }
+    fun createCareServiceDummy(){
+        val list = mutableListOf<CareService>()
+        DummyDataUtil.careServiceList.forEach(){service->
+            _homeViewModel.setCareService(service)
+        }
 
+    }
 
     private fun docToIndex(docList: List<Document>): List<Int> {
         val list = mutableListOf<Int>()

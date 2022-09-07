@@ -57,6 +57,7 @@ interface AppDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE) fun setPt(patient: Patient)
     @Insert(onConflict = OnConflictStrategy.REPLACE) fun setStk(stock: Stock)
     @Insert(onConflict = OnConflictStrategy.REPLACE) fun setBP(businessPlace: BusinessPlace)
+    @Insert(onConflict = OnConflictStrategy.REPLACE) fun setCS(service: CareService)
 
     @Update fun updateDoc(document: Document)
     @Update fun updatePd(product: Product)
@@ -78,6 +79,8 @@ interface AppDao {
 
     @Query("DELETE FROM Document")
     fun deleteAll()
+
+
 
 
 }

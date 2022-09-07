@@ -33,6 +33,10 @@ class AppRepository(private val AppDB: AppDatabase) {
         AppDB.appDao.setPt(patient)
     }
 
+   suspend fun setCareService(careService: CareService) = withContext(Dispatchers.IO) {
+        AppDB.appDao.setCS(careService)
+    }
+
    suspend fun getPatientsWithBpNo(bpNo: Int): List<Patient> = withContext(Dispatchers.IO){
        return@withContext AppDB.appDao.getPatients(bpNo = bpNo.toString())
     }
@@ -46,6 +50,8 @@ class AppRepository(private val AppDB: AppDatabase) {
     suspend fun getBusinessPlace(bpNo: Int): BusinessPlace = withContext(Dispatchers.IO){
         return@withContext AppDB.appDao.getBusinessPlace(bpNo.toString())
     }
+
+
 
 
 }
