@@ -47,7 +47,12 @@ class QuickCreationFragment : BaseDataBindingFragment<FragmentQuickCreationBindi
             R.id.chip1->{ R.id.card_view_default_care }
             R.id.chip4->{ R.id.card_view_injection}
             else -> { R.id.card_view_default_care }
-            //todo 칩 id로 뷰 보이기 
+
         }
     }
 }
+
+//todo 어답터에 필요한 데이터 설계
+//todo 홀더 만들기 (컨테이너뷰, 칩스, 확장버튼)
+//todo 작업별 프래그먼트 만들기
+//todo 어답터 만들기
