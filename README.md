@@ -31,7 +31,10 @@ nursehelper-app 2.0 Development log
 >     더빠르고 간편하게 작성할 수 있어 더빠른 업무처리로 현장에서 대부분 끝낼 수 있게 해줌
 
 ## 미리보기
-<img src="https://user-images.githubusercontent.com/94951889/191640434-e2b50548-0b55-477f-8586-f9df1bca37a8.gif" width="300" height="500">
+ **login, logout** | **home** 
+ :--------: | :------ 
+ <img src="https://user-images.githubusercontent.com/94951889/191640434-e2b50548-0b55-477f-8586-f9df1bca37a8.gif" width="300" height="500">  | 하나의 화면에서 자료들의 대략적인 파악,접근   
+
 
 ## impact map
 
