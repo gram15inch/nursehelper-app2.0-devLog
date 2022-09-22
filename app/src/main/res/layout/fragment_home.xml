@@ -69,7 +69,7 @@
                 android:id="@+id/patientsRecyclerView"
                 style="@style/fragmentItemBase"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="153dp"
                 android:overScrollMode="never"
                 android:padding="10dp"
                 app:bindHome="@{homeUtil}"
@@ -84,7 +84,7 @@
             <com.nuhlp.nursehelper.utill.component.IndexRecyclerView
                 android:id="@+id/index_recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="315dp"
                 style="@style/fragmentItemBase"
                 android:overScrollMode="never"
                 android:paddingStart="60dp"

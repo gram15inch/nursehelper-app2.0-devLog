@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.nuhlp.nursehelper.ui.home.HomeViewModel
 
 class QuickCreationViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
 
 
 

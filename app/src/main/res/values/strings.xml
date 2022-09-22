@@ -85,5 +85,9 @@
     <string name="HOME_CARE_TERMINATION_SUMMARY_FORM">가정간호 종결 요약지</string>
     <string name="HOME_NURSING_PROGRESS_REPORT">가정간호 경과 기록지</string>
     <string name="save">저장</string>
+    <string name="menu_description_logout">계정 로그아웃</string>
+    <string name="menu_logout">로그아웃</string>
+    <string name="menu_data_setting">DB 초기설정</string>
+    <string name="menu_description_data_setting">테스트 더미데이터 주입</string>
 
 </resources>

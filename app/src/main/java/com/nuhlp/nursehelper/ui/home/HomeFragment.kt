@@ -1,8 +1,10 @@
 package com.nuhlp.nursehelper.ui.home
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.model.LatLng
@@ -19,6 +21,7 @@ import com.nuhlp.nursehelper.utill.useapp.MarginItemDecoration
 import com.nuhlp.nursehelper.utill.adapter.PatientsListAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -60,7 +63,14 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>(),HomeUtil {
             Log.d("HomeFragment","onCreate!")
         }
 
-        dummyInit()
+        tempSettings()
+    }
+
+    private fun tempSettings() {
+        binding.placeCardView.setOnClickListener {
+            dummyInit()
+            Toast.makeText(context,"더미데이터 생성",Toast.LENGTH_SHORT).show()
+        }
     }
 
 
@@ -136,10 +146,18 @@ class HomeFragment : BaseMapFragment<FragmentHomeBinding>(),HomeUtil {
 
 
     private fun dummyInit(){
-        CoroutineScope(Dispatchers.IO).launch {
-            //_homeViewModel.deleteAllDoc()
-            createCareServiceDummy()
+        CoroutineScope(Dispatchers.Main).launch {
+            val job1= CoroutineScope(Dispatchers.IO).async {
+                //_homeViewModel.deleteAllDoc()
+                createPlaceDummy()
+                createDocumentDummy()
+                createPatientDummy()
+                createCareServiceDummy()
+            }
+            job1.await()
+            updateLocation()
         }
+
     }
 
     fun createDocumentDummy(){

@@ -53,6 +53,7 @@ fun bindPlacePanel(view: PlacePanel, viewModel: HomeViewModel , lifecycleOwner: 
             placeName.text = "${it.placeName}"
             placeAddress.text = "${it.addressName}"
         }
+
     }
 }
 
@@ -60,7 +61,6 @@ fun bindPlacePanel(view: PlacePanel, viewModel: HomeViewModel , lifecycleOwner: 
 fun bindPatientView(view: RecyclerView, viewModel: HomeViewModel , lifecycleOwner: LifecycleOwner, mapUtil: MapUtil, homeUtil: HomeUtil ) {
     homeUtil.setPatientRecyclerView(view)
     val patAdapter = view.adapter as PatientsListAdapter
-
     viewModel.patients.asLiveData().observe(lifecycleOwner){
         Log.d("HomeBindingAdapter","patients update!! size:${it.size}")
 

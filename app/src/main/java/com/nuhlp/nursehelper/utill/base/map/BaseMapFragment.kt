@@ -88,6 +88,7 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
             it.key == Manifest.permission.ACCESS_COARSE_LOCATION && it.value ->{
                 PermissionPolicy.defaultGrant("ACCESS_COARSE_LOCATION")
                 showGps(mapViewModel.mMap)
+                updateLocation()
             }
             it.key == Manifest.permission.ACCESS_FINE_LOCATION && it.value->{
                 PermissionPolicy.defaultGrant("ACCESS_FINE_LOCATION")
@@ -98,8 +99,7 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
         }
     }
     override fun onMyLocationClick(p0: Location) {
-        Toast.makeText(requireActivity(), "Current location:\n$p0", Toast.LENGTH_LONG)
-            .show()
+       // Toast.makeText(requireActivity(), "Current location:\n$p0", Toast.LENGTH_LONG).show()
     }
     override fun onMyLocationButtonClick(): Boolean {
 
@@ -134,12 +134,14 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
     }
     private fun setLastLocation(lastLocation: Location) {
         mapViewModel.mMap.clear()
-        //LatLng(lastLocation.latitude,lastLocation.longitude)
-        //todo 위치 임시로 맞춤 삭제필수 !
-        Constants.LATLNG_DONGBAEK.let{
+        LatLng(lastLocation.latitude,lastLocation.longitude).let{
             setCamera(it)
             onUpdateMyLatLng(it)
         }
+     /*   Constants.LATLNG_DONGBAEK.let{ 위치 임시맞춤
+            setCamera(it)
+            onUpdateMyLatLng(it)
+        }*/
         if(!mapViewModel.isGpsToggle)
             stopLocation()
     }
@@ -152,19 +154,19 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
     private fun gpsTogglePolicy(){
         if(!mapViewModel.isOnGPS) {
             mapViewModel.isOnGPS = true
-            Toast.makeText(requireActivity(), "MyLocation toggle clicked : ${mapViewModel.isOnGPS}", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireActivity(), "MyLocation toggle clicked : ${mapViewModel.isOnGPS}", Toast.LENGTH_SHORT).show()
             updateLocation()
         }
         else
         {
             mapViewModel.isOnGPS= false
-            Toast.makeText(requireActivity(), "MyLocation button clicked : ${mapViewModel.isOnGPS}", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireActivity(), "MyLocation button clicked : ${mapViewModel.isOnGPS}", Toast.LENGTH_SHORT).show()
             stopLocation()
         }
     }
     private fun gpsButtonPolicy(){
         updateLocation()
-        Toast.makeText(requireActivity(), "MyLocation button clicked", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(requireActivity(), "MyLocation button clicked", Toast.LENGTH_SHORT).show()
     }
 
 
@@ -266,7 +268,7 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
         val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
 
         task.addOnSuccessListener(){
-            // todo 화면 처음 생성시에만 위치 업데이트
+            // 화면 처음 생성시에만 위치 업데이트 (앱처음 x)
               if(mapViewModel.isCreateFirst) {
                   updateLocation()
                   mapViewModel.isCreateFirst = false

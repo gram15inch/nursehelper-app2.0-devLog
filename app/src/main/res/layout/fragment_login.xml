@@ -64,7 +64,8 @@
                     android:id="@+id/text_view_pw_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_between_elements" />
+                    android:layout_marginTop="@dimen/margin_between_elements"
+                    android:inputType="textPassword"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

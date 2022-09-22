@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registerTermsFragment"
-            app:destination="@id/registerTermsFragment" />
+            app:destination="@id/registerTermsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
     </fragment>
 
     <fragment
@@ -22,10 +23,12 @@
         tools:layout="@layout/fragment_register_terms">
         <action
             android:id="@+id/action_register_terms_Fragment_to_registerTermDetailFragment"
-            app:destination="@id/registerTermDetailFragment" />
+            app:destination="@id/registerTermDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
         <action
             android:id="@+id/action_registerFragment_to_registerIdFragment"
-            app:destination="@id/registerIdFragment" />
+            app:destination="@id/registerIdFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
     </fragment>
     <fragment
         android:id="@+id/registerTermDetailFragment"
@@ -43,7 +46,8 @@
         tools:layout="@layout/fragment_register_id" >
         <action
             android:id="@+id/action_registerIdFragment_to_registerPwFragment"
-            app:destination="@id/registerPwFragment" />
+            app:destination="@id/registerPwFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
     </fragment>
     <fragment
         android:id="@+id/registerPwFragment"
@@ -53,6 +57,7 @@
         <action
             android:id="@+id/action_registerPwFragment_to_loginFragment"
             app:destination="@id/loginFragment"
+            app:exitAnim="@anim/nav_default_exit_anim"
             app:popUpTo="@id/registerPwFragment"
             app:popUpToInclusive="true" />
     </fragment>

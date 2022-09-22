@@ -54,13 +54,22 @@
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/mipmap-anydpi-v26/ic_banner.xml" value="0.1" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/Source/Portfolio/nursehelper2.0-app/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
-        <entry key="..\:/Source/portfolio/nursehelper2.0/nursehelper2.0-app/app/src/main/res/layout/fragment_home.xml" value="0.27943840579710144" />
+        <entry key="..\:/Source/portfolio/nursehelper2.0/nursehelper2.0-app/app/src/main/res/layout/fragment_home.xml" value="0.2507836990595611" />
+        <entry key="..\:/Source/portfolio/nursehelper2.0/nursehelper2.0-app/app/src/main/res/layout/fragment_login.xml" value="0.2658514492753623" />
         <entry key="..\:/Source/portfolio/nursehelper2.0/nursehelper2.0-app/app/src/main/res/layout/fragment_quick_bottom_sheet.xml" value="0.1" />
         <entry key="..\:/Source/portfolio/nursehelper2.0/nursehelper2.0-app/app/src/main/res/layout/fragment_quick_creation.xml" value="0.22" />
+        <entry key="..\:/Source/portfolio/nursehelper2.0/nursehelper2.0-app/app/src/main/res/layout/fragment_register_pw.xml" value="0.2658514492753623" />
+        <entry key="..\:/Source/portfolio/nursehelper2.0/nursehelper2.0-app/app/src/main/res/layout/item_holder_document.xml" value="0.2658514492753623" />
+        <entry key="..\:/Source/portfolio/nursehelper2.0/nursehelper2.0-app/app/src/main/res/layout/item_holder_patients.xml" value="0.276268115942029" />
+        <entry key="..\:/Source/portfolio/nursehelper2.0/nursehelper2.0-app/app/src/main/res/layout/nav_header_drawer.xml" value="0.2658514492753623" />
         <entry key="..\:/Source/portfolio/nursehelper2.0/nursehelper2.0-app/app/src/main/res/layout/progress_report_fragment.xml" value="0.26403985507246375" />
         <entry key="..\:/Source/portfolio/nursehelper2.0/nursehelper2.0-app/app/src/main/res/layout/quick_bottom_sheet_fragment.xml" value="0.1" />
         <entry key="..\:/Source/portfolio/nursehelper2.0/nursehelper2.0-app/app/src/main/res/layout/quick_creation_fragment.xml" value="0.14635416666666667" />
         <entry key="..\:/Source/portfolio/nursehelper2.0/nursehelper2.0-app/app/src/main/res/layout/temp.xml" value="0.26403985507246375" />
+        <entry key="..\:/Source/portfolio/nursehelper2.0/nursehelper2.0-app/app/src/main/res/layout/view_place_panel.xml" value="0.2658514492753623" />
+        <entry key="..\:/Source/portfolio/nursehelper2.0/nursehelper2.0-app/app/src/main/res/layout/view_report_contents.xml" value="0.2658514492753623" />
+        <entry key="..\:/Source/portfolio/nursehelper2.0/nursehelper2.0-app/app/src/main/res/menu/nav_drawer.xml" value="0.10884353741496598" />
+        <entry key="..\:/Source/portfolio/nursehelper2.0/nursehelper2.0-app/app/src/main/res/menu/option_menu_drawer.xml" value="0.30416666666666664" />
       </map>
     </option>
   </component>
@@ -69,5 +78,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.2658514492753623" />
+      </ProjectState>
+    </option>
   </component>
 </project>
