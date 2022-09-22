@@ -31,14 +31,10 @@ nursehelper-app 2.0 Development log
 >     더빠르고 간편하게 작성할 수 있어 더빠른 업무처리로 현장에서 대부분 끝낼 수 있게 해줌
 
 ## 미리보기
- <img src="https://user-images.githubusercontent.com/94951889/191640441-ae1b5919-9631-4f76-906d-eb3207f7286a.gif" width="300" height="500"> |<img src="https://user-images.githubusercontent.com/94951889/191640434-e2b50548-0b55-477f-8586-f9df1bca37a8.gif" width="300" height="500">  | <img src="https://user-images.githubusercontent.com/94951889/191640442-f94bff47-d5ef-4108-a77f-665120d68460.gif" width="300" height="500"> |<img src="https://user-images.githubusercontent.com/94951889/191640434-e2b50548-0b55-477f-8586-f9df1bca37a8.gif" width="300" height="500">
+ <img src="https://user-images.githubusercontent.com/94951889/191640441-ae1b5919-9631-4f76-906d-eb3207f7286a.gif" width="300" height="500"> |<img src="https://user-images.githubusercontent.com/94951889/191642985-1002aecd-fecb-495f-9df1-4d268ca9aaf3.gif" width="300" height="500">  | <img src="https://user-images.githubusercontent.com/94951889/191640442-f94bff47-d5ef-4108-a77f-665120d68460.gif" width="300" height="500"> |<img src="https://user-images.githubusercontent.com/94951889/191640434-e2b50548-0b55-477f-8586-f9df1bca37a8.gif" width="300" height="500">
  :------:| :------:|:------:|:------:
  **sign** | **login, logout** | **home** |  **home_doc** 
 
-![home_doc](https://user-images.githubusercontent.com/94951889/191640434-e2b50548-0b55-477f-8586-f9df1bca37a8.gif)
-![login_out](https://user-images.githubusercontent.com/94951889/191640439-0e6257d6-d3d8-4040-a238-1626cc76da6d.gif)
-![sign](https://user-images.githubusercontent.com/94951889/191640441-ae1b5919-9631-4f76-906d-eb3207f7286a.gif)
-![home](https://user-images.githubusercontent.com/94951889/191640442-f94bff47-d5ef-4108-a77f-665120d68460.gif)
 
 
 ## impact map
@@ -146,7 +142,7 @@ nursehelper-app 2.0 Development log
 |   | DB 테스트 |
 
 
-### 스프린트 Cherry 
+### 스프린트 Cherry @현재 진행중
 > 스토리1 : 간호사는 빠른 문서작성을 위해 키보드나 펜을 쓰지않고 문서를 작성할 수 있어야 한다  
 > 스토리2 : 간호사는 빠른 문서작성을 위해 미리 작성된 템플릿으로 문서를 작성할 수 있어야 한다   
 
