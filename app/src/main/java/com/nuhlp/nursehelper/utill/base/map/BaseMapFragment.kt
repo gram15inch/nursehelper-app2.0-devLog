@@ -134,14 +134,17 @@ abstract class BaseMapFragment<T : ViewDataBinding>: BaseDataBindingFragment<T>(
     }
     private fun setLastLocation(lastLocation: Location) {
         mapViewModel.mMap.clear()
-        LatLng(lastLocation.latitude,lastLocation.longitude).let{
-            setCamera(it)
-            onUpdateMyLatLng(it)
-        }
-     /*   Constants.LATLNG_DONGBAEK.let{ 위치 임시맞춤
+
+
+        /*  현재위치 맞춤
+            LatLng(lastLocation.latitude,lastLocation.longitude).let{
             setCamera(it)
             onUpdateMyLatLng(it)
         }*/
+        Constants.LATLNG_DONGBAEK.let{ //todo 지우기(위치 임시맞춤)
+            setCamera(it)
+            onUpdateMyLatLng(it)
+        }
         if(!mapViewModel.isGpsToggle)
             stopLocation()
     }
