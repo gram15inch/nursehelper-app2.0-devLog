@@ -5,9 +5,10 @@ nursehelper-app 2.0 Development log
 
 ## 목차
  > ### 1. [_비전수립_](#비전수립)
- > ### 2. [_impact map_](#impact-map)
- > ### 3. [_제품 백로그_](#제품-백로그)
- > ### 4. [_스프린터 계획_](#스프린트-계획)
+ > ### 2. [_미리보기_](#미리보기)
+ > ### 3. [_impact map_](#impact-map)
+ > ### 4. [_제품 백로그_](#제품-백로그)
+ > ### 5. [_스프린터 계획_](#스프린트-계획)
 
 
 ## 비전수립
@@ -28,6 +29,13 @@ nursehelper-app 2.0 Development log
 > * **기존제품과의 차별성**
 >   * 문서작성이 단순히 키보드나 필기를 사용하는것을 넘어 여러가지 상호작용을 통해  
 >     더빠르고 간편하게 작성할 수 있어 더빠른 업무처리로 현장에서 대부분 끝낼 수 있게 해줌
+
+## 미리보기
+ <img src="https://user-images.githubusercontent.com/94951889/191640441-ae1b5919-9631-4f76-906d-eb3207f7286a.gif" width="300" height="500"> |<img src="https://user-images.githubusercontent.com/94951889/191642985-1002aecd-fecb-495f-9df1-4d268ca9aaf3.gif" width="300" height="500">  | <img src="https://user-images.githubusercontent.com/94951889/191640442-f94bff47-d5ef-4108-a77f-665120d68460.gif" width="300" height="500"> |<img src="https://user-images.githubusercontent.com/94951889/191640434-e2b50548-0b55-477f-8586-f9df1bca37a8.gif" width="300" height="500">
+ :------:| :------:|:------:|:------:
+ **sign** | **login, logout** | **home** |  **home_doc** 
+
+
 
 ## impact map
 
@@ -134,7 +142,7 @@ nursehelper-app 2.0 Development log
 |   | DB 테스트 |
 
 
-### 스프린트 Cherry 
+### 스프린트 Cherry @현재 진행중
 > 스토리1 : 간호사는 빠른 문서작성을 위해 키보드나 펜을 쓰지않고 문서를 작성할 수 있어야 한다  
 > 스토리2 : 간호사는 빠른 문서작성을 위해 미리 작성된 템플릿으로 문서를 작성할 수 있어야 한다   
 
