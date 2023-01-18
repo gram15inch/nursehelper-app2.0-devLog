@@ -18,9 +18,13 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
 import com.nuhlp.nursehelper.R
 import com.nuhlp.nursehelper.databinding.ActivityMainBinding
+import com.nuhlp.nursehelper.repository.TestRepository
 import com.nuhlp.nursehelper.ui.login.LoginActivity
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityMainBinding
     private val _mainViewModel : MainViewModel by lazy {
@@ -40,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         setIsLoginObserve(isLogin = _isLogin)
         setBottomAppBar()
         setContentView(_binding.root)
+
     }
 
 

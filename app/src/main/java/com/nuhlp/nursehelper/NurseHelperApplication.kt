@@ -9,8 +9,10 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.room.Room
 import com.nuhlp.nursehelper.datasource.room.app.AppDatabase
+import dagger.hilt.android.HiltAndroidApp
 
 
+@HiltAndroidApp
 class  NurseHelperApplication : Application() {
 
     /**
