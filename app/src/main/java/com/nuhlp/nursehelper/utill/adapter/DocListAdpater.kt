@@ -1,5 +1,6 @@
 package com.nuhlp.nursehelper.utill.useapp
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -19,11 +20,7 @@ class DocListAdapter (private val onItemClicked: (Document) -> Unit) :
             }
 
             override fun areContentsTheSame(oldDoc: Document, newDoc: Document): Boolean {
-                return (oldDoc.docNo == newDoc.docNo)
-                        && (oldDoc.patNo == newDoc.patNo)
-                        && (oldDoc.tmpNo == newDoc.tmpNo)
-                        && (oldDoc.crtDate == newDoc.crtDate)
-                        && (oldDoc.contentsJs == newDoc.contentsJs)
+                return oldDoc == newDoc
             }
         }
     }
@@ -32,6 +29,7 @@ class DocListAdapter (private val onItemClicked: (Document) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(doc: Document) {
+            Log.d("position","$adapterPosition")
             binding.apply {
                 title.text = doc.docNo.toString()
                 content.text = "${doc.crtDate}\n환자번호: ${doc.patNo}\n문서종류: ${doc.tmpNo}"

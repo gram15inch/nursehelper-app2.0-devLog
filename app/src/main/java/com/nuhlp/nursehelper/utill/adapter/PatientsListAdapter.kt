@@ -1,5 +1,6 @@
 package com.nuhlp.nursehelper.utill.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -31,6 +32,7 @@ class PatientsListAdapter (private val onItemClicked: (Patient) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(patient: Patient) {
+
             binding.apply {
                content.text = "환자번호: ${patient.patNo}\n ${patient.name} \n성별: ${patient.gender} \n ${patient.rrn}" +
                        "\n 장소: ${patient.bpNo} "
